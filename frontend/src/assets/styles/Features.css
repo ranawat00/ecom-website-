@@ -1,0 +1,94 @@
+/* Features.css */
+.features-wrapper {
+  background-color: #FFF8E7; /* Neutral background matches parent */
+  padding: 4rem 2rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.features-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  background-color: rgba(212, 163, 115, 0.12); /* Extremely subtle warm cream/tan box to distinguish the section */
+  border-radius: 40px;
+  padding: 6rem 3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  
+  /* Initial state for the fade-in-up animation */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.feature-item.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feature-icon-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: #FFF8E7; /* pure neutral inside to pop out of the slightly tinted box */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(139, 94, 60, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.feature-item:hover .feature-icon-circle {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  width: 28px;
+  height: 28px;
+  color: #2F5D50; /* Tertiary Dark Green */
+  stroke-width: 2.2;
+}
+
+.feature-title {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.5rem;
+  color: #8B5E3C; /* Primary Brown */
+  font-weight: 500;
+  margin: 0 0 1rem 0;
+}
+
+.feature-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #6a462b; /* Slightly darker primary variant for text readability */
+  margin: 0;
+  max-width: 320px; /* Keep text columns neat and narrow */
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+  
+  .features-inner {
+    padding: 4rem 2rem;
+    border-radius: 20px;
+  }
+
+  .feature-description {
+    max-width: 100%;
+  }
+}

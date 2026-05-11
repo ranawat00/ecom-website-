@@ -1,0 +1,617 @@
+{
+  "desi-gud": {
+    "id": "desi-gud",
+    "title": "Desi Gud",
+    "tag": "ARTISANAL CHOICE",
+    "description": "Hand-crafted chemical-free jaggery blocks from the heart of sugarcane belts.",
+    "variants": {
+      "500g": {
+        "price": 349,
+        "originalPrice": 499,
+        "discount": "30% OFF"
+      },
+      "1kg": {
+        "price": 649,
+        "originalPrice": 899,
+        "discount": "28% OFF"
+      }
+    },
+    "reviews": 128,
+    "images": [
+      "/images/desi-gud-main.png",
+      "/images/desi-gud-thumb1.png",
+      "/images/desi-gud-thumb2.png"
+    ],
+    "benefits": [
+      {
+        "id": 1,
+        "icon": "Leaf",
+        "text": "100% Organic"
+      },
+      {
+        "id": 2,
+        "icon": "HeartPulse",
+        "text": "Iron Rich"
+      },
+      {
+        "id": 3,
+        "icon": "Sparkles",
+        "text": "No Chemicals"
+      },
+      {
+        "id": 4,
+        "icon": "Truck",
+        "text": "Direct Sourcing"
+      }
+    ],
+    "details": {
+      "essenceQuote": "\"A heirloom recipe passed down through generations, our Desi Gud is made by slowly reducing fresh sugarcane juice in shallow iron vats, retaining all natural minerals and its signature earthy caramel notes.\"",
+      "essenceDesc": "Unlike refined sugar, our jaggery is unrefined and non-centrifuged. It is prepared using traditional methods without any sulfur or chemical clarificants. Each block is hand-poured, ensuring a texture that melts beautifully.",
+      "ingredients": [
+        "Certified Sugarcane Juice",
+        "Wild Okra Stems (Natural Clarifier)"
+      ],
+      "nutrition": [
+        {
+          "label": "Energy",
+          "value": "383 kcal"
+        },
+        {
+          "label": "Iron",
+          "value": "11.4 mg"
+        },
+        {
+          "label": "Magnesium",
+          "value": "80 mg"
+        }
+      ],
+      "reviewsData": [
+        {
+          "name": "Ananya R.",
+          "quote": "The depth of flavor is incomparable.",
+          "stars": 5,
+          "initial": "A"
+        },
+        {
+          "name": "Siddharth M.",
+          "quote": "Knowing it's 100% chemical-free gives me so much peace of mind.",
+          "stars": 5,
+          "initial": "S"
+        }
+      ],
+      "relatedData": [
+        {
+          "title": "A2 Bilona Ghee",
+          "desc": "Churned from grass-fed Gir cows.",
+          "price": "₹1,250.00",
+          "image": "/images/a2-ghee-jar.png"
+        },
+        {
+          "title": "Wild Forest Honey",
+          "desc": "Raw, unpasteurized floral nectar.",
+          "price": "₹799.00",
+          "image": "/images/wild-honey.png"
+        }
+      ]
+    }
+  },
+  "desi-ghee": {
+    "id": "desi-ghee",
+    "title": "Sona Desi Ghee",
+    "tag": "PURE A2 GHEE",
+    "description": "Traditional bilona churned ghee from happy A2 cows. Rich in aroma and nutrients.",
+    "variants": {
+      "500g": {
+        "price": 1250,
+        "originalPrice": 1500,
+        "discount": "17% OFF"
+      },
+      "1kg": {
+        "price": 2299,
+        "originalPrice": 2800,
+        "discount": "18% OFF"
+      }
+    },
+    "reviews": 350,
+    "images": [
+      "/images/desi-ghee.png"
+    ],
+    "benefits": [
+      {
+        "id": 1,
+        "icon": "Leaf",
+        "text": "A2 Milk"
+      },
+      {
+        "id": 2,
+        "icon": "HeartPulse",
+        "text": "Heart Healthy"
+      },
+      {
+        "id": 3,
+        "icon": "Sparkles",
+        "text": "Bilona Method"
+      },
+      {
+        "id": 4,
+        "icon": "Truck",
+        "text": "Farm Fresh"
+      }
+    ],
+    "details": {
+      "essenceQuote": "\"Slow-churned to perfection using earthen pots and a wooden bilona.\"",
+      "essenceDesc": "Unlike refined sugar, our jaggery is unrefined and non-centrifuged. It is prepared using traditional methods without any sulfur or chemical clarificants. Each block is hand-poured, ensuring a texture that melts beautifully.",
+      "ingredients": [
+        "Certified Sugarcane Juice",
+        "Wild Okra Stems (Natural Clarifier)"
+      ],
+      "nutrition": [
+        {
+          "label": "Energy",
+          "value": "383 kcal"
+        },
+        {
+          "label": "Iron",
+          "value": "11.4 mg"
+        },
+        {
+          "label": "Magnesium",
+          "value": "80 mg"
+        }
+      ],
+      "reviewsData": [
+        {
+          "name": "Ananya R.",
+          "quote": "The depth of flavor is incomparable.",
+          "stars": 5,
+          "initial": "A"
+        },
+        {
+          "name": "Siddharth M.",
+          "quote": "Knowing it's 100% chemical-free gives me so much peace of mind.",
+          "stars": 5,
+          "initial": "S"
+        }
+      ],
+      "relatedData": [
+        {
+          "title": "A2 Bilona Ghee",
+          "desc": "Churned from grass-fed Gir cows.",
+          "price": "₹1,250.00",
+          "image": "/images/a2-ghee-jar.png"
+        },
+        {
+          "title": "Wild Forest Honey",
+          "desc": "Raw, unpasteurized floral nectar.",
+          "price": "₹799.00",
+          "image": "/images/wild-honey.png"
+        }
+      ]
+    }
+  },
+  "kaju-jaggery": {
+    "id": "kaju-jaggery",
+    "title": "Kaju Jaggery",
+    "tag": "PREMIUM BLEND",
+    "description": "Rich, nutty jaggery infused with premium cashews for an elegant sweet treat.",
+    "variants": {
+      "500g": {
+        "price": 499,
+        "originalPrice": 650,
+        "discount": "23% OFF"
+      },
+      "1kg": {
+        "price": 949,
+        "originalPrice": 1199,
+        "discount": "21% OFF"
+      }
+    },
+    "reviews": 84,
+    "images": [
+      "/images/kaju-jaggery.png"
+    ],
+    "benefits": [
+      {
+        "id": 1,
+        "icon": "Leaf",
+        "text": "Premium Nuts"
+      },
+      {
+        "id": 2,
+        "icon": "HeartPulse",
+        "text": "Energy Boost"
+      },
+      {
+        "id": 3,
+        "icon": "Sparkles",
+        "text": "Handcrafted"
+      },
+      {
+        "id": 4,
+        "icon": "Truck",
+        "text": "Direct Sourcing"
+      }
+    ],
+    "details": {
+      "essenceQuote": "\"A heirloom recipe passed down through generations, our Desi Gud is made by slowly reducing fresh sugarcane juice in shallow iron vats, retaining all natural minerals and its signature earthy caramel notes.\"",
+      "essenceDesc": "Unlike refined sugar, our jaggery is unrefined and non-centrifuged. It is prepared using traditional methods without any sulfur or chemical clarificants. Each block is hand-poured, ensuring a texture that melts beautifully.",
+      "ingredients": [
+        "Certified Sugarcane Juice",
+        "Wild Okra Stems (Natural Clarifier)"
+      ],
+      "nutrition": [
+        {
+          "label": "Energy",
+          "value": "383 kcal"
+        },
+        {
+          "label": "Iron",
+          "value": "11.4 mg"
+        },
+        {
+          "label": "Magnesium",
+          "value": "80 mg"
+        }
+      ],
+      "reviewsData": [
+        {
+          "name": "Ananya R.",
+          "quote": "The depth of flavor is incomparable.",
+          "stars": 5,
+          "initial": "A"
+        },
+        {
+          "name": "Siddharth M.",
+          "quote": "Knowing it's 100% chemical-free gives me so much peace of mind.",
+          "stars": 5,
+          "initial": "S"
+        }
+      ],
+      "relatedData": [
+        {
+          "title": "A2 Bilona Ghee",
+          "desc": "Churned from grass-fed Gir cows.",
+          "price": "₹1,250.00",
+          "image": "/images/a2-ghee-jar.png"
+        },
+        {
+          "title": "Wild Forest Honey",
+          "desc": "Raw, unpasteurized floral nectar.",
+          "price": "₹799.00",
+          "image": "/images/wild-honey.png"
+        }
+      ]
+    }
+  },
+  "jaggery-powder": {
+    "id": "jaggery-powder",
+    "title": "Jaggery Powder",
+    "tag": "VERSATILE ESSENTIAL",
+    "description": "Fine-textured pure jaggery powder, the perfect healthy alternative to refined sugar.",
+    "variants": {
+      "500g": {
+        "price": 250,
+        "originalPrice": 300,
+        "discount": "17% OFF"
+      },
+      "1kg": {
+        "price": 459,
+        "originalPrice": 550,
+        "discount": "17% OFF"
+      }
+    },
+    "reviews": 210,
+    "images": [
+      "/images/jaggery-powder.png"
+    ],
+    "benefits": [
+      {
+        "id": 1,
+        "icon": "Leaf",
+        "text": "Easy to dissolve"
+      },
+      {
+        "id": 2,
+        "icon": "HeartPulse",
+        "text": "Nutrient Rich"
+      },
+      {
+        "id": 3,
+        "icon": "Sparkles",
+        "text": "No Chemicals"
+      },
+      {
+        "id": 4,
+        "icon": "Truck",
+        "text": "Direct Sourcing"
+      }
+    ],
+    "details": {
+      "essenceQuote": "\"A heirloom recipe passed down through generations, our Desi Gud is made by slowly reducing fresh sugarcane juice in shallow iron vats, retaining all natural minerals and its signature earthy caramel notes.\"",
+      "essenceDesc": "Unlike refined sugar, our jaggery is unrefined and non-centrifuged. It is prepared using traditional methods without any sulfur or chemical clarificants. Each block is hand-poured, ensuring a texture that melts beautifully.",
+      "ingredients": [
+        "Certified Sugarcane Juice",
+        "Wild Okra Stems (Natural Clarifier)"
+      ],
+      "nutrition": [
+        {
+          "label": "Energy",
+          "value": "383 kcal"
+        },
+        {
+          "label": "Iron",
+          "value": "11.4 mg"
+        },
+        {
+          "label": "Magnesium",
+          "value": "80 mg"
+        }
+      ],
+      "reviewsData": [
+        {
+          "name": "Ananya R.",
+          "quote": "The depth of flavor is incomparable.",
+          "stars": 5,
+          "initial": "A"
+        },
+        {
+          "name": "Siddharth M.",
+          "quote": "Knowing it's 100% chemical-free gives me so much peace of mind.",
+          "stars": 5,
+          "initial": "S"
+        }
+      ],
+      "relatedData": [
+        {
+          "title": "A2 Bilona Ghee",
+          "desc": "Churned from grass-fed Gir cows.",
+          "price": "₹1,250.00",
+          "image": "/images/a2-ghee-jar.png"
+        },
+        {
+          "title": "Wild Forest Honey",
+          "desc": "Raw, unpasteurized floral nectar.",
+          "price": "₹799.00",
+          "image": "/images/wild-honey.png"
+        }
+      ]
+    }
+  },
+  "dry-fruit-jaggery": {
+    "id": "dry-fruit-jaggery",
+    "title": "Dry Fruit Jaggery",
+    "tag": "CURATED LUXURY",
+    "description": "A decadent blend of traditional jaggery generously studded with almonds and pistachios.",
+    "variants": {
+      "500g": {
+        "price": 450,
+        "originalPrice": 550,
+        "discount": "18% OFF"
+      },
+      "1kg": {
+        "price": 849,
+        "originalPrice": 999,
+        "discount": "15% OFF"
+      }
+    },
+    "reviews": 95,
+    "images": [
+      "/images/featured-1.png"
+    ],
+    "benefits": [
+      {
+        "id": 1,
+        "icon": "Leaf",
+        "text": "Almonds & Pistas"
+      }
+    ],
+    "details": {
+      "essenceQuote": "\"A heirloom recipe passed down through generations, our Desi Gud is made by slowly reducing fresh sugarcane juice in shallow iron vats, retaining all natural minerals and its signature earthy caramel notes.\"",
+      "essenceDesc": "Unlike refined sugar, our jaggery is unrefined and non-centrifuged. It is prepared using traditional methods without any sulfur or chemical clarificants. Each block is hand-poured, ensuring a texture that melts beautifully.",
+      "ingredients": [
+        "Certified Sugarcane Juice",
+        "Wild Okra Stems (Natural Clarifier)"
+      ],
+      "nutrition": [
+        {
+          "label": "Energy",
+          "value": "383 kcal"
+        },
+        {
+          "label": "Iron",
+          "value": "11.4 mg"
+        },
+        {
+          "label": "Magnesium",
+          "value": "80 mg"
+        }
+      ],
+      "reviewsData": [
+        {
+          "name": "Ananya R.",
+          "quote": "The depth of flavor is incomparable.",
+          "stars": 5,
+          "initial": "A"
+        },
+        {
+          "name": "Siddharth M.",
+          "quote": "Knowing it's 100% chemical-free gives me so much peace of mind.",
+          "stars": 5,
+          "initial": "S"
+        }
+      ],
+      "relatedData": [
+        {
+          "title": "A2 Bilona Ghee",
+          "desc": "Churned from grass-fed Gir cows.",
+          "price": "₹1,250.00",
+          "image": "/images/a2-ghee-jar.png"
+        },
+        {
+          "title": "Wild Forest Honey",
+          "desc": "Raw, unpasteurized floral nectar.",
+          "price": "₹799.00",
+          "image": "/images/wild-honey.png"
+        }
+      ]
+    }
+  },
+  "traditional-desi-ghee": {
+    "id": "traditional-desi-ghee",
+    "title": "Traditional Desi Ghee",
+    "tag": "HERITAGE GHEE",
+    "description": "Classic artisanal ghee housed in a beautiful traditional clay pot.",
+    "variants": {
+      "500g": {
+        "price": 1250,
+        "originalPrice": 1500,
+        "discount": "17% OFF"
+      },
+      "1kg": {
+        "price": 2299,
+        "originalPrice": 2800,
+        "discount": "18% OFF"
+      }
+    },
+    "reviews": 412,
+    "images": [
+      "/images/featured-2.png"
+    ],
+    "benefits": [
+      {
+        "id": 1,
+        "icon": "Leaf",
+        "text": "A2 Milk"
+      }
+    ],
+    "details": {
+      "essenceQuote": "\"A heirloom recipe passed down through generations, our Desi Gud is made by slowly reducing fresh sugarcane juice in shallow iron vats, retaining all natural minerals and its signature earthy caramel notes.\"",
+      "essenceDesc": "Unlike refined sugar, our jaggery is unrefined and non-centrifuged. It is prepared using traditional methods without any sulfur or chemical clarificants. Each block is hand-poured, ensuring a texture that melts beautifully.",
+      "ingredients": [
+        "Certified Sugarcane Juice",
+        "Wild Okra Stems (Natural Clarifier)"
+      ],
+      "nutrition": [
+        {
+          "label": "Energy",
+          "value": "383 kcal"
+        },
+        {
+          "label": "Iron",
+          "value": "11.4 mg"
+        },
+        {
+          "label": "Magnesium",
+          "value": "80 mg"
+        }
+      ],
+      "reviewsData": [
+        {
+          "name": "Ananya R.",
+          "quote": "The depth of flavor is incomparable.",
+          "stars": 5,
+          "initial": "A"
+        },
+        {
+          "name": "Siddharth M.",
+          "quote": "Knowing it's 100% chemical-free gives me so much peace of mind.",
+          "stars": 5,
+          "initial": "S"
+        }
+      ],
+      "relatedData": [
+        {
+          "title": "A2 Bilona Ghee",
+          "desc": "Churned from grass-fed Gir cows.",
+          "price": "₹1,250.00",
+          "image": "/images/a2-ghee-jar.png"
+        },
+        {
+          "title": "Wild Forest Honey",
+          "desc": "Raw, unpasteurized floral nectar.",
+          "price": "₹799.00",
+          "image": "/images/wild-honey.png"
+        }
+      ]
+    }
+  },
+  "royal-desi-gud": {
+    "id": "royal-desi-gud",
+    "title": "Royal Desi Gud",
+    "tag": "CURATED LUXURY",
+    "description": "Perfectly formed rectangular blocks of premium grade heritage jaggery.",
+    "variants": {
+      "500g": {
+        "price": 320,
+        "originalPrice": 400,
+        "discount": "20% OFF"
+      },
+      "1kg": {
+        "price": 599,
+        "originalPrice": 749,
+        "discount": "20% OFF"
+      }
+    },
+    "reviews": 156,
+    "images": [
+      "/images/featured-3.png"
+    ],
+    "benefits": [
+      {
+        "id": 1,
+        "icon": "Leaf",
+        "text": "Iron Rich"
+      }
+    ],
+    "details": {
+      "essenceQuote": "\"A heirloom recipe passed down through generations, our Desi Gud is made by slowly reducing fresh sugarcane juice in shallow iron vats, retaining all natural minerals and its signature earthy caramel notes.\"",
+      "essenceDesc": "Unlike refined sugar, our jaggery is unrefined and non-centrifuged. It is prepared using traditional methods without any sulfur or chemical clarificants. Each block is hand-poured, ensuring a texture that melts beautifully.",
+      "ingredients": [
+        "Certified Sugarcane Juice",
+        "Wild Okra Stems (Natural Clarifier)"
+      ],
+      "nutrition": [
+        {
+          "label": "Energy",
+          "value": "383 kcal"
+        },
+        {
+          "label": "Iron",
+          "value": "11.4 mg"
+        },
+        {
+          "label": "Magnesium",
+          "value": "80 mg"
+        }
+      ],
+      "reviewsData": [
+        {
+          "name": "Ananya R.",
+          "quote": "The depth of flavor is incomparable.",
+          "stars": 5,
+          "initial": "A"
+        },
+        {
+          "name": "Siddharth M.",
+          "quote": "Knowing it's 100% chemical-free gives me so much peace of mind.",
+          "stars": 5,
+          "initial": "S"
+        }
+      ],
+      "relatedData": [
+        {
+          "title": "A2 Bilona Ghee",
+          "desc": "Churned from grass-fed Gir cows.",
+          "price": "₹1,250.00",
+          "image": "/images/a2-ghee-jar.png"
+        },
+        {
+          "title": "Wild Forest Honey",
+          "desc": "Raw, unpasteurized floral nectar.",
+          "price": "₹799.00",
+          "image": "/images/wild-honey.png"
+        }
+      ]
+    }
+  }
+}

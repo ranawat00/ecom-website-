@@ -1,0 +1,131 @@
+.order-tracker-container {
+  padding: 2.5rem 0.5rem 1rem;
+  width: 100%;
+}
+
+.milestones-row {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  align-items: flex-start;
+}
+
+/* --- The Continuous Track --- */
+.tracker-line-bg {
+  position: absolute;
+  top: 16px;
+  /* Half of icon wrapper height */
+  left: 12.5%;
+  /* Start at first icon center */
+  right: 12.5%;
+  /* End at last icon center */
+  height: 4px;
+  background: rgba(var(--text-main-rgb), 0.1);
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.tracker-line-progress {
+  position: absolute;
+  height: 100%;
+  background: var(--accent-gold);
+  border-radius: 2px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+
+/* --- Milestones --- */
+.milestone-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 2;
+  flex: 1;
+}
+
+.milestone-icon-wrapper {
+  width: 34px;
+  height: 34px;
+  background: var(--bg-soft);
+  border: 2px solid rgba(var(--text-main-rgb), 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(var(--text-main-rgb), 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  box-shadow: 0 0 0 4px var(--bg-main);
+  /* Mask the line behind icons */
+}
+
+.milestone-item.active .milestone-icon-wrapper {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+.milestone-item.completed .milestone-icon-wrapper {
+  background: #27ae60;
+  /* Success Green */
+  border-color: #27ae60;
+  color: #fff;
+  transform: scale(0.9);
+}
+
+.milestone-item.current .milestone-icon-wrapper {
+  transform: scale(1.1);
+  background: var(--bg-main);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  border-width: 3px;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2), 0 0 0 4px var(--bg-main);
+}
+
+.milestone-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: rgba(var(--text-main-rgb), 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.milestone-item.active .milestone-label {
+  color: var(--text-main);
+}
+
+.milestone-item.current .milestone-label {
+  color: var(--accent-gold);
+  letter-spacing: 0.12em;
+}
+
+.cancelled-tracker {
+  padding: 1.5rem 0;
+}
+
+.cancelled-notice {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #e74c3c;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cancelled-line {
+  flex: 1;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    #e74c3c,
+    #e74c3c 5px,
+    transparent 5px,
+    transparent 10px
+  );
+  opacity: 0.3;
+}
