@@ -1,6 +1,6 @@
 /* Featured.css */
 .featured-section {
-  background-color: #FFF8E7; /* Neutral background matches parent */
+  background-color: #FAF5EE; /* Neutral background matches parent */
   padding: 6rem 2rem;
   font-family: 'Inter', sans-serif;
   max-width: 1400px; /* Slight bump up to hold 3 cards beautifully */
@@ -20,7 +20,7 @@
 }
 
 .featured-tag {
-  color: #2F5D50; /* Tertiary Dark Green */
+  color: #8C6374; /* Tertiary Dark Green */
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 2px;
@@ -31,7 +31,7 @@
 .featured-title {
   font-family: 'Noto Serif', serif;
   font-size: 3rem;
-  color: #8B5E3C; /* Primary Brown */
+  color: #6B1D2F; /* Primary Brown */
   font-weight: 500;
   margin: 0;
   letter-spacing: -0.5px;
@@ -46,9 +46,9 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 1px solid rgba(139, 94, 60, 0.3); /* Primary soft border */
+  border: 1px solid rgba(107, 29, 47, 0.3); /* Primary soft border */
   background-color: transparent;
-  color: #8B5E3C; /* Primary */
+  color: #6B1D2F; /* Primary */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,9 +57,9 @@
 }
 
 .arrow-btn:hover {
-  background-color: #8B5E3C;
-  color: #FFF8E7;
-  border-color: #8B5E3C;
+  background-color: #6B1D2F;
+  color: #FAF5EE;
+  border-color: #6B1D2F;
 }
 
 /* Grid Layout - converted to Horizontal Slider */
@@ -83,7 +83,7 @@
   background-color: #ffffff; /* White card */
   border-radius: 36px;
   padding: 24px;
-  box-shadow: 0 10px 30px rgba(139, 94, 60, 0.05);
+  box-shadow: 0 10px 30px rgba(107, 29, 47, 0.05);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   display: flex;
   flex-direction: column;
@@ -91,7 +91,7 @@
 
 .featured-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(139, 94, 60, 0.12); /* Warm shadow */
+  box-shadow: 0 20px 40px rgba(107, 29, 47, 0.12); /* Warm shadow */
 }
 
 /* Image */
@@ -146,39 +146,50 @@
   margin-bottom: 8px;
 }
 
-.featured-variant-selector {
-  display: flex;
-  gap: 6px;
-  margin-top: 6px;
-  flex-wrap: wrap;
+.card-select-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+  box-sizing: border-box;
 }
 
-.f-variant-pill {
-  padding: 3px 8px;
-  background: #f8f8f8;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  color: #666;
-  font-size: 0.7rem;
+.featured-variant-select {
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(107, 29, 47, 0.2);
+  background-color: #FAF5EE;
+  color: #6B1D2F;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%236B1D2F' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 36px;
+  transition: all 0.3s ease;
 }
 
-.f-variant-pill:hover {
-  background: #f0f0f0;
+.featured-variant-select:hover {
+  border-color: #6B1D2F;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(107, 29, 47, 0.05);
 }
 
-.f-variant-pill.active {
-  background: var(--accent-color, #D4A373);
-  border-color: var(--accent-color, #D4A373);
-  color: #fff;
+.featured-variant-select:focus {
+  outline: none;
+  border-color: #6B1D2F;
 }
 
 .card-price {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #8B5E3C; /* Primary */
+  color: #6B1D2F; /* Primary */
   white-space: nowrap;
 }
 
@@ -205,28 +216,28 @@
 
 .btn-add-cart {
   background-color: transparent;
-  color: #8B5E3C;
-  border: 1.5px solid rgba(139, 94, 60, 0.3);
+  color: #6B1D2F;
+  border: 1.5px solid rgba(107, 29, 47, 0.3);
 }
 
 .btn-add-cart:hover {
-  background-color: #8B5E3C;
-  color: #FFF8E7;
-  border-color: #8B5E3C;
-  box-shadow: 0 8px 20px rgba(139, 94, 60, 0.15);
+  background-color: #6B1D2F;
+  color: #FAF5EE;
+  border-color: #6B1D2F;
+  box-shadow: 0 8px 20px rgba(107, 29, 47, 0.15);
 }
 
 .btn-buy-now {
-  background-color: #8B5E3C;
-  color: #FFF8E7;
-  box-shadow: 0 6px 15px rgba(139, 94, 60, 0.1);
+  background-color: #6B1D2F;
+  color: #FAF5EE;
+  box-shadow: 0 6px 15px rgba(107, 29, 47, 0.1);
 }
 
 .btn-buy-now:hover {
-  background-color: #D4A373;
+  background-color: #C5A880;
   color: #140F0A;
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(212, 163, 115, 0.4);
+  box-shadow: 0 10px 25px rgba(197, 168, 128, 0.4);
 }
 
 /* Responsiveness */

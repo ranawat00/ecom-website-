@@ -1,7 +1,9 @@
 :root {
-  --bg-primary: #FFF8E7;
-  --text-main: #4A3B2C;
-  --accent-color: #D4A373;
+  --bg-primary: #FAF5EE;
+  --text-main: #3C2226;
+  --accent-color: #C5A880;
+  --primary-color: #6B1D2F;
+  --primary-hover: #58111A;
 }
 
 body.dark-theme {

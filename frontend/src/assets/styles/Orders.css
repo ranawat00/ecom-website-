@@ -196,7 +196,7 @@ body.dark-theme .item-row-minimal { background: rgba(255,255,255,0.03); }
 body.dark-theme .amount-card { background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%); }
 
 .amount-label { font-size: 0.8rem; opacity: 0.5; margin-bottom: 4px; }
-.amount-value { font-size: 1.8rem; font-weight: 800; color: var(--accent-color, #8B5E3C); }
+.amount-value { font-size: 1.8rem; font-weight: 800; color: var(--accent-color, #6B1D2F); }
 
 .order-action-bar {
   margin-top: 32px; padding-top: 24px;

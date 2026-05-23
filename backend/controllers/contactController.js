@@ -31,7 +31,7 @@ exports.submitEnquiry = async (req, res) => {
         // 3. Define Email Options
         const mailOptions = {
             from: `"${name}" <${email}>`, // sender address
-            to: "admin@amritan.com", // list of receivers
+            to: "admin@maaposhan.com", // list of receivers
             subject: `Contact Enquiry: ${subject || 'General Inquiry'}`, // Subject line
             text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone || 'N/A'}\n\nMessage:\n${message}`, // plain text body
             html: `

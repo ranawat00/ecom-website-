@@ -1,6 +1,6 @@
 /* Features.css */
 .features-wrapper {
-  background-color: #FFF8E7; /* Neutral background matches parent */
+  background-color: #FAF5EE; /* Neutral background matches parent */
   padding: 4rem 2rem;
   font-family: 'Inter', sans-serif;
 }
@@ -8,7 +8,7 @@
 .features-inner {
   max-width: 1300px;
   margin: 0 auto;
-  background-color: rgba(212, 163, 115, 0.12); /* Extremely subtle warm cream/tan box to distinguish the section */
+  background-color: rgba(197, 168, 128, 0.12); /* Extremely subtle warm cream/tan box to distinguish the section */
   border-radius: 40px;
   padding: 6rem 3rem;
 }
@@ -40,12 +40,12 @@
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background-color: #FFF8E7; /* pure neutral inside to pop out of the slightly tinted box */
+  background-color: #FAF5EE; /* pure neutral inside to pop out of the slightly tinted box */
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 15px rgba(139, 94, 60, 0.1);
+  box-shadow: 0 4px 15px rgba(107, 29, 47, 0.1);
   transition: transform 0.3s ease;
 }
 
@@ -56,14 +56,14 @@
 .feature-icon {
   width: 28px;
   height: 28px;
-  color: #2F5D50; /* Tertiary Dark Green */
+  color: #8C6374; /* Tertiary Dark Green */
   stroke-width: 2.2;
 }
 
 .feature-title {
   font-family: 'Noto Serif', serif;
   font-size: 1.5rem;
-  color: #8B5E3C; /* Primary Brown */
+  color: #6B1D2F; /* Primary Brown */
   font-weight: 500;
   margin: 0 0 1rem 0;
 }

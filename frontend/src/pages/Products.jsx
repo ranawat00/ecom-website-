@@ -4,6 +4,20 @@ import { useCart } from '../context/CartContext';
 import { useProducts } from '../context/ProductContext';
 import '../assets/styles/Products.css';
 
+const getDynamicProductTitle = (product, selectedKey) => {
+  if (product.id === 'maaposhan-harira') {
+    return 'MaaPoshan Harira (Strength Version (Made from Ghee))';
+  }
+  return product.title;
+};
+
+const getDynamicSubtitle = (product, selectedKey) => {
+  if (product.id === 'maaposhan-harira') {
+    return 'For normal delivery moms';
+  }
+  return '';
+};
+
 const Products = () => {
     const { addToCart } = useCart();
     const { products: allProducts, loading } = useProducts();
@@ -123,22 +137,27 @@ const Products = () => {
                             </div>
                             <div className="card-body">
                                 <div className="card-header">
-                                    <h3>{product.title}</h3>
+                                    <h3>{getDynamicProductTitle(product, selectedWeight)}</h3>
                                     <span className="price-tag">₹{variant?.price || 0}</span>
                                 </div>
+                                {product.id === 'maaposhan-harira' && (
+                                    <p className="card-subtitle-custom" style={{ fontSize: '0.75rem', color: '#8C6374', fontWeight: '700', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '-8px' }}>
+                                        {getDynamicSubtitle(product, selectedWeight)}
+                                    </p>
+                                )}
                                 <p className="card-desc">{product.description}</p>
                                 
                                 {variantKeys.length > 1 && (
-                                    <div className="product-card-variants">
-                                        {variantKeys.map(weight => (
-                                            <button
-                                                key={weight}
-                                                className={`variant-pill ${selectedWeight === weight ? 'active' : ''}`}
-                                                onClick={(e) => handleVariantChange(e, product.id, weight)}
-                                            >
-                                                {weight}
-                                            </button>
-                                        ))}
+                                    <div className="card-select-wrapper" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+                                        <select 
+                                            value={selectedWeight}
+                                            onChange={(e) => handleVariantChange(e, product.id, e.target.value)}
+                                            className="products-variant-select"
+                                        >
+                                            {variantKeys.map(weight => (
+                                                <option key={weight} value={weight}>{weight}</option>
+                                            ))}
+                                        </select>
                                     </div>
                                 )}
 

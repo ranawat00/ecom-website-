@@ -18,7 +18,7 @@
   gap: 8px;
   background: none;
   border: none;
-  color: #8B5E3C;
+  color: #6B1D2F;
   font-weight: 600;
   cursor: pointer;
   padding: 0;
@@ -33,12 +33,12 @@
 .header-titles h1 {
   font-family: 'Noto Serif', serif;
   font-size: 2.8rem;
-  color: #4A3B2C;
+  color: #3C2226;
   margin: 0 0 8px 0;
 }
 
 .header-titles p {
-  color: #8B5E3C;
+  color: #6B1D2F;
   opacity: 0.8;
   margin: 0;
 }
@@ -54,11 +54,11 @@
   background: #ffffff;
   border-radius: 24px;
   padding: 48px; /* Increased padding from 32px */
-  box-shadow: 0 10px 40px rgba(139, 94, 60, 0.08);
+  box-shadow: 0 10px 40px rgba(107, 29, 47, 0.08);
 }
 
 .profile-info-card {
-  border: 1px solid rgba(139, 94, 60, 0.1);
+  border: 1px solid rgba(107, 29, 47, 0.1);
 }
 
 .card-header {
@@ -76,18 +76,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #D4A373;
+  color: #C5A880;
 }
 
 .card-header h2 {
   font-size: 1.4rem;
-  color: #4A3B2C;
+  color: #3C2226;
   margin: 0 0 4px 0;
 }
 
 .card-header p {
   font-size: 0.9rem;
-  color: #8B5E3C;
+  color: #6B1D2F;
   opacity: 0.7;
   margin: 0;
 }
@@ -104,7 +104,7 @@
   gap: 8px;
   font-size: 1rem; /* Increased from 0.85rem */
   font-weight: 700;
-  color: #4A3B2C;
+  color: #3C2226;
   margin-bottom: 12px;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -115,7 +115,7 @@
   width: 100%;
   padding: 20px 24px; /* Increased padding */
   border-radius: 14px;
-  border: 1.8px solid rgba(139, 94, 60, 0.12);
+  border: 1.8px solid rgba(107, 29, 47, 0.12);
   font-family: inherit;
   font-size: 1.1rem; /* Increased from 1rem */
   transition: all 0.3s ease;
@@ -135,7 +135,7 @@
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: #8B5E3C;
+  color: #6B1D2F;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -153,9 +153,9 @@
 .input-with-icon input:focus,
 .password-input-wrapper input:focus {
   outline: none;
-  border-color: #D4A373;
+  border-color: #C5A880;
   background-color: #fff;
-  box-shadow: 0 0 0 5px rgba(212, 163, 115, 0.12);
+  box-shadow: 0 0 0 5px rgba(197, 168, 128, 0.12);
 }
 
 .form-actions-profile {
@@ -165,7 +165,7 @@
 .save-profile-btn {
   width: 100%;
   padding: 18px;
-  background-color: #8B5E3C;
+  background-color: #6B1D2F;
   color: #fff;
   border: none;
   border-radius: 14px;
@@ -176,9 +176,9 @@
 }
 
 .save-profile-btn:hover:not(:disabled) {
-  background-color: #724c30;
+  background-color: #58111A;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(139, 94, 60, 0.2);
+  box-shadow: 0 6px 20px rgba(107, 29, 47, 0.2);
 }
 
 .save-profile-btn:disabled {
@@ -193,7 +193,7 @@
 }
 
 .security-card {
-  border: 1px solid rgba(139, 94, 60, 0.1);
+  border: 1px solid rgba(107, 29, 47, 0.1);
 }
 
 .sec-icon {
@@ -209,7 +209,7 @@
 .forgot-password-link button {
   background: none;
   border: none;
-  color: #8B5E3C;
+  color: #6B1D2F;
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
@@ -225,7 +225,7 @@
 .save-password-btn {
   width: 100%;
   padding: 18px;
-  background-color: #2F5D50; /* Tertiary for distinction */
+  background-color: #8C6374; /* Tertiary for distinction */
   color: #fff;
   border: none;
   border-radius: 14px;
@@ -248,7 +248,7 @@
 }
 
 .status-card {
-  background: linear-gradient(135deg, #2F5D50, #1e3d34);
+  background: linear-gradient(135deg, #8C6374, #1e3d34);
   color: #ffffff;
   text-align: center;
   padding: 40px 32px;
@@ -256,7 +256,7 @@
 
 .status-icon {
   margin-bottom: 20px;
-  color: #D4A373;
+  color: #C5A880;
 }
 
 .status-card h3 {
@@ -273,13 +273,13 @@
 
 .help-card h3 {
   font-size: 1.2rem;
-  color: #4A3B2C;
+  color: #3C2226;
   margin: 0 0 12px 0;
 }
 
 .help-card p {
   font-size: 0.95rem;
-  color: #8B5E3C;
+  color: #6B1D2F;
   line-height: 1.6;
   margin-bottom: 24px;
 }
@@ -288,8 +288,8 @@
   width: 100%;
   padding: 14px;
   background: transparent;
-  border: 1.5px solid #8B5E3C;
-  color: #8B5E3C;
+  border: 1.5px solid #6B1D2F;
+  color: #6B1D2F;
   border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -307,14 +307,14 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  color: #8B5E3C;
+  color: #6B1D2F;
 }
 
 .loader {
   width: 48px;
   height: 48px;
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #D4A373;
+  border-top: 4px solid #C5A880;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

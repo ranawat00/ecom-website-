@@ -14,7 +14,7 @@ const ReturnPolicy = () => {
       <div className="policy-content">
         <section className="policy-section">
           <h2>Food Safety & Returns</h2>
-          <p>Due to the nature of our products (Jaggery and Ghee being food items), we cannot accept returns once the vacuum seal or tamper-evident seal has been broken. This is to ensure the complete safety and hygiene of our products for all our customers.</p>
+          <p>Due to the nature of our products (postpartum recovery items being food & wellness items), we cannot accept returns once the vacuum seal or tamper-evident seal has been broken. This is to ensure the complete safety and hygiene of our products for all our customers.</p>
         </section>
 
         <section className="policy-section">
@@ -29,7 +29,7 @@ const ReturnPolicy = () => {
 
         <section className="policy-section">
           <h2>How to Initiate a Request</h2>
-          <p>simply email our heritage support team at <strong>support@amritan.com</strong> or message us on WhatsApp at <strong>+91 XXXXX XXXXX</strong> with your Order ID and the reason for the request.</p>
+          <p>simply email our heritage support team at <strong>support@maaposhan.com</strong> or message us on WhatsApp at <strong>+91 XXXXX XXXXX</strong> with your Order ID and the reason for the request.</p>
         </section>
 
         <section className="policy-section">

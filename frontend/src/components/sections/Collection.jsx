@@ -4,6 +4,20 @@ import { useCart } from '../../context/CartContext';
 import { useProducts } from '../../context/ProductContext';
 import '../../assets/styles/Collection.css';
 
+const getDynamicProductTitle = (product, selectedKey) => {
+  if (product.id === 'maaposhan-harira') {
+    return 'MaaPoshan Harira (Strength Version (Made from Ghee))';
+  }
+  return product.title;
+};
+
+const getDynamicSubtitle = (product, selectedKey) => {
+  if (product.id === 'maaposhan-harira') {
+    return 'For normal delivery moms';
+  }
+  return selectedKey || '';
+};
+
 const Collection = () => {
   const { addToCart } = useCart();
   const { productMap, loading } = useProducts();
@@ -81,21 +95,21 @@ const Collection = () => {
         <img src={p.images[0]} alt={p.title} className="collection-img" loading="lazy" />
         <div className="collection-text-overlay">
           <div className="overlay-info">
-            <h3>{p.title}</h3>
-            <p>₹{variant?.price || 0} • {selectedKey}</p>
+            <h3>{getDynamicProductTitle(p, selectedKey)}</h3>
+            <p>₹{variant?.price || 0} • {getDynamicSubtitle(p, selectedKey)}</p>
             
             {/* Variant Selector */}
             {variantKeys.length > 1 && (
-              <div className="home-variant-selector">
-                {variantKeys.map(key => (
-                  <button 
-                    key={key}
-                    className={`variant-pill ${selectedKey === key ? 'active' : ''}`}
-                    onClick={(e) => handleVariantChange(e, p.id, key)}
-                  >
-                    {key}
-                  </button>
-                ))}
+              <div className="card-select-wrapper" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+                <select 
+                  value={selectedKey}
+                  onChange={(e) => handleVariantChange(e, p.id, e.target.value)}
+                  className="collection-variant-select"
+                >
+                  {variantKeys.map(key => (
+                    <option key={key} value={key}>{key}</option>
+                  ))}
+                </select>
               </div>
             )}
           </div>
@@ -111,19 +125,20 @@ const Collection = () => {
   return (
     <section className="collection-section">
       <div className="collection-header">
-        <h2 className="collection-title">The Atelier Collection</h2>
+        <h2 className="collection-title">The MaaPoshan Collection</h2>
         <div className="collection-divider"></div>
       </div>
       
       <div className="collection-grid">
-        {renderProductCard('desi-ghee', 'card-large')}
-        {renderProductCard('kaju-jaggery-cube', 'kaju')}
-        {renderProductCard('jaggery-cube', 'gud')}
-        {renderProductCard('jaggery-powder', 'powder')}
-        {renderProductCard('til-jaggery-cube', 'til')}
+        {renderProductCard('maaposhan-kit', 'card-large')}
+        {renderProductCard('maaposhan-harira', 'kaju')}
+        {renderProductCard('maaposhan-ghee', 'gud')}
+        {renderProductCard('maaposhan-bites', 'powder')}
+        {renderProductCard('maaposhan-tea', 'til')}
       </div>
     </section>
   );
+
 };
 
 export default React.memo(Collection);

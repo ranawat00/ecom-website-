@@ -13,12 +13,12 @@
 .policy-header h1 {
   font-family: 'Noto Serif', serif;
   font-size: 3rem;
-  color: #4A3B2C;
+  color: #3C2226;
   margin-bottom: 16px;
 }
 
 .policy-header p {
-  color: #8B5E3C;
+  color: #6B1D2F;
   font-size: 1.1rem;
   opacity: 0.8;
 }
@@ -27,9 +27,9 @@
   background: #ffffff;
   padding: 60px;
   border-radius: 32px;
-  box-shadow: 0 10px 40px rgba(139, 94, 60, 0.05);
+  box-shadow: 0 10px 40px rgba(107, 29, 47, 0.05);
   line-height: 1.8;
-  color: #4A3B2C;
+  color: #3C2226;
 }
 
 .policy-section {
@@ -39,7 +39,7 @@
 .policy-section h2 {
   font-family: 'Noto Serif', serif;
   font-size: 1.8rem;
-  color: #8B5E3C;
+  color: #6B1D2F;
   margin-bottom: 24px;
 }
 
@@ -63,7 +63,7 @@
   content: "•";
   position: absolute;
   left: 0;
-  color: #D4A373;
+  color: #C5A880;
   font-weight: bold;
   font-size: 1.5rem;
   line-height: 1;
@@ -71,7 +71,7 @@
 
 /* FAQ Specific */
 .faq-item {
-  border-bottom: 1px solid rgba(139, 94, 60, 0.1);
+  border-bottom: 1px solid rgba(107, 29, 47, 0.1);
   padding: 24px 0;
 }
 
@@ -82,7 +82,7 @@
 .faq-question {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #4A3B2C;
+  color: #3C2226;
   margin-bottom: 12px;
   cursor: pointer;
   display: flex;

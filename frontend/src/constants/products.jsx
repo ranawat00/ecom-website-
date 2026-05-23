@@ -1,164 +1,199 @@
 import { Star, Leaf, HeartPulse, Sparkles, Truck } from 'lucide-react';
 import React from 'react';
 
-// Default detail block for mocking
-export const defaultDetails = {
-  essenceQuote: '"A heirloom recipe passed down through generations, our Desi Gud is made by slowly reducing fresh sugarcane juice in shallow iron vats, retaining all natural minerals and its signature earthy caramel notes."',
-  essenceDesc: 'Unlike refined sugar, our jaggery is unrefined and non-centrifuged. It is prepared using traditional methods without any sulfur or chemical clarificants. Each block is hand-poured, ensuring a texture that melts beautifully into your Masala Chai or morning porridge.',
-  ingredients: ['Certified Sugarcane Juice', 'Wild Okra Stems (Natural Clarifier)'],
-  nutrition: [
-    { label: 'Energy', value: '383 kcal' },
-    { label: 'Iron', value: '11.4 mg' },
-    { label: 'Magnesium', value: '80 mg' }
-  ],
-  reviewsData: [
-    { name: "Ananya R.", quote: "The depth of flavor is incomparable. It has this rich, smoky caramel undertone that you just don't get with store-bought jaggery.", stars: 5, initial: "A" },
-    { name: "Siddharth M.", quote: "Used it for my child's teething biscuits. Knowing it's 100% chemical-free gives me so much peace of mind.", stars: 5, initial: "S" },
-    { name: "Priya V.", quote: "The packaging is as beautiful as the product. Feels like receiving a luxury gift from nature itself.", stars: 5, initial: "P" }
-  ],
-  relatedData: [
-    { title: "A2 Bilona Ghee", desc: "Churned from grass-fed Gir cows.", price: "₹1,250.00", image: "/images/a2-ghee-jar.png" },
-    { title: "Wild Forest Honey", desc: "Raw, unpasteurized floral nectar.", price: "₹799.00", image: "/images/wild-honey.png" },
-    { title: "Masala Chai Blend", desc: "Stone-ground spices and CTC tea.", price: "₹450.00", image: "/images/chai-blend.png" }
-  ]
-};
-
 export const productDatabase = {
-  'desi-gud': {
-    id: 'desi-gud',
-    title: 'Desi Gud',
-    tag: 'ARTISANAL CHOICE',
-    description: 'Hand-crafted chemical-free jaggery blocks from the heart of sugarcane belts.',
+  'maaposhan-kit': {
+    id: 'maaposhan-kit',
+    title: 'MaaPoshan Postpartum Recovery Kit',
+    tag: 'COMPLETE POSTPARTUM CARE',
+    description: 'A complete recovery and nourishment kit for new mothers. Includes 8 thoughtful solutions for postpartum strength, energy, and wellness.',
     variants: {
-      '500g': { price: 349.00, originalPrice: 499.00, discount: '30% OFF' },
-      '1kg':  { price: 649.00, originalPrice: 899.00, discount: '28% OFF' },
+      '1 Box': { price: 4000.00, originalPrice: 5500.00, discount: '27% OFF' }
     },
-    reviews: 128,
-    images: ['/images/desi-gud-main.png', '/images/desi-gud-thumb1.png', '/images/desi-gud-thumb2.png'],
+    reviews: 145,
+    images: ['/images/maaposhan-kit.png'],
     benefits: [
-      { id: 1, icon: <Leaf size={16} />, text: '100% Organic' },
-      { id: 2, icon: <HeartPulse size={16} />, text: 'Iron Rich' },
-      { id: 3, icon: <Sparkles size={16} />, text: 'No Chemicals' },
-      { id: 4, icon: <Truck size={16} />, text: 'Direct Sourcing' },
-    ],
-    details: defaultDetails
-  },
-  'desi-ghee': {
-    id: 'desi-ghee',
-    title: 'Sona Desi Ghee',
-    tag: 'PURE A2 GHEE',
-    description: 'Traditional bilona churned ghee from happy A2 cows. Rich in aroma and nutrients.',
-    variants: {
-      '500g': { price: 1250.00, originalPrice: 1500.00, discount: '17% OFF' },
-      '1kg':  { price: 2299.00, originalPrice: 2800.00, discount: '18% OFF' },
-    },
-    reviews: 350,
-    images: ['/images/desi-ghee.png', '/images/desi-ghee.png', '/images/desi-ghee.png'],
-    benefits: [
-      { id: 1, icon: <Leaf size={16} />, text: 'A2 Milk' },
-      { id: 2, icon: <HeartPulse size={16} />, text: 'Heart Healthy' },
-      { id: 3, icon: <Sparkles size={16} />, text: 'Bilona Method' },
-      { id: 4, icon: <Truck size={16} />, text: 'Farm Fresh' },
+      { id: 1, icon: <Leaf size={16} />, text: '100% Organic & Clean' },
+      { id: 2, icon: <HeartPulse size={16} />, text: 'Postpartum Recovery' },
+      { id: 3, icon: <Sparkles size={16} />, text: '8 Solutions in 1' },
+      { id: 4, icon: <Truck size={16} />, text: 'Doctor Approved' },
     ],
     details: {
-      ...defaultDetails,
-      essenceQuote: '"Slow-churned to perfection using earthen pots and a wooden bilona, capturing the golden essence of pure A2 milk."',
-      ingredients: ['100% Pure A2 Cow Milk Fat'],
+      essenceQuote: '"A thoughtful postpartum recovery system designed by experts to ease a new mother\'s transition into motherhood."',
+      essenceDesc: 'The MaaPoshan Postpartum Recovery Kit contains everything a new mother needs to recover, heal, and nourish herself. From traditional organic Harira paste to self-care pouches, organic breast pads, calming tea, and feeding covers, each of the 8 products addresses a specific postpartum challenge. Crafted with love, care, and absolute purity.',
+      ingredients: [
+        { name: 'MaaPoshan Harira Strength Paste', image: '/images/maaposhan-harira.png' },
+        { name: 'Calming Herbal Tea', image: '/images/maaposhan-tea.png' },
+        { name: 'Dry Fruit Energy Bites', image: '/images/maaposhan-bites.png' }
+      ],
+      nutrition: [
+        { label: 'Total Items', value: '8 Solutions' },
+        { label: 'Care Quality', value: 'Premium Grade' },
+        { label: 'Purity', value: '100% Chemical-Free' }
+      ],
+      reviewsData: [
+        { name: "Meera K.", quote: "This kit is the most thoughtful gift any new mom could receive. Every single item inside solved a real postpartum problem.", stars: 5, initial: "M" },
+        { name: "Priya S.", quote: "I loved the Harira and the calming tea. Knowing it's 100% chemical-free gives me so much peace of mind.", stars: 5, initial: "P" }
+      ],
+      relatedData: [
+        { id: "maaposhan-harira", title: "MaaPoshan Harira", desc: "Ayurvedic strength and recovery paste.", price: "₹900.00", image: "/images/maaposhan-harira.png", weight: "500g" },
+        { id: "maaposhan-ghee", title: "Pure A2 Ghee", desc: "Bilona churned grass-fed cow ghee.", price: "₹1,299.00", image: "/images/maaposhan-ghee.png", weight: "500ml" }
+      ]
     }
   },
-  'kaju-jaggery': {
-    id: 'kaju-jaggery',
-    title: 'Kaju Jaggery',
-    tag: 'PREMIUM BLEND',
-    description: 'Rich, nutty jaggery infused with premium cashews for an elegant sweet treat.',
+  'maaposhan-harira': {
+    id: 'maaposhan-harira',
+    title: 'MaaPoshan Harira',
+    tag: 'TRADITIONAL HEALING',
+    description: 'A traditional, nutrient-dense blend of A2 ghee, organic jaggery, fresh ginger, saffron, fenugreek, ajwain, and premium nuts crafted for new mothers\' postpartum recovery.',
     variants: {
-      '500g': { price: 499.00, originalPrice: 650.00, discount: '23% OFF' },
-      '1kg':  { price: 949.00, originalPrice: 1199.00, discount: '21% OFF' },
-    },
-    reviews: 84,
-    images: ['/images/kaju-jaggery.png', '/images/kaju-jaggery.png', '/images/kaju-jaggery.png'],
-    benefits: [
-      { id: 1, icon: <Leaf size={16} />, text: 'Premium Nuts' },
-      { id: 2, icon: <HeartPulse size={16} />, text: 'Energy Boost' },
-      { id: 3, icon: <Sparkles size={16} />, text: 'Handcrafted' },
-      { id: 4, icon: <Truck size={16} />, text: 'Direct Sourcing' },
-    ],
-    details: defaultDetails
-  },
-  'jaggery-powder': {
-    id: 'jaggery-powder',
-    title: 'Jaggery Powder',
-    tag: 'VERSATILE ESSENTIAL',
-    description: 'Fine-textured pure jaggery powder, the perfect healthy alternative to refined sugar.',
-    variants: {
-      '500g': { price: 250.00, originalPrice: 300.00, discount: '17% OFF' },
-      '1kg':  { price: 459.00, originalPrice: 550.00, discount: '17% OFF' },
+      'Strength - 500g': { price: 900.00, originalPrice: 1200.00, discount: '25% OFF' },
+      'Strength - 1kg': { price: 1800.00, originalPrice: 2400.00, discount: '25% OFF' },
+      'Gentle - 500g': { price: 900.00, originalPrice: 1200.00, discount: '25% OFF' },
+      'Gentle - 1kg': { price: 1800.00, originalPrice: 2400.00, discount: '25% OFF' }
     },
     reviews: 210,
-    images: ['/images/jaggery-powder.png', '/images/jaggery-powder.png', '/images/jaggery-powder.png'],
+    images: ['/images/maaposhan-harira.png'],
     benefits: [
-      { id: 1, icon: <Leaf size={16} />, text: 'Easy to dissolve' },
-      { id: 2, icon: <HeartPulse size={16} />, text: 'Nutrient Rich' },
-      { id: 3, icon: <Sparkles size={16} />, text: 'No Chemicals' },
-      { id: 4, icon: <Truck size={16} />, text: 'Direct Sourcing' },
+      { id: 1, icon: <Leaf size={16} />, text: 'Restores Energy & Strength' },
+      { id: 2, icon: <HeartPulse size={16} />, text: 'Supports Healthy Lactation' },
+      { id: 3, icon: <Sparkles size={16} />, text: 'Gentle on Digestion' },
+      { id: 4, icon: <Truck size={16} />, text: 'Rich in Iron & Calcium' }
     ],
-    details: defaultDetails
+    details: {
+      essenceQuote: '"Rooted in ancient Indian postpartum wisdom, our Harira is a delicious, slow-cooked blend that helps new mothers regain their strength."',
+      essenceDesc: 'Prepared using the finest almonds, cashews, pure A2 ghee, chemical-free jaggery, fresh ginger, and postpartum-restorative spices like fenugreek, ajwain, turmeric, and saffron. Our Harira supports lactation, boosts energy levels, and aids in rapid physical recovery after delivery.',
+      ingredients: [
+        { name: 'Pure A2 Cow Ghee', image: '/images/maaposhan-ghee.png' },
+        { name: 'Organic Jaggery & Ginger', image: '/images/maaposhan-harira.png' },
+        { name: 'Almonds & Saffron', image: '/images/maaposhan-bites.png' }
+      ],
+      nutrition: [
+        { label: 'Energy', value: '450 kcal' },
+        { label: 'Iron', value: '12.5 mg' },
+        { label: 'Calcium', value: '120 mg' }
+      ],
+      reviewsData: [
+        { name: "Ananya R.", quote: "The depth of flavor is incomparable. It gave me the strength and energy I needed in those sleepless early weeks.", stars: 5, initial: "A" },
+        { name: "Siddharth M.", quote: "My wife loved it. Knowing it's 100% chemical-free gives me so much peace of mind.", stars: 5, initial: "S" }
+      ],
+      relatedData: [
+        { id: "maaposhan-kit", title: "MaaPoshan Recovery Kit", desc: "Complete postpartum wellness kit.", price: "₹4,000.00", image: "/images/maaposhan-kit.png", weight: "1 Box" },
+        { id: "maaposhan-tea", title: "Calming Herbal Tea", desc: "Caffeine-free relaxation blend.", price: "₹399.00", image: "/images/maaposhan-tea.png", weight: "20 Bags" }
+      ]
+    }
   },
-  'dry-fruit-jaggery': {
-    id: 'dry-fruit-jaggery',
-    title: 'Dry Fruit Jaggery',
-    tag: 'CURATED LUXURY',
-    description: 'A decadent blend of traditional jaggery generously studded with almonds and pistachios.',
+  'maaposhan-tea': {
+    id: 'maaposhan-tea',
+    title: 'MaaPoshan Calming Herbal Tea',
+    tag: 'RELAXATION & SLEEP',
+    description: 'A soothing herbal blend of chamomile, lavender, and traditional herbs to calm the mind, relieve stress, and support deep, restful sleep for new mothers.',
     variants: {
-      '500g': { price: 450.00, originalPrice: 550.00, discount: '18% OFF' },
-      '1kg':  { price: 849.00, originalPrice: 999.00, discount: '15% OFF' },
+      '20 Tea Bags': { price: 399.00, originalPrice: 499.00, discount: '20% OFF' }
     },
     reviews: 95,
-    images: ['/images/featured-1.png', '/images/featured-1.png', '/images/featured-1.png'],
+    images: ['/images/maaposhan-tea.png'],
     benefits: [
-      { id: 1, icon: <Leaf size={16} />, text: '100% Organic' },
-      { id: 2, icon: <HeartPulse size={16} />, text: 'Almonds & Pistas' },
-      { id: 3, icon: <Sparkles size={16} />, text: 'No Chemicals' },
-      { id: 4, icon: <Truck size={16} />, text: 'Direct Sourcing' },
+      { id: 1, icon: <Leaf size={16} />, text: 'Stress Relief & Calming' },
+      { id: 2, icon: <HeartPulse size={16} />, text: 'Deep Sleep Support' },
+      { id: 3, icon: <Sparkles size={16} />, text: '100% Caffeine-Free' },
+      { id: 4, icon: <Truck size={16} />, text: 'All Natural Botanicals' }
     ],
-    details: defaultDetails
+    details: {
+      essenceQuote: '"A calming botanical escape for sleepless nights and busy days of early motherhood."',
+      essenceDesc: 'MaaPoshan Calming Herbal Tea combines dried organic chamomile flowers, lavender buds, and traditional adaptogenic herbs. It is naturally caffeine-free and formulated to soothe the nervous system, reduce postpartum anxiety, and gently invite restful sleep so you can wake up refreshed.',
+      ingredients: [
+        { name: 'Organic Chamomile', image: '/images/maaposhan-tea.png' },
+        { name: 'Lavender Buds', image: '/images/maaposhan-tea.png' }
+      ],
+      nutrition: [
+        { label: 'Servings', value: '20 Cups' },
+        { label: 'Caffeine', value: '0 mg' },
+        { label: 'Sugar', value: '0 g' }
+      ],
+      reviewsData: [
+        { name: "Divya N.", quote: "This tea has become my evening ritual. It helps me unwind and get deep, restful sleep after long days.", stars: 5, initial: "D" },
+        { name: "Kajal P.", quote: "Smells wonderful and taste so soothing. Best tea for new mothers.", stars: 5, initial: "K" }
+      ],
+      relatedData: [
+        { id: "maaposhan-harira", title: "MaaPoshan Harira", desc: "Traditional postpartum strength paste.", price: "₹900.00", image: "/images/maaposhan-harira.png", weight: "500g" },
+        { id: "maaposhan-bites", title: "Dry Fruit Bites", desc: "Instant energy snack for new moms.", price: "₹599.00", image: "/images/maaposhan-bites.png", weight: "300g" }
+      ]
+    }
   },
-  'traditional-desi-ghee': {
-    id: 'traditional-desi-ghee',
-    title: 'Traditional Desi Ghee',
-    tag: 'HERITAGE GHEE',
-    description: 'Classic artisanal ghee housed in a beautiful traditional clay pot.',
+  'maaposhan-bites': {
+    id: 'maaposhan-bites',
+    title: 'MaaPoshan Premium Dry Fruit Bites',
+    tag: 'HEALTHY SNACK',
+    description: 'Nutrient-dense bites packed with premium almonds, cashews, dates, and seeds to provide instant energy and healthy fats for active mothers.',
     variants: {
-      '500g': { price: 1250.00, originalPrice: 1500.00, discount: '17% OFF' },
-      '1kg':  { price: 2299.00, originalPrice: 2800.00, discount: '18% OFF' },
+      '300g': { price: 599.00, originalPrice: 799.00, discount: '25% OFF' }
     },
-    reviews: 412,
-    images: ['/images/featured-2.png', '/images/featured-2.png', '/images/featured-2.png'],
+    reviews: 84,
+    images: ['/images/maaposhan-bites.png'],
     benefits: [
-      { id: 1, icon: <Leaf size={16} />, text: 'A2 Milk' },
-      { id: 2, icon: <HeartPulse size={16} />, text: 'Bilona Churned' },
-      { id: 3, icon: <Sparkles size={16} />, text: 'Clay Pot Aged' },
-      { id: 4, icon: <Truck size={16} />, text: 'Direct Sourcing' },
+      { id: 1, icon: <Leaf size={16} />, text: 'Instant Energy Boost' },
+      { id: 2, icon: <HeartPulse size={16} />, text: 'No Added Sugar' },
+      { id: 3, icon: <Sparkles size={16} />, text: 'Protein & Fiber Rich' },
+      { id: 4, icon: <Truck size={16} />, text: 'Healthy Monounsaturated Fats' }
     ],
-    details: defaultDetails
+    details: {
+      essenceQuote: '"Delicious, chewable bites that deliver clean, long-lasting energy whenever you need a quick pick-me-up."',
+      essenceDesc: 'Crafted for busy new mothers who need quick, healthy nutrition on the go. Our Premium Dry Fruit Bites are made by blending mineral-rich dates, almonds, cashews, pistachios, and chia seeds. With absolutely zero added sugar or artificial preservatives, they are rich in dietary fiber, protein, and healthy monounsaturated fats.',
+      ingredients: [
+        { name: 'Organic Dates', image: '/images/maaposhan-bites.png' },
+        { name: 'Premium Nuts & Seeds', image: '/images/maaposhan-bites.png' }
+      ],
+      nutrition: [
+        { label: 'Energy', value: '110 kcal / bite' },
+        { label: 'Protein', value: '3.5 g' },
+        { label: 'Fiber', value: '2.1 g' }
+      ],
+      reviewsData: [
+        { name: "Rohini T.", quote: "Super convenient and healthy! These dry fruit bites satisfy my sweet tooth without any guilt.", stars: 5, initial: "R" }
+      ],
+      relatedData: [
+        { id: "maaposhan-harira", title: "MaaPoshan Harira", desc: "Postpartum strength and recovery paste.", price: "₹900.00", image: "/images/maaposhan-harira.png", weight: "500g" },
+        { id: "maaposhan-ghee", title: "Pure A2 Ghee", desc: "Bilona churned A2 cow ghee.", price: "₹1,299.00", image: "/images/maaposhan-ghee.png", weight: "500ml" }
+      ]
+    }
   },
-  'royal-desi-gud': {
-    id: 'royal-desi-gud',
-    title: 'Royal Desi Gud',
-    tag: 'CURATED LUXURY',
-    description: 'Perfectly formed rectangular blocks of premium grade heritage jaggery.',
+  'maaposhan-ghee': {
+    id: 'maaposhan-ghee',
+    title: 'MaaPoshan Pure A2 Ghee (Bilona Churned)',
+    tag: 'POSTPARTUM ESSENTIAL',
+    description: 'Pure A2 cow ghee prepared using the traditional Bilona method, essential for postpartum strength, joint health, and overall rejuvenation.',
     variants: {
-      '500g': { price: 320.00, originalPrice: 400.00, discount: '20% OFF' },
-      '1kg':  { price: 599.00, originalPrice: 749.00, discount: '20% OFF' },
+      '500ml': { price: 1299.00, originalPrice: 1599.00, discount: '18% OFF' },
+      '1L':    { price: 2399.00, originalPrice: 2999.00, discount: '20% OFF' }
     },
-    reviews: 156,
-    images: ['/images/featured-3.png', '/images/featured-3.png', '/images/featured-3.png'],
+    reviews: 350,
+    images: ['/images/maaposhan-ghee.png'],
     benefits: [
-      { id: 1, icon: <Leaf size={16} />, text: '100% Organic' },
-      { id: 2, icon: <HeartPulse size={16} />, text: 'Iron Rich' },
-      { id: 3, icon: <Sparkles size={16} />, text: 'Handcrafted' },
-      { id: 4, icon: <Truck size={16} />, text: 'Direct Sourcing' },
+      { id: 1, icon: <Leaf size={16} />, text: 'Pure A2 Cow Curd Culture' },
+      { id: 2, icon: <HeartPulse size={16} />, text: 'Traditional Bilona Churned' },
+      { id: 3, icon: <Sparkles size={16} />, text: 'Joint Strength & Tissue Healing' },
+      { id: 4, icon: <Truck size={16} />, text: 'Lactose & Gluten Free' }
     ],
-    details: defaultDetails
+    details: {
+      essenceQuote: '"Golden elixir churned slowly from curd cultures of grass-fed A2 cow milk."',
+      essenceDesc: 'Our A2 ghee is handcrafted using the ancient Bilona method (churning curd made from A2 milk in earthen pots with a wooden churner). Perfect for new mothers, it aids in lubricating joints, rebuilding tissue, improving digestion, and enhancing nutrient absorption from traditional meals.',
+      ingredients: [
+        { name: 'Grass-Fed A2 Milk', image: '/images/maaposhan-ghee.png' },
+        { name: 'Curd Culture', image: '/images/maaposhan-ghee.png' }
+      ],
+      nutrition: [
+        { label: 'Energy', value: '898 kcal' },
+        { label: 'Butyric Acid', value: '3.8 g' },
+        { label: 'Saturated Fat', value: '65 g' }
+      ],
+      reviewsData: [
+        { name: "Anil S.", quote: "The aroma of this ghee is out of this world. Reminds me of pure, village-made ghee.", stars: 5, initial: "A" }
+      ],
+      relatedData: [
+        { id: "maaposhan-harira", title: "MaaPoshan Harira", desc: "Ayurvedic strength and recovery paste.", price: "₹900.00", image: "/images/maaposhan-harira.png", weight: "500g" },
+        { id: "maaposhan-kit", title: "MaaPoshan Recovery Kit", desc: "Complete postpartum wellness kit.", price: "₹4,000.00", image: "/images/maaposhan-kit.png", weight: "1 Box" }
+      ]
+    }
   }
 };

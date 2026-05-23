@@ -33,9 +33,11 @@ const Footer = () => {
 
           {/* Brand Column */}
           <div className="footer-brand-col">
-            <h2 className="footer-logo">Amritan</h2>
+            <div className="footer-logo-container" style={{ marginBottom: '16px' }}>
+              <img src="/images/logo.png" alt="MaaPoshan Logo" />
+            </div>
             <p className="footer-description">
-              Experience the golden essence of earth. Handcrafted jaggery and desi ghee nurtured in the heart of heritage farms.
+              Recover, nourish, and heal with traditional postpartum wellness essentials crafted with love, purity, and organic care.
             </p>
             <div className="footer-socials">
               <a href="#instagram" aria-label="Instagram"><InstagramIcon size={20} /></a>
@@ -50,9 +52,9 @@ const Footer = () => {
             <h3 className="footer-heading">Shop</h3>
             <ul className="footer-links">
               <li><Link to="/products">All Products</Link></li>
-              <li><Link to="/product/desi-ghee">Desi Ghee</Link></li>
-              <li><Link to="/product/jaggery-cube">Jaggery Cube</Link></li>
-              <li><Link to="/product/kaju-jaggery-cube">Kaju Jaggery Cube</Link></li>
+              <li><Link to="/product/maaposhan-ghee">Pure A2 Ghee</Link></li>
+              <li><Link to="/product/maaposhan-harira">MaaPoshan Harira</Link></li>
+              <li><Link to="/product/maaposhan-kit">MaaPoshan Recovery Kit</Link></li>
             </ul>
           </div>
 
@@ -61,6 +63,8 @@ const Footer = () => {
             <ul className="footer-links">
               <li><Link to="/about">Our Story</Link></li>
               <li><Link to="/contact">Contact Us</Link></li>
+              <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+              <li><Link to="/terms-conditions">Terms & Conditions</Link></li>
             </ul>
           </div>
 
@@ -80,12 +84,8 @@ const Footer = () => {
         {/* Bottom Bar Area */}
         <div className="footer-bottom">
           <p className="footer-copyright">
-            &copy; {new Date().getFullYear()} Amritan. All rights reserved.
+            &copy; {new Date().getFullYear()} MaaPoshan. All rights reserved.
           </p>
-          <div className="footer-legal">
-            <Link to="/privacy-policy">Privacy Policy</Link>
-            <Link to="/terms-conditions">Terms & Conditions</Link>
-          </div>
         </div>
 
       </div>

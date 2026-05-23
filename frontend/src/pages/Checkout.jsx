@@ -155,10 +155,10 @@ const Checkout = () => {
         key: data.keyId,
         amount: data.amount,
         currency: data.currency,
-        name: 'Amritan',
-        description: 'Artisanal Products Purchase',
+        name: 'MaaPoshan',
+        description: 'Premium Postpartum Care Kit Purchase',
         order_id: data.orderId,
-        theme: { color: '#8B5E3C' },
+        theme: { color: '#6B1D2F' },
         prefill: {
           ...(finalApp === 'google_pay' && { method: 'upi', 'upi.app': 'google_pay' }),
           ...(finalApp === 'phone_pe' && { method: 'upi', 'upi.app': 'phone_pe' }),

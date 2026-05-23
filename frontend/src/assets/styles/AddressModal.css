@@ -108,7 +108,7 @@ body.dark-theme .address-form input, body.dark-theme .address-form select {
 
 .address-form input:focus, .address-form select:focus {
   outline: none;
-  border-color: var(--accent-color, #D4A373);
+  border-color: var(--accent-color, #C5A880);
 }
 
 .address-submit-btn {

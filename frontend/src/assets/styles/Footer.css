@@ -1,7 +1,7 @@
 /* Footer.css */
 .footer-section {
-  background-color: #2F5D50; /* Tertiary Dark Green */
-  color: #FFF8E7; /* Neutral Cream */
+  background-color: #3C2226; /* Dark Brown matching the theme design */
+  color: #FAF5EE; /* Neutral Cream */
   font-family: 'Inter', sans-serif;
   padding: 6rem 2rem 2rem 2rem;
   border-top-left-radius: 40px; /* Slight rounded top to flow nicely out of previous sections */
@@ -25,14 +25,18 @@
 .footer-brand-col {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
 }
 
-.footer-logo {
-  font-family: 'Noto Serif', serif;
-  font-size: 2.25rem;
-  color: #D4A373; /* Secondary Tan */
+.footer-logo-container {
   margin: 0 0 1.5rem 0;
-  letter-spacing: -0.5px;
+}
+
+.footer-logo-container img {
+  height: 80px;
+  max-width: 220px;
+  object-fit: contain;
 }
 
 .footer-description {
@@ -55,23 +59,23 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background-color: rgba(255, 248, 231, 0.1); /* Subtle transluscent circle */
-  color: #FFF8E7; /* Neutral */
+  background-color: rgba(255, 248, 231, 0.1); /* Subtle translucent circle */
+  color: #FAF5EE; /* Neutral */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-socials a:hover {
-  background-color: #D4A373; /* Secondary Pop */
-  color: #2F5D50; /* Revert to Dark Green */
+  background-color: #C5A880; /* Secondary Pop Gold */
+  color: #3C2226; /* Revert to Dark Brown */
   transform: translateY(-4px);
-  box-shadow: 0 5px 15px rgba(212, 163, 115, 0.3);
+  box-shadow: 0 5px 15px rgba(197, 168, 128, 0.3);
 }
 
 .footer-heading {
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
-  color: #D4A373; /* Secondary Tan */
+  color: #C5A880; /* Champagne Gold headings */
   text-transform: uppercase;
   letter-spacing: 1.5px;
   margin: 0 0 1.5rem 0;
@@ -95,17 +99,20 @@
 }
 
 .footer-links a:hover {
-  color: #FFF8E7; /* Brighten on hover */
+  color: #FAF5EE; /* Brighten on hover */
   padding-left: 5px; /* Slight nudge effect */
 }
 
 /* Bottom Bar */
 .footer-bottom {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 1rem;
   padding-top: 2rem;
   border-top: 1px solid rgba(255, 248, 231, 0.15); /* Delicate line separator */
+  text-align: center;
 }
 
 .footer-copyright {
@@ -127,7 +134,7 @@
 }
 
 .footer-legal a:hover {
-  color: #FFF8E7;
+  color: #FAF5EE;
 }
 
 /* Responsiveness */

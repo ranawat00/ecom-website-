@@ -8,7 +8,7 @@ const Help = () => {
     const [expandedId, setExpandedId] = useState(null);
 
     const helpArticles = [
-        { id: 1, category: 'orders', title: 'How to track my order?', content: 'To track your order, visit the "Order History" section in your profile dashboard. Once your artisanal harvest is shipped, a real-time tracking link will be sent to your mobile number and email. You can use this link to track your order until it reach your doorstep.' },
+        { id: 1, category: 'orders', title: 'How to track my order?', content: 'To track your order, visit the "Order History" section in your profile dashboard. Once your postpartum wellness kit is shipped, a real-time tracking link will be sent to your mobile number and email. You can use this link to track your order until it reach your doorstep.' },
         { id: 2, category: 'shipping', title: 'Shipping information and timelines', content: 'We offer domestic shipping across India. Standard delivery takes 3-5 business days. For remote locations, it may take up to 7 days. You will receive a notification as soon as your package is out for delivery.' },
         { id: 3, category: 'payments', title: 'Payment methods and security', content: 'We accept all major credit cards, debit cards, UPI (GPay, PhonePe), and Net Banking. All transactions are secured with 256-bit encryption via our trusted partner Razorpay.' },
         { id: 4, category: 'account', title: 'How to reset my password or update account details?', content: 'If you forgot your password, click the "Forgot Password" link on the login modal. To update your profile, click the user icon > Profile Details. You can change your name, phone number, and password there.' },
@@ -16,8 +16,8 @@ const Help = () => {
         { id: 6, category: 'orders', title: 'How to cancel my order?', content: 'You can cancel your order within 2 hours of placement directly from the "Order History" section. Once the order enters the packaging phase, cancellation is not possible. If you missed the window, please contact our support team immediately.' },
         { id: 7, category: 'payments', title: 'Refund policy and timeline', content: 'Once a refund is initiated, it typically takes 5-7 business days to reflect in your original payment method. For UPI payments, refunds are often faster.' },
         { id: 8, category: 'account', title: 'How to change delivery address?', content: 'You can update your shipping address in the "Saved Addresses" section of your profile. Note: Addresses for orders already "In Process" or "Shipped" cannot be changed.' },
-        { id: 9, category: 'orders', title: 'Bulk orders and corporate gifting', content: 'For bulk inquiries or custom gifting solutions, please connect with us via the contact form or email support@amritan.com.' },
-        { id: 10, category: 'account', title: 'How to connect with the support team?', content: 'You can connect with our support team via Live Chat, Email (support@amritan.com), or Phone (+91 078200 50723). Our team is available Mon-Sat, 9 AM to 7 PM to help you with any issues.' }
+        { id: 9, category: 'orders', title: 'Bulk orders and corporate gifting', content: 'For bulk inquiries or custom gifting solutions, please connect with us via the contact form or email support@maaposhan.com.' },
+        { id: 10, category: 'account', title: 'How to connect with the support team?', content: 'You can connect with our support team via Live Chat, Email (support@maaposhan.com), or Phone (+91 078200 50723). Our team is available Mon-Sat, 9 AM to 7 PM to help you with any issues.' }
     ];
 
     const getArticlesToDisplay = () => {
@@ -152,7 +152,7 @@ const Help = () => {
                             <Mail className="m-icon" />
                             <div>
                                 <strong>Email Support</strong>
-                                <span>support@amritan.com</span>
+                                <span>support@maaposhan.com</span>
                             </div>
                         </div>
                         <div className="method">

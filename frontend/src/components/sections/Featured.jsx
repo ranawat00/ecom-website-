@@ -5,6 +5,20 @@ import { useCart } from '../../context/CartContext';
 import { useProducts } from '../../context/ProductContext';
 import '../../assets/styles/Featured.css';
 
+const getDynamicProductTitle = (product, selectedKey) => {
+  if (product.id === 'maaposhan-harira') {
+    return 'MaaPoshan Harira (Strength Version (Made from Ghee))';
+  }
+  return product.title;
+};
+
+const getDynamicSubtitle = (product, selectedKey) => {
+  if (product.id === 'maaposhan-harira') {
+    return 'For normal delivery moms';
+  }
+  return `${selectedKey || ''} Premium Pack`;
+};
+
 const Featured = () => {
   const { addToCart } = useCart();
   const { products, loading } = useProducts();
@@ -29,7 +43,7 @@ const Featured = () => {
   // Filter and initialize
   const featuredProducts = React.useMemo(() => {
     return products.filter(p => 
-      p.tag === 'PREMIUM BLEND' || p.tag === 'SEASONAL SPECIAL' || p.tag === 'PURE A2 GHEE' || p.tag === 'ARTISANAL CHOICE'
+      p.tag === 'COMPLETE POSTPARTUM CARE' || p.tag === 'TRADITIONAL HEALING' || p.tag === 'RELAXATION & SLEEP' || p.tag === 'HEALTHY SNACK' || p.tag === 'POSTPARTUM ESSENTIAL'
     );
   }, [products]);
 
@@ -113,21 +127,22 @@ const Featured = () => {
               <div className="card-body">
                 <div className="card-info">
                    <div className="card-text">
-                     <h3 className="card-name">{product.title}</h3>
-                     <p className="card-subtitle">{selectedKey} Artisanal Pack</p>
+                     <h3 className="card-name">{getDynamicProductTitle(product, selectedKey)}</h3>
+                     <p className="card-subtitle">{getDynamicSubtitle(product, selectedKey)}</p>
+
                      
                      {/* Variant Selector */}
                      {variantKeys.length > 1 && (
-                       <div className="featured-variant-selector">
-                         {variantKeys.map(key => (
-                           <button 
-                             key={key}
-                             className={`f-variant-pill ${selectedKey === key ? 'active' : ''}`}
-                             onClick={(e) => handleVariantChange(e, product.id, key)}
-                           >
-                             {key}
-                           </button>
-                         ))}
+                       <div className="card-select-wrapper" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+                         <select 
+                           value={selectedKey}
+                           onChange={(e) => handleVariantChange(e, product.id, e.target.value)}
+                           className="featured-variant-select"
+                         >
+                           {variantKeys.map(key => (
+                             <option key={key} value={key}>{key}</option>
+                           ))}
+                         </select>
                        </div>
                      )}
                    </div>

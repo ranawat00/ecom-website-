@@ -108,7 +108,7 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="navbar-container">
           <Link to="/" className="navbar-logo" style={{ textDecoration: 'none' }} onClick={() => handleNavigate('/', '')}>
-            Amritan
+            <img src="/images/logo.png" alt="MaaPoshan Logo" />
           </Link>
 
           <div className={`navbar-menu ${isOpen ? 'active' : ''}`}>

@@ -8,9 +8,9 @@ const Hero = () => {
   // since we only successfully generated one image.
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
-    '/images/hero-1.png',
-    '/images/hero-1.png', // Fallback to same image for demo
-    '/images/hero-1.png'
+    '/images/hero-maaposhan.png',
+    '/images/maaposhan-kit.png',
+    '/images/maaposhan-harira.png'
   ];
 
   useEffect(() => {
@@ -38,22 +38,23 @@ const Hero = () => {
       {/* Content */}
       <div className="hero-content">
         <div className="hero-content-inner">
-          <span className="hero-tag">TRADITIONAL SOURCING</span>
+          <span className="hero-tag">TRADITIONAL POSTPARTUM CARE</span>
           <h1 className="hero-title">
-            Pure.<br />
-            Natural.<br />
-            Chemical-<br />
-            Free.
+            Recover.<br />
+            Nourish.<br />
+            Care.<br />
+            Naturally.
           </h1>
           <p className="hero-description">
-            Experience the golden essence of earth. Our handcrafted jaggery and desi ghee are nurtured in the heart of heritage farms, preserving every nutrient just as nature intended.
+            Because you deserve the best. Authentic strength, healing, and lactation support blends made with pure A2 ghee, organic jaggery, and premium nuts for new mothers.
           </p>
           <div className="hero-buttons">
             <button className="btn-shop" onClick={() => navigate('/products')}>Shop Now</button>
-            <button className="btn-explore" onClick={() => navigate('/about')}>Explore Heritage</button>
+            <button className="btn-explore" onClick={() => navigate('/about')}>Explore Story</button>
           </div>
         </div>
       </div>
+
 
       {/* Slider Indicators */}
       <div className="hero-dots">

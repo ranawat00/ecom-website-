@@ -8,13 +8,13 @@ const ShippingPolicy = () => {
       <header className="policy-header">
         <Truck size={48} color="#D4A373" style={{ marginBottom: '16px' }} />
         <h1>Shipping Policy</h1>
-        <p>Ensuring your heritage essentials reach you safely and swiftly.</p>
+        <p>Ensuring your postpartum wellness essentials reach you safely and swiftly.</p>
       </header>
 
       <div className="policy-content">
         <section className="policy-section">
           <h2>Order Processing</h2>
-          <p>Each Amritan product is handcrafted or hand-poured upon order verification to ensure the highest quality. Please allow 1-2 business days for us to process your order before it ships.</p>
+          <p>Each MaaPoshan product is handcrafted or hand-poured upon order verification to ensure the highest quality. Please allow 1-2 business days for us to process your order before it ships.</p>
         </section>
 
         <section className="policy-section">
@@ -33,7 +33,7 @@ const ShippingPolicy = () => {
 
         <section className="policy-section">
           <h2>Safe Packaging</h2>
-          <p>Since our jaggery and ghee are often housed in traditional glass and clay-inspired containers, we use 4-layered protective wrapping to ensure zero breakage during transit. Our packaging is 80% biodegradable.</p>
+          <p>Since our postpartum recovery kits are often housed in traditional glass and clay-inspired containers, we use 4-layered protective wrapping to ensure zero breakage during transit. Our packaging is 80% biodegradable.</p>
         </section>
 
         <section className="policy-section">

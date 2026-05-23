@@ -6,33 +6,29 @@ const Heritage = () => {
     <section className="heritage-section">
       <div className="heritage-container">
         <div className="heritage-content">
-          <span className="heritage-subtitle">MASTERING THE ART</span>
-          <h2 className="heritage-title">Hand-Poured Heritage</h2>
+          <span className="heritage-subtitle">TRADITIONAL POSTPARTUM WELLNESS</span>
+          <h2 className="heritage-title">Traditional Postpartum Healing</h2>
           <div className="heritage-description">
             <p>
-              At Amritan, we believe in the sanctity of slow-food. Our Jaggery is crafted using 
-              time-honored techniques where fresh sugarcane juice is reduced in shallow iron vats, 
-              retaining its signature golden hue and complex mineral profile.
+              At MaaPoshan, we believe in restoring the strength of new mothers using traditional Ayurvedic wisdom. Our Harira and wellness blends are slow-cooked in small batches, ensuring every nutrient and essential oil is preserved just as nature intended.
             </p>
             <p>
-              Unlike commercial alternatives, our process is entirely sulfur-free. Every block 
-              is hand-poured with precision, ensuring a crystalline texture that dissolves 
-              beautifully whether it's in your morning chai or a traditional festive sweet.
+              Using pure A2 cow ghee, organic jaggery, and selected postpartum-restorative spices (like fenugreek, ajwain, turmeric, and ginger), our products help new mothers rebuild tissue, improve lactation, and boost overall energy levels during the delicate fourth trimester.
             </p>
           </div>
           
           <div className="heritage-stats">
             <div className="stat-item">
               <span className="stat-number">100%</span>
-              <span className="stat-label">Chemical Free</span>
+              <span className="stat-label">Natural Ingredients</span>
             </div>
             <div className="stat-item">
-              <span className="stat-number">48H</span>
-              <span className="stat-label">Slow Process</span>
+              <span className="stat-number">Bilona</span>
+              <span className="stat-label">A2 Ghee Base</span>
             </div>
             <div className="stat-item">
-              <span className="stat-number">8th</span>
-              <span className="stat-label">Gen Mastery</span>
+              <span className="stat-number">Ayurvedic</span>
+              <span className="stat-label">Expert Formulated</span>
             </div>
           </div>
         </div>
@@ -40,17 +36,18 @@ const Heritage = () => {
         <div className="heritage-image-wrapper">
           <div className="heritage-image-card">
             <img 
-              src="/images/desi-gud-main.png" 
-              alt="Artisanal Jaggery Craft" 
+              src="/images/maaposhan-harira.png" 
+              alt="MaaPoshan Harira Craft" 
               className="heritage-img"
             />
             <div className="heritage-image-overlay">
-              <span>TRADITIONAL VATS</span>
+              <span>SLOW COOKED HEALING</span>
             </div>
           </div>
         </div>
       </div>
     </section>
+
   );
 };
 

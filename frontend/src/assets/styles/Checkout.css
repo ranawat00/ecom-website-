@@ -31,7 +31,7 @@ body.dark-theme .add-address-btn-secondary { border: 2px dashed rgba(255,255,255
   border: 2px solid rgba(0,0,0,0.08); border-radius: 10px; cursor: pointer; transition: all 0.2s;
 }
 body.dark-theme .address-option { border: 2px solid rgba(255,255,255,0.08); }
-.address-option.selected { border-color: var(--accent-color, #D4A373); background-color: rgba(212,163,115,0.05); }
+.address-option.selected { border-color: var(--accent-color, #C5A880); background-color: rgba(212,163,115,0.05); }
 .address-option input[type="radio"] { margin-top: 4px; accent-color: var(--accent-color); }
 .address-option-content { flex: 1; }
 .address-type-badge { font-size: 0.75rem; font-weight: 700; background: var(--accent-color); color: #fff; padding: 2px 8px; border-radius: 20px; }
@@ -75,7 +75,7 @@ body.dark-theme .grand-total { border-top: 1px solid rgba(255,255,255,0.1); }
 
 .proceed-btn {
   width: 100%; padding: 16px; margin-top: 20px;
-  background: linear-gradient(135deg, #4A3B2C, #2a2118); color: #fff;
+  background: linear-gradient(135deg, #3C2226, #2A1215); color: #fff;
   border: none; border-radius: 8px; font-size: 1.05rem; font-weight: 700;
   cursor: pointer; transition: opacity 0.2s, transform 0.2s;
 }

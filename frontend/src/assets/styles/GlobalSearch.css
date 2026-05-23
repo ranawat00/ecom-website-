@@ -47,7 +47,7 @@
 }
 
 .search-icon-active {
-    color: #8B5E3C;
+    color: #6B1D2F;
 }
 
 .search-close-btn {
@@ -82,15 +82,15 @@
 }
 
 .result-item:hover {
-    background-color: rgba(139, 94, 60, 0.05);
-    border-left-color: #8B5E3C;
+    background-color: rgba(107, 29, 47, 0.05);
+    border-left-color: #6B1D2F;
 }
 
 .item-icon {
     width: 40px;
     height: 40px;
     background-color: #F8EED8;
-    color: #8B5E3C;
+    color: #6B1D2F;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -115,7 +115,7 @@
 }
 
 .item-arrow {
-    color: #8B5E3C;
+    color: #6B1D2F;
     opacity: 0;
     transition: all 0.2s;
 }
@@ -145,7 +145,7 @@
 
 .suggestion-chips span {
     background-color: #F8EED8;
-    color: #8B5E3C;
+    color: #6B1D2F;
     padding: 8px 18px;
     border-radius: 30px;
     font-size: 0.9rem;
@@ -155,7 +155,7 @@
 }
 
 .suggestion-chips span:hover {
-    background-color: #8B5E3C;
+    background-color: #6B1D2F;
     color: #fff;
     transform: translateY(-2px);
 }
@@ -188,11 +188,11 @@ body.dark-theme .search-header {
 }
 
 body.dark-theme .search-header input {
-    color: #FFF8E7;
+    color: #FAF5EE;
 }
 
 body.dark-theme .item-title {
-    color: #FFF8E7;
+    color: #FAF5EE;
 }
 
 body.dark-theme .result-item:hover {

@@ -33,20 +33,21 @@ const Features = () => {
   const featureData = [
     {
       icon: <Leaf className="feature-icon" />,
-      title: 'No Chemicals',
-      description: 'Sourced from organic sugarcane farms that strictly prohibit synthetic fertilizers and pesticides.',
+      title: 'No Additives',
+      description: 'Sourced from certified organic farms, strictly free from synthetic chemicals, artificial colors, and preservatives.',
     },
     {
       icon: <Hand className="feature-icon" />,
-      title: 'Handmade',
-      description: 'Processed in small batches using slow-cooking methods passed down through generations.',
+      title: 'Slow-Cooked',
+      description: 'Prepared in small artisanal batches following traditional postpartum recipe systems for complete bioavailability.',
     },
     {
       icon: <Tractor className="feature-icon" />,
-      title: 'Farm Fresh',
-      description: 'Direct from the heritage farms of India to your table, ensuring the highest nutrient density.',
+      title: 'A2 Ghee Base',
+      description: 'Slow-cooked using authentic Bilona-churned A2 cow ghee, essential for joint health and tissue recovery.',
     }
   ];
+
 
   return (
     <section className="features-wrapper">

@@ -4,17 +4,17 @@ import '../assets/styles/About.css';
 
 const VALUES = [
   { Icon: Leaf, title: 'Pure & Natural', desc: 'Zero chemicals, zero preservatives. Every product is crafted exactly as nature intended.' },
-  { Icon: HeartPulse, title: 'Health First', desc: 'Packed with minerals and antioxidants. Heritage food that genuinely nourishes your body.' },
-  { Icon: Truck, title: 'Farm to Table', desc: 'Direct partnerships with artisan farmers. No middlemen, full traceability, fair wages.' },
-  { Icon: Award, title: 'Heritage Quality', desc: 'Techniques passed down through generations — bilona method ghee, iron-vat jaggery.' },
-  { Icon: Users, title: 'Community Driven', desc: 'Supporting over 200 rural farming families across UP, Maharashtra and Karnataka.' },
+  { Icon: HeartPulse, title: 'Health First', desc: 'Carefully selected Ayurvedic ingredients to restore maternal health and vitality.' },
+  { Icon: Truck, title: 'Direct Sourcing', desc: 'Direct partnerships with organic farmers. No middlemen, full traceability, fair wages.' },
+  { Icon: Award, title: 'Heritage Quality', desc: 'Techniques passed down through generations — bilona method ghee, traditional ayurvedic preparation.' },
+  { Icon: Users, title: 'Community Driven', desc: 'Supporting rural women artisans and organic farming families across India.' },
   { Icon: Globe, title: 'Sustainable Future', desc: 'Eco-friendly packaging, zero plastic, carbon-conscious delivery in every order.' },
 ];
 
 const MILESTONES = [
-  { year: '2018', title: 'The Beginning', desc: 'Started in a small UP village kitchen, sharing heirloom jaggery recipes with neighbors.' },
-  { year: '2019', title: '200+ Farmers', desc: 'Partnered with farming communities in 3 states to source the purest raw sugarcane.' },
-  { year: '2021', title: 'Online Launch', desc: 'Brought Amritan to the internet — delivering heritage taste across India.' },
+  { year: '2018', title: 'The Beginning', desc: 'Started in a small home kitchen, sharing traditional postpartum wellness recipes with new mothers.' },
+  { year: '2019', title: 'Sourcing Pure Ghee', desc: 'Partnered with organic dairy farms for authentic A2 Bilona cow ghee.' },
+  { year: '2021', title: 'Online Launch', desc: 'Brought MaaPoshan to the internet — delivering traditional postpartum care across India.' },
   { year: '2023', title: '50,000+ Happy Families', desc: 'Crossed 50,000 orders milestone with a 4.9★ average customer satisfaction rating.' },
   { year: '2024', title: 'Zero Plastic', desc: 'Transitioned to 100% biodegradable, eco-friendly packaging across our entire product line.' },
 ];
@@ -26,17 +26,15 @@ const About = () => (
     <section className="about-hero">
       <div className="about-hero-content">
         <span className="about-hero-tag">Our Story</span>
-        <h1>Heritage in Every<br />Golden Drop</h1>
+        <h1>Restoring Strength<br />After Childbirth</h1>
         <p>
-          Amritan was born from a simple belief: the food our grandparents ate — raw, real, unprocessed —
-          is still the best food there is. We source directly from artisan farmers who practice age-old
-          traditions, and bring it right to your doorstep.
+          MaaPoshan was born from a simple belief: the traditional care a mother receives after childbirth is crucial for her lifelong health. We source directly from certified organic farmers and craft Ayurvedic postpartum recovery kits to support mothers in their healing journey.
         </p>
       </div>
       <div className="about-hero-visual">
         <div className="about-hero-img-stack">
-          <img src="/images/desi-gud-main.png" alt="Artisan Jaggery" className="hero-img hero-img-1" />
-          <img src="/images/desi-ghee.png" alt="Pure Ghee" className="hero-img hero-img-2" />
+          <img src="/images/maaposhan-kit.png" alt="MaaPoshan Recovery Kit" className="hero-img hero-img-1" />
+          <img src="/images/maaposhan-ghee.png" alt="Pure Bilona Ghee" className="hero-img hero-img-2" />
         </div>
       </div>
     </section>
@@ -47,10 +45,7 @@ const About = () => (
         <div className="mission-label">Our Mission</div>
         <h2>Reviving the Wisdom of <span>Ancestral Nutrition</span></h2>
         <p>
-          In a world flooded with ultra-processed food, we bring back the original superfoods.
-          Jaggery that remembers sugarcane. Ghee that remembers the cow. Spices that remember the soil.
-          Our mission is to make pure, traditional Indian nutrition accessible to every household
-          without compromising on authenticity, quality, or farmer welfare.
+          In a world that often overlooks postpartum recovery, we bring back the traditional care that heals from within. Pure bilona A2 ghee, organic jaggery, and handpicked wellness spices. Our mission is to make authentic, Ayurvedic postpartum nutrition accessible to every new mother, helping her restore energy and strength.
         </p>
         <div className="mission-stats">
           <div className="stat-item"><strong>50K+</strong><span>Happy Families</span></div>
@@ -100,8 +95,8 @@ const About = () => (
 
     {/* CTA */}
     <section className="about-cta">
-      <h2>Taste the Difference Today</h2>
-      <p>Join thousands of families making the switch to natural, heritage food.</p>
+      <h2>Prioritize Your Recovery Today</h2>
+      <p>Invest in authentic, traditional Ayurvedic care for your postpartum journey.</p>
       <a href="/#products" className="about-cta-btn">Explore Collection</a>
     </section>
   </div>

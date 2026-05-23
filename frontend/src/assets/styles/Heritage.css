@@ -1,7 +1,7 @@
 .heritage-section {
   padding: 8rem 2rem;
   background-color: #140F0A; /* Deep dark theme for premium contrast */
-  color: #FFF8E7;
+  color: #FAF5EE;
   overflow: hidden;
 }
 
@@ -18,7 +18,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #D4A373;
+  color: #C5A880;
   letter-spacing: 4px;
   display: block;
   margin-bottom: 1.5rem;
@@ -29,7 +29,7 @@
   font-size: 4rem;
   line-height: 1.1;
   margin-bottom: 2.5rem;
-  color: #FFF8E7;
+  color: #FAF5EE;
 }
 
 .heritage-description p {
@@ -51,7 +51,7 @@
   display: block;
   font-family: 'Noto Serif', serif;
   font-size: 2.5rem;
-  color: #D4A373;
+  color: #C5A880;
   margin-bottom: 0.5rem;
 }
 
@@ -104,7 +104,7 @@
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 2px;
-  color: #FFF8E7;
+  color: #FAF5EE;
 }
 
 /* Responsiveness */

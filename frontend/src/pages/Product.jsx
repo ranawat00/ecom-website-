@@ -54,6 +54,20 @@ const Product = () => {
     fetchProduct();
   }, [id]);
 
+  const getDynamicTitle = () => {
+    if (product && product.id === 'maaposhan-harira') {
+      return 'MaaPoshan Harira (Strength Version (Made from Ghee))';
+    }
+    return product ? product.title : '';
+  };
+
+  const getDynamicSubtitle = () => {
+    if (product && product.id === 'maaposhan-harira') {
+      return 'For normal delivery moms';
+    }
+    return '';
+  };
+
   if (loading) return <div className="product-loading">Loading artisan details...</div>;
   if (!product) return <div className="product-error">Product not found.</div>;
 
@@ -96,13 +110,18 @@ const Product = () => {
           <div className="reviews-row">
             <div className="stars">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} size={16} fill="#8B5E3C" color="#8B5E3C" className="star-icon" />
+                <Star key={i} size={16} fill="#6B1D2F" color="#6B1D2F" className="star-icon" />
               ))}
             </div>
             <span className="review-count">({product.reviews} Reviews)</span>
           </div>
 
-          <h1 className="product-title">{product.title}</h1>
+          <h1 className="product-title">{getDynamicTitle()}</h1>
+          {product.id === 'maaposhan-harira' && (
+            <p className="product-subtitle-custom" style={{ color: '#8C6374', fontWeight: '700', fontSize: '1.1rem', marginTop: '-0.75rem', marginBottom: '1.25rem' }}>
+              {getDynamicSubtitle()}
+            </p>
+          )}
           <p className="product-description">{product.description}</p>
 
           <div className="pricing-row">
@@ -112,7 +131,7 @@ const Product = () => {
           </div>
 
           <div className="weight-selector">
-            <p className="selector-label">SELECT WEIGHT</p>
+            <p className="selector-label">SELECT SIZE</p>
             <div className="weight-options">
               {Object.entries(product.variants || {}).map(([weight, v]) => (
                 <button 
@@ -247,7 +266,7 @@ const Product = () => {
         {activeTab === 'benefits' && (
           <div className="tab-content fade-in">
             <h3 className="tab-section-title">Wholesome Living</h3>
-            <p className="essence-desc">Rich in traditional wisdom and natural nutrients, Amritan products are crafted to nourish both body and soul.</p>
+            <p className="essence-desc">Rich in traditional wisdom and natural nutrients, MaaPoshan products are crafted to nourish both body and soul.</p>
             <div className="benefits-detailed-grid">
               {product?.benefits?.map((benefit) => (
                 <div key={benefit.id} className="detailed-benefit-card">
@@ -392,8 +411,8 @@ const Product = () => {
                     <Star 
                       key={num} 
                       size={28} 
-                      fill={num <= newReview.stars ? '#8B5E3C' : 'transparent'} 
-                      color="#8B5E3C" 
+                      fill={num <= newReview.stars ? '#6B1D2F' : 'transparent'} 
+                      color="#6B1D2F" 
                       onClick={() => setNewReview({...newReview, stars: num})}
                       className="clickable-star"
                     />

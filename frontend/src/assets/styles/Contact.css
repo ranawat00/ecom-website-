@@ -22,7 +22,7 @@ body.dark-theme .contact-hero { background: linear-gradient(160deg, #1a130c 0%, 
 body.dark-theme .contact-info-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
 .info-icon-wrap {
   width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
-  background: linear-gradient(135deg, #D4A373, #b5824f);
+  background: linear-gradient(135deg, #C5A880, #b5824f);
   display: flex; align-items: center; justify-content: center; color: #fff;
 }
 .contact-info-card strong { font-size: 0.9rem; color: var(--text-main); display: block; margin-bottom: 4px; }
@@ -51,7 +51,7 @@ body.dark-theme .map-wrapper { border: 1px solid rgba(255,255,255,0.08); }
 @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
 .form-group { display: flex; flex-direction: column; gap: 6px; }
 .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
-.form-group label span { color: #D4A373; }
+.form-group label span { color: #C5A880; }
 .form-group input, .form-group select, .form-group textarea {
   padding: 12px 14px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px;
   background: transparent; color: var(--text-main); font-size: 0.95rem;
@@ -61,11 +61,11 @@ body.dark-theme .form-group input,
 body.dark-theme .form-group select,
 body.dark-theme .form-group textarea { border: 1px solid rgba(255,255,255,0.15); }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-  outline: none; border-color: #D4A373;
+  outline: none; border-color: #C5A880;
 }
 .contact-submit-btn {
   display: flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 16px; background: linear-gradient(135deg, #D4A373, #b5824f);
+  padding: 16px; background: linear-gradient(135deg, #C5A880, #b5824f);
   color: #fff; border: none; border-radius: 8px; font-size: 1rem;
   font-weight: 700; cursor: pointer; transition: all 0.2s;
   box-shadow: 0 4px 15px rgba(212,163,115,0.35);

@@ -53,7 +53,7 @@
 }
 
 .auth-header h2 {
-  color: #4A3B2C;
+  color: #3C2226;
   margin-top: 0;
   margin-bottom: 4px;
   font-family: "Playfair Display", serif;
@@ -93,7 +93,7 @@
 .auth-form label {
   display: block;
   font-size: 0.85rem;
-  color: #4A3B2C;
+  color: #3C2226;
   margin-bottom: 6px;
   font-weight: 500;
 }
@@ -110,8 +110,8 @@
 
 .auth-form input:focus {
   outline: none;
-  border-color: #D4A373;
-  box-shadow: 0 0 0 2px rgba(212, 163, 115, 0.2);
+  border-color: #C5A880;
+  box-shadow: 0 0 0 2px rgba(197, 168, 128, 0.2);
 }
 
 .password-input-wrapper {
@@ -140,7 +140,7 @@
 .auth-submit-btn {
   width: 100%;
   padding: 12px;
-  background-color: #4A3B2C;
+  background-color: #3C2226;
   color: white;
   border: none;
   border-radius: 6px;
@@ -168,7 +168,7 @@
 }
 
 .auth-toggle-link {
-  color: #D4A373;
+  color: #C5A880;
   font-weight: bold;
   cursor: pointer;
   text-decoration: underline;
@@ -181,7 +181,7 @@
 
 .forgot-pass-link-modal {
   font-size: 0.75rem;
-  color: #D4A373;
+  color: #C5A880;
   cursor: pointer;
   text-decoration: underline;
   font-weight: 500;
@@ -199,8 +199,8 @@
   background: linear-gradient(135deg, #fdf6ec, #f0e0c0);
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 12px;
-  color: #8B5E3C;
-  box-shadow: 0 4px 12px rgba(139, 94, 60, 0.2);
+  color: #6B1D2F;
+  box-shadow: 0 4px 12px rgba(107, 29, 47, 0.2);
 }
 
 /* Phone number input with +91 prefix */
@@ -210,12 +210,12 @@
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .phone-input-wrap:focus-within {
-  border-color: #D4A373;
-  box-shadow: 0 0 0 2px rgba(212, 163, 115, 0.2);
+  border-color: #C5A880;
+  box-shadow: 0 0 0 2px rgba(197, 168, 128, 0.2);
 }
 .phone-prefix {
   padding: 12px 10px; background: #f8f4ef;
-  color: #4A3B2C; font-weight: 600; font-size: 0.9rem;
+  color: #3C2226; font-weight: 600; font-size: 0.9rem;
   border-right: 1px solid #ddd; white-space: nowrap;
 }
 .phone-input-wrap input {
@@ -236,16 +236,16 @@
   text-align: center; font-size: 1.4rem; font-weight: 700;
   border: 2px solid #ddd !important; border-radius: 10px !important;
   padding: 0 !important; box-sizing: border-box;
-  color: #4A3B2C; background: #fafafa;
+  color: #3C2226; background: #fafafa;
   transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
 }
 .otp-digit-box:focus {
-  border-color: #D4A373 !important;
-  box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.25) !important;
+  border-color: #C5A880 !important;
+  box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.25) !important;
   background: #fff; transform: scale(1.06);
 }
 .otp-digit-box:not(:placeholder-shown) {
-  border-color: #8B5E3C !important; background: #fdf6ec;
+  border-color: #6B1D2F !important; background: #fdf6ec;
 }
 
 /* Error state — shake animation */
@@ -269,9 +269,9 @@
   font-size: 0.82rem; color: #888; transition: color 0.2s;
   padding: 4px 0;
 }
-.otp-back-btn:hover, .otp-resend-btn:hover { color: #4A3B2C; }
+.otp-back-btn:hover, .otp-resend-btn:hover { color: #3C2226; }
 .otp-resend-timer {
-  font-size: 0.82rem; color: #D4A373; font-weight: 600;
+  font-size: 0.82rem; color: #C5A880; font-weight: 600;
 }
 
 /* Dark mode support */

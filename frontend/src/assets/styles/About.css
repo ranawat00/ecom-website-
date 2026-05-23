@@ -27,7 +27,7 @@
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #D4A373;
+  color: #C5A880;
 }
 
 .about-hero-content h1 {
@@ -102,7 +102,7 @@ body.dark-theme .about-mission {
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #D4A373;
+  color: #C5A880;
   margin-bottom: 14px;
 }
 
@@ -114,7 +114,7 @@ body.dark-theme .about-mission {
 }
 
 .about-mission-inner h2 span {
-  color: #D4A373;
+  color: #C5A880;
 }
 
 .about-mission-inner p {
@@ -145,7 +145,7 @@ body.dark-theme .about-mission {
   display: block;
   font-size: 2rem;
   font-weight: 800;
-  color: #D4A373;
+  color: #C5A880;
 }
 
 .stat-item span {
@@ -171,7 +171,7 @@ body.dark-theme .about-mission {
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #D4A373;
+  color: #C5A880;
 }
 
 .about-section-header h2 {
@@ -221,7 +221,7 @@ body.dark-theme .value-card {
   width: 52px;
   height: 52px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #D4A373, #b5824f);
+  background: linear-gradient(135deg, #C5A880, #b5824f);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -273,7 +273,7 @@ body.dark-theme .about-timeline {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, #D4A373, transparent);
+  background: linear-gradient(to bottom, #C5A880, transparent);
   transform: translateX(-50%);
 }
 
@@ -307,7 +307,7 @@ body.dark-theme .timeline-content {
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 1px;
-  color: #D4A373;
+  color: #C5A880;
 }
 
 .timeline-content h3 {
@@ -331,11 +331,11 @@ body.dark-theme .timeline-content {
   top: 24px;
   width: 14px;
   height: 14px;
-  background: #D4A373;
+  background: #C5A880;
   border-radius: 50%;
   transform: translateX(-50%);
   border: 3px solid var(--bg-primary);
-  box-shadow: 0 0 0 2px #D4A373;
+  box-shadow: 0 0 0 2px #C5A880;
 }
 
 @media (max-width: 700px) {
@@ -358,7 +358,7 @@ body.dark-theme .timeline-content {
 .about-cta {
   text-align: center;
   padding: 80px 24px;
-  background: linear-gradient(135deg, #4A3B2C, #2a2118);
+  background: linear-gradient(135deg, #3C2226, #2A1215);
   color: #fff;
 }
 
@@ -377,7 +377,7 @@ body.dark-theme .timeline-content {
 .about-cta-btn {
   display: inline-block;
   padding: 16px 36px;
-  background: #D4A373;
+  background: #C5A880;
   color: #fff;
   border-radius: 8px;
   text-decoration: none;

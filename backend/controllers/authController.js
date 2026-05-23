@@ -211,14 +211,14 @@ const forgotPassword = async (req, res) => {
         const resetUrl = `${frontendUrl}/reset-password/${resetToken}`;
 
         const mailOptions = {
-            from: '"Amritan Support" <support@amritan.com>',
+            from: '"MaaPoshan Support" <support@maaposhan.com>',
             to: user.email,
             subject: 'Password Reset Request',
             html: `
                 <h3>Password Reset Request</h3>
-                <p>You requested a password reset for your Amritan account.</p>
+                <p>You requested a password reset for your MaaPoshan account.</p>
                 <p>Please click the link below to reset your password. This link is valid for 1 hour.</p>
-                <a href="${resetUrl}" style="padding: 10px 20px; background-color: #8B5E3C; color: white; text-decoration: none; border-radius: 5px;">Reset Password</a>
+                <a href="${resetUrl}" style="padding: 10px 20px; background-color: #6B1D2F; color: white; text-decoration: none; border-radius: 5px;">Reset Password</a>
                 <p>If you did not request this, please ignore this email.</p>
             `,
         };

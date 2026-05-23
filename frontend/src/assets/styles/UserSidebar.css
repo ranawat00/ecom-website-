@@ -38,7 +38,7 @@
 
 .sidebar-header {
   padding: 40px 20px 24px;
-  background: linear-gradient(135deg, #4A3B2C 0%, #2a2118 100%);
+  background: linear-gradient(135deg, #3C2226 0%, #2A1215 100%);
   color: white;
   position: relative;
   border-bottom-left-radius: 20px;
@@ -109,9 +109,9 @@
 }
 
 .menu-item:hover {
-  background-color: rgba(212, 163, 115, 0.1);
-  border-left-color: var(--accent-color, #D4A373);
-  color: var(--accent-color, #D4A373);
+  background-color: rgba(197, 168, 128, 0.1);
+  border-left-color: var(--accent-color, #C5A880);
+  color: var(--accent-color, #C5A880);
 }
 
 .sidebar-footer {
@@ -142,12 +142,12 @@ body.dark-theme .sidebar-footer {
 
 .theme-toggle-btn {
   background-color: transparent;
-  border: 2px solid var(--accent-color, #D4A373);
+  border: 2px solid var(--accent-color, #C5A880);
   color: var(--text-main);
 }
 
 .theme-toggle-btn:hover {
-  background-color: rgba(212, 163, 115, 0.1);
+  background-color: rgba(197, 168, 128, 0.1);
   transform: translateY(-2px);
 }
 
@@ -351,7 +351,7 @@ body.dark-theme .add-action-btn {
 .add-action-btn:hover {
   border-color: var(--accent-color);
   color: var(--accent-color);
-  background-color: rgba(212, 163, 115, 0.05);
+  background-color: rgba(197, 168, 128, 0.05);
 }
 
 /* Help View Styles */
@@ -365,23 +365,23 @@ body.dark-theme .add-action-btn {
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  color: #8B5E3C;
+  color: #6B1D2F;
   opacity: 0.6;
 }
 
 .help-search-input {
   width: 100%;
   padding: 12px 12px 12px 40px !important;
-  background-color: rgba(139, 94, 60, 0.05) !important;
-  border: 1px solid rgba(139, 94, 60, 0.1) !important;
+  background-color: rgba(107, 29, 47, 0.05) !important;
+  border: 1px solid rgba(107, 29, 47, 0.1) !important;
   border-radius: 12px !important;
   font-size: 0.9rem !important;
 }
 
 .help-search-input:focus {
-  border-color: #8B5E3C !important;
+  border-color: #6B1D2F !important;
   background-color: #fff !important;
-  box-shadow: 0 4px 12px rgba(139, 94, 60, 0.08);
+  box-shadow: 0 4px 12px rgba(107, 29, 47, 0.08);
 }
 
 .help-topics-list {
@@ -394,14 +394,14 @@ body.dark-theme .add-action-btn {
 .help-topic-item {
   padding: 16px;
   background-color: #fff;
-  border: 1px solid rgba(139, 94, 60, 0.08);
+  border: 1px solid rgba(107, 29, 47, 0.08);
   border-radius: 12px;
   transition: all 0.2s ease;
 }
 
 .help-topic-item:hover {
-  border-color: #8B5E3C;
-  box-shadow: 0 4px 15px rgba(139, 94, 60, 0.05);
+  border-color: #6B1D2F;
+  box-shadow: 0 4px 15px rgba(107, 29, 47, 0.05);
 }
 
 .help-topic-item h5 {
@@ -434,8 +434,8 @@ body.dark-theme .add-action-btn {
 }
 
 .help-contact-banner {
-  background-color: #8B5E3C;
-  color: #FFF8E7;
+  background-color: #6B1D2F;
+  color: #FAF5EE;
   padding: 20px;
   border-radius: 16px;
   text-align: center;
@@ -460,7 +460,7 @@ body.dark-theme .add-action-btn {
   gap: 8px;
   padding: 10px;
   background-color: rgba(255, 248, 231, 0.15);
-  color: #FFF8E7;
+  color: #FAF5EE;
   text-decoration: none;
   border-radius: 8px;
   font-size: 0.85rem;

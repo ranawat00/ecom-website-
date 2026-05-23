@@ -58,15 +58,15 @@ body.dark-theme .order-total-summary { border-top: 2px solid rgba(255,255,255,0.
 body.dark-theme .btn-home { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
 
 .btn-orders {
-  background: linear-gradient(135deg, #8B5E3C, #4A3B2C); color: #fff;
-  box-shadow: 0 4px 15px rgba(139, 94, 60, 0.3);
+  background: linear-gradient(135deg, #6B1D2F, #3C2226); color: #fff;
+  box-shadow: 0 4px 15px rgba(107, 29, 47, 0.3);
   padding: 16px 36px; font-size: 1.05rem; /* Increased size as requested */
 }
 .btn-home:hover, .btn-orders:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); opacity: 0.95; }
-.btn-orders:hover { box-shadow: 0 8px 25px rgba(139, 94, 60, 0.4); }
+.btn-orders:hover { box-shadow: 0 8px 25px rgba(107, 29, 47, 0.4); }
 
 .redirect-note { 
-  font-size: 0.9rem; color: #8B5E3C; font-weight: 500; margin-bottom: 12px;
+  font-size: 0.9rem; color: #6B1D2F; font-weight: 500; margin-bottom: 12px;
   animation: pulse 2s infinite;
 }
 @keyframes pulse { 0% { opacity: 0.7; } 50% { opacity: 1; } 100% { opacity: 0.7; } }
