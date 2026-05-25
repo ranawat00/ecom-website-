@@ -46,13 +46,29 @@ const Navbar = () => {
     };
 
     const checkAuthStatus = () => {
-      setIsAuthenticated(!!localStorage.getItem('token'));
+      const token = localStorage.getItem('token');
+      setIsAuthenticated(!!token);
+      if (token) {
+        const redirectTo = sessionStorage.getItem('redirectAfterLogin');
+        if (redirectTo) {
+          sessionStorage.removeItem('redirectAfterLogin');
+          navigate(redirectTo);
+        }
+      }
+    };
+
+    const handleOpenAuthModal = () => {
+      setIsAuthOpen(true);
     };
 
     checkSessionAge();
     window.addEventListener('authChange', checkAuthStatus);
-    return () => window.removeEventListener('authChange', checkAuthStatus);
-  }, []);
+    window.addEventListener('openAuthModal', handleOpenAuthModal);
+    return () => {
+      window.removeEventListener('authChange', checkAuthStatus);
+      window.removeEventListener('openAuthModal', handleOpenAuthModal);
+    };
+  }, [navigate]);
 
   const toggleTheme = () => {
     const newDarkMode = !isDarkMode;

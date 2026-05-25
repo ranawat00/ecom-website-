@@ -13,8 +13,17 @@ const getDynamicProductTitle = (product, selectedKey) => {
 };
 
 const getDynamicSubtitle = (product, selectedKey) => {
+  if (product.id === 'maaposhan-kit') {
+    return 'Mother & Baby Luxury Gifting Box';
+  }
   if (product.id === 'maaposhan-harira') {
     return 'For normal delivery moms';
+  }
+  if (product.id === 'maaposhan-harira-gentle') {
+    return 'For C-Section mothers';
+  }
+  if (product.id === 'maaposhan-harira-kit') {
+    return 'Raw Product • Ghee • Jaggery Packets';
   }
   return `${selectedKey || ''} Premium Pack`;
 };
@@ -24,7 +33,29 @@ const Featured = () => {
   const { products, loading } = useProducts();
   const navigate = useNavigate();
   const [selectedVariants, setSelectedVariants] = React.useState({});
+  const [isHovered, setIsHovered] = React.useState(false);
   const scrollRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (isHovered || loading || !products || products.length === 0) return;
+    const timer = setInterval(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        if (scrollLeft + clientWidth >= scrollWidth - 10) {
+          scrollRef.current.scrollTo({
+            left: 0,
+            behavior: 'smooth'
+          });
+        } else {
+          scrollRef.current.scrollTo({
+            left: scrollLeft + 350,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [isHovered, loading, products]);
 
   const scroll = (direction) => {
     if (scrollRef.current) {
@@ -43,7 +74,7 @@ const Featured = () => {
   // Filter and initialize
   const featuredProducts = React.useMemo(() => {
     return products.filter(p => 
-      p.tag === 'COMPLETE POSTPARTUM CARE' || p.tag === 'TRADITIONAL HEALING' || p.tag === 'RELAXATION & SLEEP' || p.tag === 'HEALTHY SNACK' || p.tag === 'POSTPARTUM ESSENTIAL'
+      p.tag === 'PREMIUM GIFTING KIT' || p.tag === 'TRADITIONAL HEALING' || p.tag === 'READY IN 5 MINUTES' || p.tag === 'FOR C-SECTION MOTHERS'
     );
   }, [products]);
 
@@ -101,7 +132,11 @@ const Featured = () => {
   if (featuredProducts.length === 0) return null;
 
   return (
-    <section className="featured-section">
+    <section 
+      className="featured-section"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="featured-header">
         <div className="featured-title-wrapper">
            <span className="featured-tag">CURATION</span>

@@ -12,8 +12,17 @@ const getDynamicProductTitle = (product, selectedKey) => {
 };
 
 const getDynamicSubtitle = (product, selectedKey) => {
+  if (product.id === 'maaposhan-kit') {
+    return 'Mother & Baby Luxury Gifting Box';
+  }
   if (product.id === 'maaposhan-harira') {
     return 'For normal delivery moms';
+  }
+  if (product.id === 'maaposhan-harira-gentle') {
+    return 'For C-Section mothers';
+  }
+  if (product.id === 'maaposhan-harira-kit') {
+    return 'Raw Product • Ghee • Jaggery Packets';
   }
   return selectedKey || '';
 };
@@ -132,9 +141,8 @@ const Collection = () => {
       <div className="collection-grid">
         {renderProductCard('maaposhan-kit', 'card-large')}
         {renderProductCard('maaposhan-harira', 'kaju')}
-        {renderProductCard('maaposhan-ghee', 'gud')}
-        {renderProductCard('maaposhan-bites', 'powder')}
-        {renderProductCard('maaposhan-tea', 'til')}
+        {renderProductCard('maaposhan-harira-gentle', 'gud')}
+        {renderProductCard('maaposhan-harira-kit', 'til')}
       </div>
     </section>
   );

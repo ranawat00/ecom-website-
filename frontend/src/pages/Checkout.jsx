@@ -29,7 +29,9 @@ const Checkout = () => {
     }
 
     if (!localStorage.getItem('token')) {
-      toast.error('Please login to checkout.');
+      toast.info('Please log in to proceed to checkout.');
+      sessionStorage.setItem('redirectAfterLogin', '/checkout');
+      window.dispatchEvent(new Event('openAuthModal'));
       navigate('/');
       return;
     }

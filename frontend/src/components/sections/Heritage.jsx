@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../assets/styles/Heritage.css';
 
+const slides = [
+  {
+    image: '/images/maaposhan-gifting-kit.png',
+    label: 'PREMIUM LUXURY KIT'
+  },
+  {
+    image: '/images/maaposhan-harira.png',
+    label: 'STRENGTH PASTE - GHEE'
+  },
+  {
+    image: '/images/maaposhan-harira-gentle.png',
+    label: 'GENTLE - MUSTARD OIL'
+  },
+  {
+    image: '/images/maaposhan-harira-kit.png',
+    label: 'INSTANT 5-MIN HEALING'
+  }
+];
+
 const Heritage = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % slides.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="heritage-section">
       <div className="heritage-container">
@@ -35,13 +63,28 @@ const Heritage = () => {
         
         <div className="heritage-image-wrapper">
           <div className="heritage-image-card">
-            <img 
-              src="/images/maaposhan-harira.png" 
-              alt="MaaPoshan Harira Craft" 
-              className="heritage-img"
-            />
+            {slides.map((slide, idx) => (
+              <img 
+                key={idx}
+                src={slide.image} 
+                alt={slide.label} 
+                className={`heritage-img ${idx === activeIndex ? 'active' : ''}`}
+                loading="lazy"
+              />
+            ))}
             <div className="heritage-image-overlay">
-              <span>SLOW COOKED HEALING</span>
+              <span>{slides[activeIndex].label}</span>
+            </div>
+            
+            {/* Slider Dots Indicator */}
+            <div className="slider-dots">
+              {slides.map((_, idx) => (
+                <div 
+                  key={idx} 
+                  className={`slider-dot ${idx === activeIndex ? 'active' : ''}`}
+                  onClick={() => setActiveIndex(idx)}
+                />
+              ))}
             </div>
           </div>
         </div>
