@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Order = require('../models/orderModel');
 const Product = require('../models/productModel');
 const Inquiry = require('../models/inquiryModel');
@@ -36,20 +37,33 @@ exports.getStatsSummary = async (req, res) => {
         const conversionRate = visitsToday > 0 ? ((ordersToday / visitsToday) * 100).toFixed(1) : '3.8'; // standard default fallback
 
         // Recent 5 orders with User info
+        // Recent 5 orders with User info
         const recentOrdersRaw = await Order.find()
             .sort({ createdAt: -1 })
             .limit(5)
-            .populate('userId', 'username email mobileNo')
             .lean();
 
-        const recentOrders = recentOrdersRaw.map(order => ({
-            id: order.orderId,
-            customer: order.userId ? order.userId.username : (order.address?.firstName ? `${order.address.firstName} ${order.address.lastName}` : 'Guest'),
-            email: order.userId ? order.userId.email : 'N/A',
-            amount: order.amount,
-            status: order.status,
-            date: order.createdAt
-        }));
+        // Safe User Fetching to avoid ObjectId cast errors
+        const userIds = recentOrdersRaw
+            .map(o => o.userId)
+            .filter(id => id && mongoose.isValidObjectId(id));
+
+        const users = await User.find({ _id: { $in: userIds } }).lean();
+        const userMap = new Map(users.map(u => [u._id.toString(), u]));
+
+        const recentOrders = recentOrdersRaw.map(order => {
+            const user = (order.userId && mongoose.isValidObjectId(order.userId)) 
+                ? userMap.get(order.userId.toString()) 
+                : null;
+            return {
+                id: order.orderId,
+                customer: user ? user.username : (order.address?.firstName ? `${order.address.firstName} ${order.address.lastName}` : 'Guest'),
+                email: user ? user.email : 'N/A',
+                amount: order.amount,
+                status: order.status,
+                date: order.createdAt
+            };
+        });
 
         // Revenue graph monthly projections (simulated based on orders)
         const salesByMonth = Array(6).fill(0).map((_, idx) => {
@@ -95,24 +109,36 @@ exports.getAllOrders = async (req, res) => {
     try {
         const orders = await Order.find()
             .sort({ createdAt: -1 })
-            .populate('userId', 'username email mobileNo')
             .lean();
 
+        // Safe User Fetching to avoid ObjectId cast errors
+        const userIds = orders
+            .map(o => o.userId)
+            .filter(id => id && mongoose.isValidObjectId(id));
+
+        const users = await User.find({ _id: { $in: userIds } }).lean();
+        const userMap = new Map(users.map(u => [u._id.toString(), u]));
+
         // format orders for dashboard management
-        const formattedOrders = orders.map(order => ({
-            id: order.orderId,
-            mongoId: order._id,
-            customer: order.userId ? order.userId.username : 'Guest',
-            email: order.userId ? order.userId.email : 'N/A',
-            phone: order.userId ? order.userId.mobileNo : 'N/A',
-            amount: order.amount,
-            paymentMethod: order.paymentMethod,
-            paymentId: order.paymentId || 'N/A',
-            status: order.status,
-            date: order.createdAt,
-            address: order.address,
-            items: order.items
-        }));
+        const formattedOrders = orders.map(order => {
+            const user = (order.userId && mongoose.isValidObjectId(order.userId))
+                ? userMap.get(order.userId.toString())
+                : null;
+            return {
+                id: order.orderId,
+                mongoId: order._id,
+                customer: user ? user.username : 'Guest',
+                email: user ? user.email : 'N/A',
+                phone: user ? user.mobileNo : 'N/A',
+                amount: order.amount,
+                paymentMethod: order.paymentMethod,
+                paymentId: order.paymentId || 'N/A',
+                status: order.status,
+                date: order.createdAt,
+                address: order.address,
+                items: order.items
+            };
+        });
 
         res.status(200).json({ success: true, orders: formattedOrders });
     } catch (error) {
@@ -163,20 +189,32 @@ exports.getAllPayments = async (req, res) => {
     try {
         const orders = await Order.find()
             .sort({ createdAt: -1 })
-            .populate('userId', 'username email')
             .lean();
 
+        // Safe User Fetching to avoid ObjectId cast errors
+        const userIds = orders
+            .map(o => o.userId)
+            .filter(id => id && mongoose.isValidObjectId(id));
+
+        const users = await User.find({ _id: { $in: userIds } }).lean();
+        const userMap = new Map(users.map(u => [u._id.toString(), u]));
+
         // Map orders to financial records
-        const payments = orders.map(order => ({
-            id: order.orderId,
-            customer: order.userId ? order.userId.username : 'Guest',
-            email: order.userId ? order.userId.email : 'N/A',
-            amount: order.amount,
-            paymentMethod: order.paymentMethod,
-            paymentId: order.paymentId || 'COD_PENDING',
-            status: order.status === 'Cancelled' ? 'Refunded/Void' : (order.paymentMethod === 'COD' && order.status !== 'Delivered' ? 'Pending COD' : 'Paid'),
-            date: order.createdAt
-        }));
+        const payments = orders.map(order => {
+            const user = (order.userId && mongoose.isValidObjectId(order.userId))
+                ? userMap.get(order.userId.toString())
+                : null;
+            return {
+                id: order.orderId,
+                customer: user ? user.username : 'Guest',
+                email: user ? user.email : 'N/A',
+                amount: order.amount,
+                paymentMethod: order.paymentMethod,
+                paymentId: order.paymentId || 'COD_PENDING',
+                status: order.status === 'Cancelled' ? 'Refunded/Void' : (order.paymentMethod === 'COD' && order.status !== 'Delivered' ? 'Pending COD' : 'Paid'),
+                date: order.createdAt
+            };
+        });
 
         res.status(200).json({ success: true, payments });
     } catch (error) {
