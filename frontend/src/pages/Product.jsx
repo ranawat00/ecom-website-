@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Star, Leaf, HeartPulse, Sparkles, Truck } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { toast } from 'react-toastify';
 import api from '../api/api';
 import '../assets/styles/Product.css';
 
@@ -389,16 +390,22 @@ const Product = () => {
              <button className="close-modal" onClick={() => setShowReviewForm(false)}>✕</button>
            </div>
            
-           <form onSubmit={(e) => {
+           <form onSubmit={async (e) => {
               e.preventDefault();
               if(!newReview.name || !newReview.text) return;
-              const reviewObj = {
-                name: newReview.name,
-                quote: newReview.text,
-                stars: newReview.stars,
-                initial: newReview.name.charAt(0).toUpperCase()
-              };
-              setReviews([reviewObj, ...reviews]);
+              try {
+                const data = await api.post(`/api/products/${product.id}/reviews`, {
+                  name: newReview.name,
+                  quote: newReview.text,
+                  stars: newReview.stars
+                });
+                if (data.success) {
+                  toast.success(data.message || 'Review submitted successfully! Pending approval.');
+                }
+              } catch (err) {
+                console.error(err);
+                toast.error('Failed to submit review.');
+              }
               setShowReviewForm(false);
               setNewReview({ name: '', text: '', stars: 5 });
            }} className="review-form">

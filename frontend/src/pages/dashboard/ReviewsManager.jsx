@@ -4,7 +4,8 @@ import {
   Trash2, 
   Star,
   MessageSquare,
-  Sparkles
+  Sparkles,
+  Check
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import api from '../../api/api';
@@ -53,6 +54,26 @@ const ReviewsManager = () => {
     } catch (err) {
       console.error('[AdminReviews] Delete failed:', err);
       toast.error('Failed to delete review.');
+    }
+  };
+
+  // Publish/Approve review
+  const handlePublishReview = async (productId, reviewId) => {
+    // The reviewId format is: `${productId}-${index}`
+    const parts = reviewId.split('-');
+    const index = parts[parts.length - 1]; // last item is the index
+
+    try {
+      const res = await api.put(`/api/admin/reviews/${productId}/${index}/publish`);
+      if (res.success) {
+        toast.success('Customer review approved and published!');
+        
+        // Update status locally to avoid reload
+        setReviews(prev => prev.map(r => r.reviewId === reviewId ? { ...r, published: true } : r));
+      }
+    } catch (err) {
+      console.error('[AdminReviews] Publish failed:', err);
+      toast.error('Failed to publish review.');
     }
   };
 
@@ -144,19 +165,20 @@ const ReviewsManager = () => {
                 <th>Star Rating</th>
                 <th>Product Comment / Review Quote</th>
                 <th>Product Reviewed</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={5} style={{ textAlign: 'center', padding: '40px', color: '#6B1D2F', fontWeight: '600' }}>
+                  <td colSpan={6} style={{ textAlign: 'center', padding: '40px', color: '#6B1D2F', fontWeight: '600' }}>
                     Gathering customer feedback...
                   </td>
                 </tr>
               ) : filteredReviews.length === 0 ? (
                 <tr>
-                  <td colSpan={5} style={{ textAlign: 'center', padding: '40px', color: '#8C7A7C' }}>
+                  <td colSpan={6} style={{ textAlign: 'center', padding: '40px', color: '#8C7A7C' }}>
                     No reviews logged matching criteria.
                   </td>
                 </tr>
@@ -195,13 +217,32 @@ const ReviewsManager = () => {
                       <div style={{ fontSize: '0.75rem', color: '#8C7A7C' }}>ID: {rev.productId}</div>
                     </td>
                     <td>
-                      <button 
-                        className="btn-action-delete" 
-                        title="Delete/Moderate Review"
-                        onClick={() => handleDeleteReview(rev.productId, rev.reviewId)}
-                      >
-                        <Trash2 size={16} />
-                      </button>
+                      {rev.published ? (
+                        <span className="badge badge-paid">Published</span>
+                      ) : (
+                        <span className="badge badge-pending">Pending Approval</span>
+                      )}
+                    </td>
+                    <td>
+                      <div className="table-actions">
+                        {!rev.published && (
+                          <button 
+                            className="btn-action-edit" 
+                            title="Approve & Publish Review"
+                            onClick={() => handlePublishReview(rev.productId, rev.reviewId)}
+                            style={{ backgroundColor: 'rgba(76, 175, 80, 0.1)', color: '#2E7D32', width: '34px', height: '34px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }}
+                          >
+                            <Check size={16} />
+                          </button>
+                        )}
+                        <button 
+                          className="btn-action-delete" 
+                          title="Delete/Moderate Review"
+                          onClick={() => handleDeleteReview(rev.productId, rev.reviewId)}
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))

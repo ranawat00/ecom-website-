@@ -155,113 +155,6 @@ exports.updateOrderStatus = async (req, res) => {
 };
 
 /**
- * @desc    Get all products for CRUD manager
- * @route   GET /api/admin/products
- * @access  Private/Admin
- */
-exports.getAllProductsAdmin = async (req, res) => {
-    try {
-        const products = await Product.find().sort({ createdAt: -1 }).lean();
-        res.status(200).json({ success: true, products });
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Server error loading products' });
-    }
-};
-
-/**
- * @desc    Create a new product
- * @route   POST /api/admin/products
- * @access  Private/Admin
- */
-exports.createProduct = async (req, res) => {
-    try {
-        const { id, title, tag, description, variants, images, benefits, details } = req.body;
-
-        if (!id || !title) {
-            return res.status(400).json({ success: false, message: 'Product Custom ID and Title are required.' });
-        }
-
-        // Check if ID is unique
-        const existing = await Product.findOne({ id });
-        if (existing) {
-            return res.status(409).json({ success: false, message: `Product with custom ID "${id}" already exists.` });
-        }
-
-        const newProduct = await Product.create({
-            id,
-            title,
-            tag: tag || '',
-            description: description || '',
-            variants: variants || {},
-            images: images || [],
-            benefits: benefits || [],
-            details: details || {
-                essenceQuote: '',
-                essenceDesc: '',
-                ingredients: [],
-                nutrition: [],
-                reviewsData: [],
-                relatedData: []
-            }
-        });
-
-        res.status(201).json({ success: true, message: 'Product created successfully!', product: newProduct });
-    } catch (error) {
-        console.error('[AdminProduct] Create failed:', error.message);
-        res.status(500).json({ success: false, message: 'Failed to create product', error: error.message });
-    }
-};
-
-/**
- * @desc    Edit an existing product
- * @route   PUT /api/admin/products/:id
- * @access  Private/Admin
- */
-exports.editProduct = async (req, res) => {
-    try {
-        const product = await Product.findOne({ id: req.params.id });
-        if (!product) {
-            return res.status(404).json({ success: false, message: 'Product not found.' });
-        }
-
-        const { title, tag, description, variants, images, benefits, details } = req.body;
-
-        if (title) product.title = title;
-        if (tag !== undefined) product.tag = tag;
-        if (description !== undefined) product.description = description;
-        if (variants !== undefined) product.variants = variants;
-        if (images !== undefined) product.images = images;
-        if (benefits !== undefined) product.benefits = benefits;
-        if (details !== undefined) product.details = details;
-
-        await product.save();
-
-        res.status(200).json({ success: true, message: 'Product updated successfully!', product });
-    } catch (error) {
-        console.error('[AdminProduct] Update failed:', error.message);
-        res.status(500).json({ success: false, message: 'Failed to edit product', error: error.message });
-    }
-};
-
-/**
- * @desc    Delete a product
- * @route   DELETE /api/admin/products/:id
- * @access  Private/Admin
- */
-exports.deleteProduct = async (req, res) => {
-    try {
-        const result = await Product.findOneAndDelete({ id: req.params.id });
-        if (!result) {
-            return res.status(404).json({ success: false, message: 'Product not found.' });
-        }
-
-        res.status(200).json({ success: true, message: 'Product deleted successfully.' });
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Failed to delete product' });
-    }
-};
-
-/**
  * @desc    Get all payments/transactions audit trail
  * @route   GET /api/admin/payments
  * @access  Private/Admin
@@ -312,7 +205,8 @@ exports.getAllReviews = async (req, res) => {
                         name: rev.name,
                         quote: rev.quote,
                         stars: rev.stars || 5,
-                        initial: rev.initial || (rev.name ? rev.name[0] : 'U')
+                        initial: rev.initial || (rev.name ? rev.name[0] : 'U'),
+                        published: rev.published !== false
                     });
                 });
             }
@@ -347,15 +241,53 @@ exports.deleteReview = async (req, res) => {
         // Remove from details.reviewsData
         product.details.reviewsData.splice(idx, 1);
         
-        // Recalculate average reviews count
-        product.reviews = product.details.reviewsData.length;
+        // Recalculate average reviews count based on visible ones
+        const visibleReviews = product.details.reviewsData.filter(rev => rev.published !== false);
+        product.reviews = visibleReviews.length;
         
+        product.markModified('details.reviewsData');
         await product.save();
 
         res.status(200).json({ success: true, message: 'Review moderated and deleted successfully.' });
     } catch (error) {
         console.error('[AdminReviews] Delete failed:', error.message);
         res.status(500).json({ success: false, message: 'Server error deleting review' });
+    }
+};
+
+/**
+ * @desc    Approve and publish a product review
+ * @route   PUT /api/admin/reviews/:productId/:reviewIndex/publish
+ * @access  Private/Admin
+ */
+exports.publishReview = async (req, res) => {
+    try {
+        const { productId, reviewIndex } = req.params;
+        const product = await Product.findOne({ id: productId });
+
+        if (!product) {
+            return res.status(404).json({ success: false, message: 'Product not found.' });
+        }
+
+        const idx = parseInt(reviewIndex, 10);
+        if (isNaN(idx) || !product.details?.reviewsData || idx < 0 || idx >= product.details.reviewsData.length) {
+            return res.status(400).json({ success: false, message: 'Invalid review index.' });
+        }
+
+        // Set published to true
+        product.details.reviewsData[idx].published = true;
+        
+        // Recalculate average reviews count based on visible ones
+        const visibleReviews = product.details.reviewsData.filter(rev => rev.published !== false);
+        product.reviews = visibleReviews.length;
+
+        product.markModified('details.reviewsData');
+        await product.save();
+
+        res.status(200).json({ success: true, message: 'Review approved and published successfully!' });
+    } catch (error) {
+        console.error('[AdminReviews] Publish failed:', error.message);
+        res.status(500).json({ success: false, message: 'Server error publishing review' });
     }
 };
 
