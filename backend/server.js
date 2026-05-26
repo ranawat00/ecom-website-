@@ -23,6 +23,7 @@ const subscriberRoutes = require('./routes/subscriberRoutes');
 const searchRoutes = require('./routes/searchRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
 const aiRoutes = require('./routes/aiRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 
 const app = express();
@@ -64,6 +65,7 @@ app.use('/api/subscribers', subscriberRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/admin', adminRoutes);
 
 
 // ==========================================

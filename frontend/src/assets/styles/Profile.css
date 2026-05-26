@@ -344,3 +344,15 @@
   }
 }
 
+/* Admin Dashboard Specific Profile Layout Alignment */
+.dashboard-main .profile-page-container {
+  padding-top: 10px;
+  padding-left: 0;
+  padding-right: 0;
+  max-width: 100%;
+}
+
+.dashboard-main .back-btn {
+  display: none; /* Hide customer Back button in dashboard view since dashboard sidebar handles nav */
+}
+

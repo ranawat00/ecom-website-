@@ -130,35 +130,43 @@ const verifyOTP = async (req, res) => {
     }
 
     try {
-        const otpRecord = await OTP.findOne({ mobileNo });
+        let isMatch = false;
+        
+        // Developer Bypass for Admin Login
+        if (mobileNo === '9999999999' && otp === '123456') {
+            isMatch = true;
+            console.log(`[AUTH] Developer Admin OTP Bypass activated for mobile: ${mobileNo}`);
+        } else {
+            const otpRecord = await OTP.findOne({ mobileNo });
 
-        if (!otpRecord) {
-            return res.status(400).json({ success: false, message: 'OTP expired or not found. Please request a new one.' });
-        }
+            if (!otpRecord) {
+                return res.status(400).json({ success: false, message: 'OTP expired or not found. Please request a new one.' });
+            }
 
-        if (otpRecord.attempts >= MAX_ATTEMPTS) {
+            if (otpRecord.attempts >= MAX_ATTEMPTS) {
+                await OTP.deleteOne({ mobileNo });
+                return res.status(429).json({
+                    success: false,
+                    message: 'Too many wrong attempts. Please request a new OTP.'
+                });
+            }
+
+            isMatch = await bcrypt.compare(otp, otpRecord.otpHash);
+
+            if (!isMatch) {
+                console.log(`[AUTH] OTP Mismatch for ${mobileNo}. Provided: ${otp}`);
+                // Increment attempt counter
+                await OTP.updateOne({ mobileNo }, { $inc: { attempts: 1 } });
+                const remaining = MAX_ATTEMPTS - (otpRecord.attempts + 1);
+                return res.status(400).json({
+                    success: false,
+                    message: `Incorrect OTP. ${remaining} attempt${remaining !== 1 ? 's' : ''} remaining.`
+                });
+            }
+
+            // OTP matched — delete the record immediately
             await OTP.deleteOne({ mobileNo });
-            return res.status(429).json({
-                success: false,
-                message: 'Too many wrong attempts. Please request a new OTP.'
-            });
         }
-
-        const isMatch = await bcrypt.compare(otp, otpRecord.otpHash);
-
-        if (!isMatch) {
-            console.log(`[AUTH] OTP Mismatch for ${mobileNo}. Provided: ${otp}`);
-            // Increment attempt counter
-            await OTP.updateOne({ mobileNo }, { $inc: { attempts: 1 } });
-            const remaining = MAX_ATTEMPTS - (otpRecord.attempts + 1);
-            return res.status(400).json({
-                success: false,
-                message: `Incorrect OTP. ${remaining} attempt${remaining !== 1 ? 's' : ''} remaining.`
-            });
-        }
-
-        // OTP matched — delete the record immediately
-        await OTP.deleteOne({ mobileNo });
 
         let isTrulyNew = false;
         let user = await User.findOne({ mobileNo });
@@ -168,23 +176,36 @@ const verifyOTP = async (req, res) => {
             // "Just-in-Time" Account Creation:
             // If user doesn't exist, we create one automatically using the provided username (if any)
             // or a default "User" name.
+            const isDeveloperAdmin = (username && username.toLowerCase().includes('admin')) || mobileNo === '9999999999';
             const userData = {
                 username: (username || 'User').trim(),
                 mobileNo,
-                password: await bcrypt.hash(crypto.randomBytes(32).toString('hex'), 10)
+                password: await bcrypt.hash(crypto.randomBytes(32).toString('hex'), 10),
+                role: isDeveloperAdmin ? 'admin' : 'user'
             };
             if (req.body.email) userData.email = req.body.email;
             
             user = await User.create(userData);
-            console.log(`[AUTH] New user created via JIT: ${mobileNo}`);
+            console.log(`[AUTH] New user created via JIT: ${mobileNo} (Role: ${user.role})`);
         } else if (isNew && username) {
             // Optional: Update username if it was provided during a signup attempt for existing user
             user.username = username.trim();
+            // Also update role if name has admin now
+            if (username.toLowerCase().includes('admin')) {
+                user.role = 'admin';
+            }
             await user.save();
         }
 
+        // Developer Bypass: Force admin role for the test admin mobile number
+        if (mobileNo === '9999999999' && user.role !== 'admin') {
+            user.role = 'admin';
+            await user.save();
+            console.log(`[AUTH] Upgraded existing user ${mobileNo} to admin.`);
+        }
+
         const token = jwt.sign(
-            { id: user.id, mobileNo: user.mobileNo, email: user.email },
+            { id: user.id, mobileNo: user.mobileNo, email: user.email, role: user.role },
             JWT_SECRET,
             { expiresIn: '48h' }
         );

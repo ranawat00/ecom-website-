@@ -74,6 +74,20 @@ const UserSidebar = ({ isOpen, onClose }) => {
   const renderMenu = () => (
     <>
       <div className="sidebar-menu">
+        {user && user.role === 'admin' && (
+          <button 
+            className="menu-item" 
+            onClick={() => { navigate('/admin'); onClose(); }} 
+            style={{ 
+              background: 'linear-gradient(135deg, rgba(107, 29, 47, 0.08) 0%, rgba(197, 168, 128, 0.08) 100%)', 
+              border: '1px solid rgba(197, 168, 128, 0.3)',
+              marginBottom: '10px'
+            }}
+          >
+            <User size={20} color="#6B1D2F" />
+            <span style={{ fontWeight: '700', color: '#6B1D2F' }}>🔑 Admin Dashboard</span>
+          </button>
+        )}
         <button className="menu-item" onClick={handleProfileClick}>
           <User size={20} />
           <span>Profile Details</span>

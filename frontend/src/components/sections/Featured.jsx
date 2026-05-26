@@ -74,7 +74,12 @@ const Featured = () => {
   // Filter and initialize
   const featuredProducts = React.useMemo(() => {
     return products.filter(p => 
-      p.tag === 'PREMIUM GIFTING KIT' || p.tag === 'TRADITIONAL HEALING' || p.tag === 'READY IN 5 MINUTES' || p.tag === 'FOR C-SECTION MOTHERS'
+      p.tag === 'PREMIUM GIFTING KIT' || 
+      p.tag === 'TRADITIONAL HEALING' || 
+      p.tag === 'READY IN 5 MINUTES' || 
+      p.tag === 'FOR C-SECTION MOTHERS' ||
+      // Automatically include any custom product added by the admin so they show up on the website homepage!
+      !['maaposhan-kit', 'maaposhan-harira', 'maaposhan-harira-gentle', 'maaposhan-harira-kit'].includes(p.id)
     );
   }, [products]);
 

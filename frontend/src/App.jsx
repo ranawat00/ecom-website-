@@ -32,8 +32,18 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsAndConditions = lazy(() => import('./pages/TermsAndConditions'));
 const Help = lazy(() => import('./pages/Help'));
 
+// Admin Dashboard Components
+const DashboardLayout = lazy(() => import('./pages/dashboard/DashboardLayout'));
+const DashboardHome = lazy(() => import('./pages/dashboard/DashboardHome'));
+const ProductsManager = lazy(() => import('./pages/dashboard/ProductsManager'));
+const OrdersManager = lazy(() => import('./pages/dashboard/OrdersManager'));
+const PaymentsManager = lazy(() => import('./pages/dashboard/PaymentsManager'));
+const ReviewsManager = lazy(() => import('./pages/dashboard/ReviewsManager'));
+const EnquiriesManager = lazy(() => import('./pages/dashboard/EnquiriesManager'));
+
 function App() {
   const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   React.useEffect(() => {
     // Record page visit
@@ -45,7 +55,7 @@ function App() {
       <CartProvider>
         <div className="App" style={{ minHeight: '100vh', margin: 0, padding: 0 }}>
         <ToastContainer position="bottom-right" autoClose={3000} theme="colored" />
-        <Navbar />
+        {!isAdminRoute && <Navbar />}
         <ScrollToTop />
         <main>
           <Suspense fallback={<div className="loading-fallback">Loading page...</div>}>
@@ -68,11 +78,22 @@ function App() {
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-conditions" element={<TermsAndConditions />} />
               <Route path="/help" element={<Help />} />
+
+              {/* Admin Dashboard Routes */}
+              <Route path="/admin" element={<DashboardLayout />}>
+                <Route index element={<DashboardHome />} />
+                <Route path="products" element={<ProductsManager />} />
+                <Route path="orders" element={<OrdersManager />} />
+                <Route path="payments" element={<PaymentsManager />} />
+                <Route path="reviews" element={<ReviewsManager />} />
+                <Route path="enquiries" element={<EnquiriesManager />} />
+                <Route path="profile" element={<Profile />} />
+              </Route>
             </Routes>
           </Suspense>
         </main>
-        <ChatAssistant />
-        <Footer />
+        {!isAdminRoute && <ChatAssistant />}
+        {!isAdminRoute && <Footer />}
 
       </div>
       </CartProvider>

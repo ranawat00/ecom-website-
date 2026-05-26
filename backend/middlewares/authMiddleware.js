@@ -31,7 +31,22 @@ const verifyToken = (req, res, next) => {
     }
 };
 
+/**
+ * Middleware to verify that the logged-in user is an Admin
+ */
+const verifyAdmin = (req, res, next) => {
+    if (req.user && req.user.role === 'admin') {
+        next();
+    } else {
+        return res.status(403).json({
+            success: false,
+            message: 'Access denied. Administrative permissions required.'
+        });
+    }
+};
+
 module.exports = {
     verifyToken,
+    verifyAdmin,
     JWT_SECRET
 };
