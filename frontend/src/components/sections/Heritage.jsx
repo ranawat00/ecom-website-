@@ -41,10 +41,10 @@ const Heritage = () => {
               At MaaPoshan, we believe in restoring the strength of new mothers using traditional Ayurvedic wisdom. Our Harira and wellness blends are slow-cooked in small batches, ensuring every nutrient and essential oil is preserved just as nature intended.
             </p>
             <p>
-              Using pure A2 cow ghee, organic jaggery, and selected postpartum-restorative spices (like fenugreek, ajwain, turmeric, and ginger), our products help new mothers rebuild tissue, improve lactation, and boost overall energy levels during the delicate fourth trimester.
+              Using pure cow ghee, organic jaggery, and selected postpartum-restorative spices (like fenugreek, ajwain, turmeric, and ginger), our products help new mothers rebuild tissue, improve lactation, and boost overall energy levels during the delicate fourth trimester.
             </p>
           </div>
-          
+
           <div className="heritage-stats">
             <div className="stat-item">
               <span className="stat-number">100%</span>
@@ -60,14 +60,14 @@ const Heritage = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="heritage-image-wrapper">
           <div className="heritage-image-card">
             {slides.map((slide, idx) => (
-              <img 
+              <img
                 key={idx}
-                src={slide.image} 
-                alt={slide.label} 
+                src={slide.image}
+                alt={slide.label}
                 className={`heritage-img ${idx === activeIndex ? 'active' : ''}`}
                 loading="lazy"
               />
@@ -75,12 +75,12 @@ const Heritage = () => {
             <div className="heritage-image-overlay">
               <span>{slides[activeIndex].label}</span>
             </div>
-            
+
             {/* Slider Dots Indicator */}
             <div className="slider-dots">
               {slides.map((_, idx) => (
-                <div 
-                  key={idx} 
+                <div
+                  key={idx}
                   className={`slider-dot ${idx === activeIndex ? 'active' : ''}`}
                   onClick={() => setActiveIndex(idx)}
                 />

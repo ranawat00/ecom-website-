@@ -40,9 +40,9 @@ const Hero = () => {
         <div className="hero-content-inner">
           <span className="hero-tag">TRADITIONAL POSTPARTUM CARE</span>
           <h1 className="hero-title">
-            Recover.<br />
-            Nourish.<br />
-            Care.<br />
+            Maa Kee <br />
+            Liye Ghar <br />
+            Jesa Poshan<br />
             Naturally.
           </h1>
           <p className="hero-description">
