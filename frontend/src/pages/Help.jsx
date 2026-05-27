@@ -16,8 +16,8 @@ const Help = () => {
         { id: 6, category: 'orders', title: 'How to cancel my order?', content: 'You can cancel your order within 2 hours of placement directly from the "Order History" section. Once the order enters the packaging phase, cancellation is not possible. If you missed the window, please contact our support team immediately.' },
         { id: 7, category: 'payments', title: 'Refund policy and timeline', content: 'Once a refund is initiated, it typically takes 5-7 business days to reflect in your original payment method. For UPI payments, refunds are often faster.' },
         { id: 8, category: 'account', title: 'How to change delivery address?', content: 'You can update your shipping address in the "Saved Addresses" section of your profile. Note: Addresses for orders already "In Process" or "Shipped" cannot be changed.' },
-        { id: 9, category: 'orders', title: 'Bulk orders and corporate gifting', content: 'For bulk inquiries or custom gifting solutions, please connect with us via the contact form or email support@maaposhan.com.' },
-        { id: 10, category: 'account', title: 'How to connect with the support team?', content: 'You can connect with our support team via Live Chat, Email (support@maaposhan.com), or Phone (+91 078200 50723). Our team is available Mon-Sat, 9 AM to 7 PM to help you with any issues.' }
+        { id: 9, category: 'orders', title: 'Bulk orders and corporate gifting', content: 'For bulk inquiries or custom gifting solutions, please connect with us via the contact form or email Maaposhan2000@gmail.com.' },
+        { id: 10, category: 'account', title: 'How to connect with the support team?', content: 'You can connect with our support team via Live Chat, Email (Maaposhan2000@gmail.com), or Phone (+91 9310971253). Our team is available Mon-Sat, 9 AM to 7 PM to help you with any issues.' }
     ];
 
     const getArticlesToDisplay = () => {
@@ -152,14 +152,14 @@ const Help = () => {
                             <Mail className="m-icon" />
                             <div>
                                 <strong>Email Support</strong>
-                                <span>support@maaposhan.com</span>
+                                <span>Maaposhan2000@gmail.com</span>
                             </div>
                         </div>
                         <div className="method">
                             <Phone className="m-icon" />
                             <div>
                                 <strong>Call Us</strong>
-                                <span>+91 078200 50723</span>
+                                <span>+91 9310971253</span>
                             </div>
                         </div>
                     </div>

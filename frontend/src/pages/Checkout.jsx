@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Plus, Minus, CheckCircle, ShoppingBag, Banknote, CreditCard } from 'lucide-react';
+import { MapPin, Plus, Minus, CheckCircle, ShoppingBag, Banknote, CreditCard, Lock, ShieldCheck, Truck, ArrowLeft, ChevronRight, Tag, AlertCircle, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { toast } from 'react-toastify';
 import api from '../api/api';
@@ -9,7 +9,7 @@ import AddressModal from '../components/common/AddressModal';
 import '../assets/styles/Checkout.css';
 
 const Checkout = () => {
-  const { cartItems, cartTotal, isInitialLoad, setIsCartOpen, fetchCart, resetCart } = useCart();
+  const { cartItems, cartTotal, isInitialLoad, setIsCartOpen, fetchCart, resetCart, updateCartItem } = useCart();
   const navigate = useNavigate();
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
@@ -18,6 +18,79 @@ const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState('online'); // 'online' (Razorpay/UPI) or 'cod'
   const [selectedUPIApp, setSelectedUPIApp] = useState(null); // 'google_pay', 'phone_pe', 'paytm'
   const [isAddressesLoaded, setIsAddressesLoaded] = useState(false);
+
+  // Coupon states
+  const [couponInput, setCouponInput] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [couponError, setCouponError] = useState('');
+  const [couponLoading, setCouponLoading] = useState(false);
+
+  // Automatically re-validate coupon if cart items or total change in summary sidebar
+  useEffect(() => {
+    if (appliedCoupon) {
+      const revalidateCoupon = async () => {
+        try {
+          const res = await api.post('/api/coupons/validate', {
+            code: appliedCoupon.code,
+            cartItems: cartItems.map(item => ({
+              productId: item.productId,
+              price: item.price,
+              quantity: item.quantity
+            })),
+            cartTotal: cartTotal
+          });
+
+          if (res.success) {
+            setAppliedCoupon(res);
+          } else {
+            setAppliedCoupon(null);
+            setCouponInput('');
+            toast.warn(`Coupon removed: ${res.message || 'cart conditions no longer met.'}`);
+          }
+        } catch (err) {
+          setAppliedCoupon(null);
+          setCouponInput('');
+        }
+      };
+      revalidateCoupon();
+    }
+  }, [cartItems, cartTotal]);
+
+  const handleApplyCoupon = async () => {
+    if (!couponInput.trim()) return;
+    setCouponLoading(true);
+    setCouponError('');
+    try {
+      const res = await api.post('/api/coupons/validate', {
+        code: couponInput.trim(),
+        cartItems: cartItems.map(item => ({
+          productId: item.productId,
+          price: item.price,
+          quantity: item.quantity
+        })),
+        cartTotal: cartTotal
+      });
+
+      if (res.success) {
+        setAppliedCoupon(res);
+        toast.success(`🎉 Coupon code "${res.code}" applied! Saved ₹${res.discountAmount}`);
+      } else {
+        setCouponError(res.message || 'Invalid coupon code.');
+      }
+    } catch (err) {
+      console.error('[CheckoutCoupon] Validation failed:', err);
+      setCouponError(err?.response?.data?.message || 'Invalid coupon code.');
+    } finally {
+      setCouponLoading(false);
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponInput('');
+    setCouponError('');
+    toast.info('Coupon code removed.');
+  };
   const fetchedRef = React.useRef(false);
 
   useEffect(() => {
@@ -120,7 +193,10 @@ const Checkout = () => {
     if (paymentMethod === 'cod') {
       try {
         setLoading(true);
-        const data = await api.post('/api/payment/cod', { addressId: selectedAddressId });
+        const data = await api.post('/api/payment/cod', { 
+          addressId: selectedAddressId,
+          couponCode: appliedCoupon?.code || null
+        });
         if (data.success) {
           resetCart();
           navigate('/order-success', { state: { order: data.order } });
@@ -146,7 +222,9 @@ const Checkout = () => {
     }
 
     try {
-      const data = await api.post('/api/payment/create-order');
+      const data = await api.post('/api/payment/create-order', {
+        couponCode: appliedCoupon?.code || null
+      });
       if (!data.success) {
         toast.error('Failed to initiate payment. Please try again.');
         setLoading(false);
@@ -178,7 +256,8 @@ const Checkout = () => {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
-              addressId: selectedAddressId
+              addressId: selectedAddressId,
+              couponCode: appliedCoupon?.code || null
             });
             if (vData.success) {
               resetCart();
@@ -206,172 +285,417 @@ const Checkout = () => {
   };
 
   const deliveryFee = cartTotal > 500 ? 0 : 49;
-  const finalTotal = cartTotal + deliveryFee;
+  const discountAmount = appliedCoupon ? appliedCoupon.discountAmount : 0;
+  const finalTotal = Math.max(0, cartTotal - discountAmount + deliveryFee);
 
-  if (loading) return <div className="checkout-loading">Loading...</div>;
+  if (loading) {
+    return (
+      <div className="checkout-loading-screen">
+        <div className="loading-spinner"></div>
+        <p>Preparing your secure checkout experience...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="checkout-page">
       <div className="checkout-container">
-        <h1 className="checkout-title">Checkout</h1>
+        
+        {/* Top Header & Breadcrumb */}
+        <div className="checkout-header-section">
+          <button className="back-to-shop-btn" onClick={() => navigate('/products')}>
+            <ArrowLeft size={16} /> Back to Shop
+          </button>
+          <div className="checkout-title-wrapper">
+            <h1 className="checkout-title">Checkout</h1>
+            <div className="secure-badge-pills">
+              <span className="secure-badge"><Lock size={12} /> 256-Bit SSL Encryption</span>
+              <span className="secure-badge"><ShieldCheck size={12} /> 100% Safe Payments</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Stepper progress indicator */}
+        <div className="checkout-stepper">
+          <div className={`step-item completed`}>
+            <div className="step-icon-wrapper">
+              <ShoppingBag size={18} />
+            </div>
+            <div className="step-text">
+              <span className="step-status">Step 1</span>
+              <span className="step-title">Review Cart</span>
+            </div>
+          </div>
+          <div className="step-divider-line completed"></div>
+          <div className={`step-item ${selectedAddressId ? 'completed' : 'active'}`}>
+            <div className="step-icon-wrapper">
+              <MapPin size={18} />
+            </div>
+            <div className="step-text">
+              <span className="step-status">Step 2</span>
+              <span className="step-title">Shipping Address</span>
+            </div>
+          </div>
+          <div className="step-divider-line"></div>
+          <div className={`step-item ${selectedAddressId ? 'active' : 'upcoming'}`}>
+            <div className="step-icon-wrapper">
+              <CreditCard size={18} />
+            </div>
+            <div className="step-text">
+              <span className="step-status">Step 3</span>
+              <span className="step-title">Secure Payment</span>
+            </div>
+          </div>
+        </div>
 
         <div className="checkout-grid">
-          {/* Left: Address Selection */}
+          
+          {/* Left Column: Address and Payment */}
           <div className="checkout-left">
-            <div className="checkout-section">
-              <h2><MapPin size={20} /> Delivery Address</h2>
+            
+            {/* Step 1: Delivery Address */}
+            <div className={`checkout-section address-section-card ${selectedAddressId ? 'address-selected' : ''}`}>
+              <div className="section-header">
+                <span className="section-number">1</span>
+                <h2>Delivery Address</h2>
+              </div>
+              
               {addresses.length === 0 ? (
-                <div className="no-address">
-                  <p>No saved addresses found.</p>
-                  <button className="add-address-btn" onClick={() => setIsAddressModalOpen(true)}>
-                    <Plus size={18} /> Add New Address
+                <div className="no-address-card">
+                  <div className="no-address-icon">
+                    <MapPin size={32} />
+                  </div>
+                  <p>No saved addresses found. Add a delivery address to complete your order.</p>
+                  <button className="add-address-btn-primary" onClick={() => setIsAddressModalOpen(true)}>
+                    <Plus size={16} /> Add Delivery Address
                   </button>
                 </div>
               ) : (
                 <>
-                  <div className="address-options">
+                  <div className="address-grid-options">
                     {addresses.map(addr => (
-                      <label key={addr.id} className={`address-option ${selectedAddressId === addr.id ? 'selected' : ''}`}>
-                        <input
-                          type="radio"
-                          name="address"
-                          value={addr.id}
-                          checked={selectedAddressId === addr.id}
-                          onChange={() => setSelectedAddressId(addr.id)}
-                        />
-                        <div className="address-option-content">
-                          <span className="address-type-badge">{addr.type}</span>
-                          <p>{addr.street}, {addr.city}</p>
-                          <p>{addr.state} - {addr.pincode}</p>
+                      <label key={addr.id} className={`address-card-option ${selectedAddressId === addr.id ? 'active' : ''}`}>
+                        <div className="address-card-header">
+                          <input
+                            type="radio"
+                            name="address"
+                            value={addr.id}
+                            checked={selectedAddressId === addr.id}
+                            onChange={() => setSelectedAddressId(addr.id)}
+                            className="address-radio-input"
+                          />
+                          <span className={`address-badge-type ${addr.type.toLowerCase()}`}>{addr.type}</span>
+                          {selectedAddressId === addr.id && (
+                            <span className="verified-check">
+                              <CheckCircle size={16} /> Selected
+                            </span>
+                          )}
                         </div>
-                        {selectedAddressId === addr.id && <CheckCircle size={20} className="selected-check" />}
+                        <div className="address-card-body">
+                          <p className="address-street">{addr.street}</p>
+                          <p className="address-city-state">{addr.city}, {addr.state}</p>
+                          <p className="address-zip">{addr.pincode}</p>
+                        </div>
                       </label>
                     ))}
                   </div>
-                  <button className="add-address-btn-secondary" onClick={() => setIsAddressModalOpen(true)}>
-                    <Plus size={16} /> Add Another Address
+                  
+                  <button className="add-address-btn-dashed" onClick={() => setIsAddressModalOpen(true)}>
+                    <Plus size={16} /> Add a New Shipping Address
                   </button>
                 </>
               )}
             </div>
 
-            <div className="checkout-section payment-section">
-              <h2><CreditCard size={20} /> Payment Method</h2>
-              <div className="payment-options">
-                <label className={`payment-option ${paymentMethod === 'online' ? 'selected' : ''}`}>
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="online"
-                    checked={paymentMethod === 'online'}
-                    onChange={() => setPaymentMethod('online')}
-                  />
-                  <div className="payment-option-content">
-                    <span className="payment-name">Online / UPI</span>
-                    <p>Pay securely with Razorpay (Google Pay, PhonePe, Paytm, Cards)</p>
-                    {paymentMethod === 'online' && (
-                      <div className="upi-apps-selector">
-                        <div 
-                          className={`upi-app ${selectedUPIApp === 'google_pay' ? 'active' : ''}`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setSelectedUPIApp('google_pay');
-                            // Delay slightly to allow state to update before proceeding
-                            setTimeout(() => {
-                              handleProceedWithApp('google_pay');
-                            }, 100);
-                          }}
-                        >
-                          <img src="https://img.icons8.com/color/48/000000/google-pay.png" alt="Google Pay" />
-                        </div>
-                        <div 
-                          className={`upi-app ${selectedUPIApp === 'phone_pe' ? 'active' : ''}`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setSelectedUPIApp('phone_pe');
-                            setTimeout(() => {
-                              handleProceedWithApp('phone_pe');
-                            }, 100);
-                          }}
-                        >
-                          <img src="https://img.icons8.com/color/48/000000/phone-pe.png" alt="PhonePe" />
-                        </div>
-                        <div 
-                          className={`upi-app ${selectedUPIApp === 'paytm' ? 'active' : ''}`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setSelectedUPIApp('paytm');
-                            setTimeout(() => {
-                              handleProceedWithApp('paytm');
-                            }, 100);
-                          }}
-                        >
-                          <img src="https://img.icons8.com/color/48/000000/paytm.png" alt="Paytm" />
+            {/* Step 2: Payment Method */}
+            <div className={`checkout-section payment-section-card ${!selectedAddressId ? 'section-disabled' : ''}`}>
+              <div className="section-header">
+                <span className="section-number">2</span>
+                <h2>Payment Method</h2>
+                {!selectedAddressId && <span className="locked-badge"><Lock size={12} /> Select address to unlock</span>}
+              </div>
+              
+              <div className="payment-options-list">
+                
+                {/* Razorpay Online Option */}
+                <label className={`payment-method-card ${paymentMethod === 'online' ? 'active' : ''} ${!selectedAddressId ? 'disabled' : ''}`}>
+                  <div className="payment-method-header">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="online"
+                      checked={paymentMethod === 'online'}
+                      disabled={!selectedAddressId}
+                      onChange={() => setPaymentMethod('online')}
+                      className="payment-radio-input"
+                    />
+                    <div className="payment-title-group">
+                      <span className="payment-label-title">Online Payment / UPI / Cards</span>
+                      <span className="payment-offer-badge">⚡ Instant Verification</span>
+                    </div>
+                  </div>
+                  
+                  <div className="payment-method-body">
+                    <p className="payment-desc">Pay securely using Google Pay, PhonePe, Paytm, Net Banking, or Credit/Debit Cards via Razorpay.</p>
+                    
+                    {paymentMethod === 'online' && selectedAddressId && (
+                      <div className="upi-apps-selector-panel">
+                        <span className="upi-selector-title">Express UPI Checkout:</span>
+                        <div className="upi-apps-row">
+                          <div 
+                            className={`upi-app-button ${selectedUPIApp === 'google_pay' ? 'active' : ''}`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setSelectedUPIApp('google_pay');
+                              setTimeout(() => handleProceedWithApp('google_pay'), 100);
+                            }}
+                          >
+                            <img src="https://img.icons8.com/color/48/000000/google-pay.png" alt="Google Pay" />
+                            <span>GPay</span>
+                          </div>
+                          
+                          <div 
+                            className={`upi-app-button ${selectedUPIApp === 'phone_pe' ? 'active' : ''}`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setSelectedUPIApp('phone_pe');
+                              setTimeout(() => handleProceedWithApp('phone_pe'), 100);
+                            }}
+                          >
+                            <img src="https://img.icons8.com/color/48/000000/phone-pe.png" alt="PhonePe" />
+                            <span>PhonePe</span>
+                          </div>
+                          
+                          <div 
+                            className={`upi-app-button ${selectedUPIApp === 'paytm' ? 'active' : ''}`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setSelectedUPIApp('paytm');
+                              setTimeout(() => handleProceedWithApp('paytm'), 100);
+                            }}
+                          >
+                            <img src="https://img.icons8.com/color/48/000000/paytm.png" alt="Paytm" />
+                            <span>Paytm</span>
+                          </div>
                         </div>
                       </div>
                     )}
                   </div>
                 </label>
 
-                <label className={`payment-option ${paymentMethod === 'cod' ? 'selected' : ''}`}>
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="cod"
-                    checked={paymentMethod === 'cod'}
-                    onChange={() => setPaymentMethod('cod')}
-                  />
-                  <div className="payment-option-content">
-                    <span className="payment-name"><Banknote size={16} /> Cash on Delivery</span>
-                    <p>Pay when you receive the order</p>
+                {/* Cash on Delivery Option */}
+                <label className={`payment-method-card ${paymentMethod === 'cod' ? 'active' : ''} ${!selectedAddressId ? 'disabled' : ''}`}>
+                  <div className="payment-method-header">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="cod"
+                      checked={paymentMethod === 'cod'}
+                      disabled={!selectedAddressId}
+                      onChange={() => setPaymentMethod('cod')}
+                      className="payment-radio-input"
+                    />
+                    <div className="payment-title-group">
+                      <span className="payment-label-title">Cash on Delivery (COD)</span>
+                    </div>
+                  </div>
+                  <div className="payment-method-body">
+                    <div className="cod-info-wrapper">
+                      <Banknote size={16} className="cod-icon" />
+                      <p className="payment-desc">Pay in cash or UPI QR scan when your package is delivered to your doorstep.</p>
+                    </div>
                   </div>
                 </label>
+                
               </div>
             </div>
+
           </div>
 
-          {/* Right: Order Summary */}
+          {/* Right Column: Order Summary (Sticky) */}
           <div className="checkout-right">
-            <div className="checkout-section order-summary">
-              <h2><ShoppingBag size={20} /> Order Summary</h2>
-              <div className="order-items">
+            <div className="order-summary-sidebar">
+              <div className="order-summary-header">
+                <h2>Order Summary</h2>
+                <span className="items-count-pill">{cartItems.reduce((acc, curr) => acc + curr.quantity, 0)} Items</span>
+              </div>
+              
+              <div className="summary-items-scroll">
                 {cartItems.map(item => (
-                  <div key={item.itemId} className="order-item-card">
-                    <div className="order-item-main">
-                      <div className="order-item-img">
-                        <img src={item.image || '/images/desi-gud-main.png'} alt={item.title} />
-                      </div>
-                      <div className="order-item-info">
-                        <span className="order-item-name">{item.title}</span>
-                        {item.weight && <span className="order-item-weight">{item.weight}</span>}
-                        <div className="checkout-qty-controls">
-                          <button onClick={() => updateCartItem(item.itemId, item.quantity - 1)} disabled={item.quantity <= 1}><Minus size={12} /></button>
-                          <span>{item.quantity}</span>
-                          <button onClick={() => updateCartItem(item.itemId, item.quantity + 1)}><Plus size={12} /></button>
+                  <div key={item.itemId} className="summary-item-tile">
+                    <div className="summary-item-media">
+                      <img src={item.image || '/images/desi-gud-main.png'} alt={item.title} />
+                    </div>
+                    <div className="summary-item-details">
+                      <span className="summary-item-name">{item.title}</span>
+                      {item.weight && <span className="summary-item-variant">{item.weight}</span>}
+                      
+                      <div className="summary-qty-pricing">
+                        <div className="checkout-qty-widget">
+                          <button 
+                            className="qty-btn"
+                            onClick={() => updateCartItem(item.itemId, item.quantity - 1)} 
+                            disabled={item.quantity <= 1}
+                            aria-label="Decrease quantity"
+                          >
+                            <Minus size={10} />
+                          </button>
+                          <span className="qty-value">{item.quantity}</span>
+                          <button 
+                            className="qty-btn"
+                            onClick={() => updateCartItem(item.itemId, item.quantity + 1)}
+                            aria-label="Increase quantity"
+                          >
+                            <Plus size={10} />
+                          </button>
+                        </div>
+                        <div className="item-price-column">
+                          <span className="item-unit-rate">₹{item.price} each</span>
+                          <span className="item-total-rate">₹{(item.price * item.quantity).toFixed(2)}</span>
                         </div>
                       </div>
-                    </div>
-                    <div className="order-item-total">
-                      <span className="unit-label">₹{item.price} each</span>
-                      <span className="order-item-price">₹{(item.price * item.quantity).toFixed(2)}</span>
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="order-totals">
-                <div className="total-row"><span>Subtotal</span><span>₹{cartTotal.toFixed(2)}</span></div>
-                <div className="total-row"><span>Delivery</span><span>{deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}</span></div>
-                {deliveryFee === 0 && <p className="free-delivery-note">🎉 You qualify for free delivery!</p>}
-                <div className="total-row grand-total"><span>Total</span><span>₹{finalTotal.toFixed(2)}</span></div>
+
+              {/* Coupon Code Section */}
+              <div className="checkout-coupon-section">
+                <h4 className="coupon-section-title">
+                  <Tag size={14} className="coupon-title-icon" /> Have a Promo/Coupon?
+                </h4>
+                
+                {appliedCoupon ? (
+                  <div className="applied-coupon-success">
+                    <div className="coupon-success-info">
+                      <span className="coupon-success-check">✓</span>
+                      <div>
+                        <span className="coupon-success-code">{appliedCoupon.code}</span>
+                        <span className="coupon-success-msg">applied!</span>
+                      </div>
+                    </div>
+                    <button 
+                      type="button" 
+                      onClick={handleRemoveCoupon} 
+                      className="coupon-remove-btn"
+                      title="Remove Coupon"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="coupon-input-group">
+                    <input 
+                      type="text" 
+                      placeholder="Enter Coupon (e.g. WELCOME10)" 
+                      value={couponInput}
+                      onChange={(e) => {
+                        setCouponInput(e.target.value.toUpperCase());
+                        setCouponError('');
+                      }}
+                      className={`coupon-text-input ${couponError ? 'has-error' : ''}`}
+                    />
+                    <button 
+                      type="button" 
+                      onClick={handleApplyCoupon} 
+                      disabled={couponLoading || !couponInput.trim()}
+                      className="coupon-apply-btn"
+                    >
+                      {couponLoading ? '...' : 'Apply'}
+                    </button>
+                  </div>
+                )}
+                {couponError && (
+                  <p className="coupon-error-text">
+                    <AlertCircle size={12} className="coupon-err-icon" /> {couponError}
+                  </p>
+                )}
               </div>
-               <button className="proceed-btn" onClick={handleProceed} disabled={loading}>
-                {loading ? 'Processing...' : (paymentMethod === 'cod' ? 'Confirm COD Order' : 'Proceed to Pay')}
+
+              {/* Price Calculations */}
+              <div className="summary-financials">
+                <div className="financial-row">
+                  <span className="financial-label">Subtotal</span>
+                  <span className="financial-value">₹{cartTotal.toFixed(2)}</span>
+                </div>
+                
+                {appliedCoupon && (
+                  <div className="financial-row discount-row">
+                    <span className="financial-label">Coupon Discount ({appliedCoupon.code})</span>
+                    <span className="financial-value coupon-savings">-₹{appliedCoupon.discountAmount.toFixed(2)}</span>
+                  </div>
+                )}
+
+                <div className="financial-row">
+                  <span className="financial-label">Shipping & Delivery</span>
+                  <span className={`financial-value ${deliveryFee === 0 ? 'free' : ''}`}>
+                    {deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}
+                  </span>
+                </div>
+                
+                {deliveryFee === 0 ? (
+                  <div className="delivery-qualifier-banner">
+                    <span className="qualifier-icon">🎉</span>
+                    <span className="qualifier-text">You qualify for Free Premium Delivery!</span>
+                  </div>
+                ) : (
+                  <div className="delivery-progress-banner">
+                    <span>Add <b>₹{(500 - cartTotal).toFixed(0)}</b> more to unlock <b>FREE Delivery</b>!</span>
+                  </div>
+                )}
+                
+                <div className="financial-row grand-total-row">
+                  <span className="total-label">Total Amount</span>
+                  <span className="total-value">₹{finalTotal.toFixed(2)}</span>
+                </div>
+              </div>
+
+              {/* Primary Action Button */}
+              <button 
+                className="checkout-primary-action-btn" 
+                onClick={handleProceed} 
+                disabled={loading || !selectedAddressId}
+              >
+                {loading ? (
+                  <span className="btn-spinner-group">
+                    <span className="btn-spinner"></span> Processing...
+                  </span>
+                ) : (
+                  <>
+                    <Lock size={16} /> 
+                    {paymentMethod === 'cod' ? 'Place COD Order' : 'Proceed to Secure Payment'}
+                  </>
+                )}
               </button>
+              
+              {!selectedAddressId && (
+                <p className="checkout-action-hint">⚠️ Please select a shipping address to place your order.</p>
+              )}
+
+              {/* Trust Badges Panel */}
+              <div className="checkout-trust-panel">
+                <div className="trust-item">
+                  <Truck size={16} />
+                  <div>
+                    <h4>Fast & Insured Delivery</h4>
+                    <p>Dispatched in 24 hours with premium tracking.</p>
+                  </div>
+                </div>
+                <div className="trust-item">
+                  <ShieldCheck size={16} />
+                  <div>
+                    <h4>100% Quality Guaranteed</h4>
+                    <p>Authentic products directly from source.</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
+
         </div>
       </div>
 

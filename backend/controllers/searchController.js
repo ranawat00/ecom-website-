@@ -23,12 +23,22 @@ exports.globalSearch = async (req, res) => {
 
         const keywords = q.toLowerCase().split(' ').filter(k => k.trim());
         
-        // 1. Search Products
-        const products = await Product.find({});
-        const filteredProducts = products.filter(p => {
-            const searchStr = (p.title + ' ' + p.description + ' ' + p.tag).toLowerCase();
-            return keywords.every(kw => searchStr.includes(kw));
-        }).map(p => ({
+        // 1. Search Products at the Database Level
+        // Escape special regex characters in keywords
+        const regexes = keywords.map(kw => new RegExp(kw.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'));
+        
+        // Find matching products using database regex query with selective projection
+        const products = await Product.find({
+            $and: regexes.map(regex => ({
+                $or: [
+                    { title: regex },
+                    { description: regex },
+                    { tag: regex }
+                ]
+            }))
+        }).select('id title description images variants tag').lean();
+
+        const filteredProducts = products.map(p => ({
             id: p.id,
             type: 'product',
             title: p.title,

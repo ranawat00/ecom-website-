@@ -4,7 +4,7 @@ import React from 'react';
 export const productDatabase = {
   'maaposhan-kit': {
     id: 'maaposhan-kit',
-    title: 'MaaPoshan Postpartum Kit for Mother & Baby (Gifting Kit)',
+    title: 'MaaPoshan Recovery Kit',
     tag: 'PREMIUM GIFTING KIT',
     description: 'A premium luxury gifting box thoughtfully designed to nourish and pamper new mothers and their babies during the delicate postpartum recovery period.',
     variants: {
@@ -39,7 +39,6 @@ export const productDatabase = {
         { id: "maaposhan-harira", title: "MaaPoshan Harira", desc: "Ayurvedic strength and recovery paste.", price: "₹900.00", image: "/images/maaposhan-harira.png", weight: "500g" }
       ]
     }
-  },
   'maaposhan-harira': {
     id: 'maaposhan-harira',
     title: 'MaaPoshan Harira',

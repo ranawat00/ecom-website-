@@ -47,13 +47,13 @@ exports.submitProductReview = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Product not found.' });
         }
 
-        // Add review to details.reviewsData as pending approval (published: false)
+        // Add review to details.reviewsData as published (published: true)
         const reviewObj = {
             name,
             quote,
             stars: parseInt(stars, 10),
             initial: name.charAt(0).toUpperCase(),
-            published: false
+            published: true
         };
 
         if (!product.details) {
@@ -78,7 +78,7 @@ exports.submitProductReview = async (req, res) => {
 
         res.status(201).json({ 
             success: true, 
-            message: '🎉 Review submitted successfully! It will appear on the website once approved by an administrator.', 
+            message: '🎉 Review submitted successfully!', 
             review: reviewObj 
         });
     } catch (error) {

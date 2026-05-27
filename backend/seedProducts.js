@@ -9,7 +9,7 @@ dotenv.config({ path: path.join(__dirname, '.env') });
 const products = [
     {
         id: 'maaposhan-kit',
-        title: 'MaaPoshan Postpartum Kit for Mother & Baby (Gifting Kit)',
+        title: 'MaaPoshan Recovery Kit',
         tag: 'PREMIUM GIFTING KIT',
         description: 'A premium luxury gifting box thoughtfully designed to nourish and pamper new mothers and their babies during the delicate postpartum recovery period.',
         variants: {
@@ -44,7 +44,6 @@ const products = [
                 { id: "maaposhan-harira", title: "MaaPoshan Harira", desc: "Ayurvedic strength and recovery paste.", price: "₹900.00", image: "/images/maaposhan-harira.png", weight: "500g" }
             ]
         }
-    },
     {
         id: 'maaposhan-harira',
         title: 'MaaPoshan Harira',

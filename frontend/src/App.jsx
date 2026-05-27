@@ -40,6 +40,7 @@ const OrdersManager = lazy(() => import('./pages/dashboard/OrdersManager'));
 const PaymentsManager = lazy(() => import('./pages/dashboard/PaymentsManager'));
 const ReviewsManager = lazy(() => import('./pages/dashboard/ReviewsManager'));
 const EnquiriesManager = lazy(() => import('./pages/dashboard/EnquiriesManager'));
+const CouponsManager = lazy(() => import('./pages/dashboard/CouponsManager'));
 
 function App() {
   const location = useLocation();
@@ -87,6 +88,7 @@ function App() {
                 <Route path="payments" element={<PaymentsManager />} />
                 <Route path="reviews" element={<ReviewsManager />} />
                 <Route path="enquiries" element={<EnquiriesManager />} />
+                <Route path="coupons" element={<CouponsManager />} />
                 <Route path="profile" element={<Profile />} />
               </Route>
             </Routes>

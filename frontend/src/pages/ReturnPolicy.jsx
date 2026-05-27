@@ -29,7 +29,7 @@ const ReturnPolicy = () => {
 
         <section className="policy-section">
           <h2>How to Initiate a Request</h2>
-          <p>simply email our heritage support team at <strong>support@maaposhan.com</strong> or message us on WhatsApp at <strong>+91 XXXXX XXXXX</strong> with your Order ID and the reason for the request.</p>
+          <p>simply email our heritage support team at <strong>Maaposhan2000@gmail.com</strong> or message us on WhatsApp at <strong>+91 9310971253</strong> with your Order ID and the reason for the request.</p>
         </section>
 
         <section className="policy-section">

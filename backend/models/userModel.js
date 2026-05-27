@@ -38,6 +38,9 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 });
 
+// Index for fast OTP user lookup
+userSchema.index({ mobileNo: 1 });
+
 // Virtual for id to keep it compatible with frontend
 userSchema.virtual('id').get(function() {
     return this._id.toHexString();

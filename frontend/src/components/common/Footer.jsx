@@ -52,7 +52,6 @@ const Footer = () => {
             <h3 className="footer-heading">Shop</h3>
             <ul className="footer-links">
               <li><Link to="/products">All Products</Link></li>
-              <li><Link to="/product/maaposhan-ghee">Pure A2 Ghee</Link></li>
               <li><Link to="/product/maaposhan-harira">MaaPoshan Harira</Link></li>
               <li><Link to="/product/maaposhan-kit">MaaPoshan Recovery Kit</Link></li>
             </ul>

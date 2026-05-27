@@ -5,6 +5,8 @@ const Cart = require('../models/cartModel');
 const Order = require('../models/orderModel');
 const Address = require('../models/addressModel');
 const User = require('../models/userModel');
+const Coupon = require('../models/couponModel');
+const { validateCouponCodeHelper } = require('./couponController');
 const { sendOrderEmail } = require('../utils/emailService');
 const { recordInternalEvent } = require('./analyticsController');
 const { serializeOrder, serializeCartItemsForOrder, serializeAddressForOrder } = require('../serializers');
@@ -24,11 +26,34 @@ const razorpay = new Razorpay({
 
 // ─── Shared Helpers ────────────────────────────────────────────────────
 
-/** Compute subtotal, delivery fee, and final total from cart items. */
-const computeTotals = (items) => {
+/** Compute subtotal, coupon discount, delivery fee, and final total. */
+const computeTotals = async (items, couponCode = null) => {
     const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    let discountAmount = 0;
+    let appliedCouponCode = null;
+
+    if (couponCode) {
+        const coupon = await Coupon.findOne({ code: couponCode.toUpperCase() });
+        if (coupon) {
+            const validation = validateCouponCodeHelper(coupon, items, subtotal);
+            if (validation.success) {
+                discountAmount = validation.discountAmount;
+                appliedCouponCode = coupon.code;
+            }
+        }
+    }
+
+    const discountedSubtotal = subtotal - discountAmount;
     const deliveryFee = subtotal > 500 ? 0 : 49;
-    return { subtotal, deliveryFee, finalTotal: subtotal + deliveryFee };
+    const finalTotal = discountedSubtotal + deliveryFee;
+
+    return { 
+        subtotal, 
+        discountAmount, 
+        deliveryFee, 
+        finalTotal: finalTotal > 0 ? finalTotal : 0,
+        couponCode: appliedCouponCode 
+    };
 };
 
 /**
@@ -49,6 +74,7 @@ const generateOrderId = () => {
  * @route   POST /api/payment/create-order
  */
 const createRazorpayOrder = async (req, res) => {
+    const { couponCode } = req.body;
     try {
         // .lean() → plain JS object, skips Mongoose hydration overhead
         const cart = await Cart.findOne({ userId: req.user.id }).lean();
@@ -56,14 +82,14 @@ const createRazorpayOrder = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Cart is empty.' });
         }
 
-        const { finalTotal } = computeTotals(cart.items);
+        const { finalTotal } = await computeTotals(cart.items, couponCode);
         const amountInPaise = Math.round(finalTotal * 100);
 
         const order = await razorpay.orders.create({
             amount: amountInPaise,
             currency: 'INR',
             receipt: `rcpt_${req.user.id.toString().slice(-8)}_${Date.now().toString().slice(-8)}`,
-            notes: { userId: req.user.id }
+            notes: { userId: req.user.id, couponCode: couponCode || '' }
         });
 
         return res.status(200).json({
@@ -84,7 +110,7 @@ const createRazorpayOrder = async (req, res) => {
  * @route   POST /api/payment/verify
  */
 const verifyAndPlaceOrder = async (req, res) => {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, addressId } = req.body;
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, addressId, couponCode } = req.body;
 
     // 1. Verify signature (CPU-only — no DB hit)
     const expectedSignature = crypto
@@ -112,7 +138,7 @@ const verifyAndPlaceOrder = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Delivery address not found.' });
         }
 
-        const { finalTotal } = computeTotals(cart.items);
+        const totals = await computeTotals(cart.items, couponCode);
 
         // 3. Create order + clear cart in parallel
         const [order] = await Promise.all([
@@ -121,13 +147,20 @@ const verifyAndPlaceOrder = async (req, res) => {
                 userId,
                 items: serializeCartItemsForOrder(cart.items),
                 address: serializeAddressForOrder(address),
-                amount: finalTotal,
+                amount: totals.finalTotal,
+                discountAmount: totals.discountAmount,
+                couponCode: totals.couponCode,
                 paymentMethod: 'Razorpay',
                 paymentId: razorpay_payment_id,
                 status: 'Order Placed'
             }),
             Cart.updateOne({ userId }, { $set: { items: [] } })
         ]);
+
+        // Increment coupon count
+        if (totals.couponCode) {
+            await Coupon.updateOne({ code: totals.couponCode }, { $inc: { usedCount: 1 } });
+        }
 
         // Send confirmation email in background
         User.findById(userId).then(user => {
@@ -153,7 +186,7 @@ const verifyAndPlaceOrder = async (req, res) => {
  * @route   POST /api/payment/cod
  */
 const placeCODOrder = async (req, res) => {
-    const { addressId } = req.body;
+    const { addressId, couponCode } = req.body;
 
     if (!req.user?.id) {
         return res.status(401).json({ success: false, message: 'User not authenticated.' });
@@ -175,7 +208,7 @@ const placeCODOrder = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Delivery address not found or unauthorized.' });
         }
 
-        const { finalTotal } = computeTotals(cart.items);
+        const totals = await computeTotals(cart.items, couponCode);
 
         // 2. Create order + clear cart in parallel
         const [order] = await Promise.all([
@@ -184,12 +217,19 @@ const placeCODOrder = async (req, res) => {
                 userId,
                 items: serializeCartItemsForOrder(cart.items),
                 address: serializeAddressForOrder(address),
-                amount: finalTotal,
+                amount: totals.finalTotal,
+                discountAmount: totals.discountAmount,
+                couponCode: totals.couponCode,
                 paymentMethod: 'COD',
                 status: 'Order Placed'
             }),
             Cart.updateOne({ userId }, { $set: { items: [] } })
         ]);
+
+        // Increment coupon count
+        if (totals.couponCode) {
+            await Coupon.updateOne({ code: totals.couponCode }, { $inc: { usedCount: 1 } });
+        }
 
         // Send confirmation email in background
         User.findById(userId).then(user => {

@@ -13,10 +13,12 @@ import { toast } from 'react-toastify';
 import api from '../../api/api';
 import { useProducts } from '../../context/ProductContext';
 import '../../assets/styles/Dashboard.css';
+import ConfirmModal from '../../components/common/ConfirmModal';
 
 const ProductsManager = () => {
   const { refreshProducts } = useProducts();
   const [products, setProducts] = useState([]);
+  const [confirmModal, setConfirmModal] = useState({ show: false, productId: '' });
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -173,8 +175,13 @@ const ProductsManager = () => {
   };
 
   // Delete Product
-  const handleDelete = async (id) => {
-    if (!window.confirm(`Are you sure you want to permanently delete product ID "${id}"?`)) return;
+  const handleDelete = (id) => {
+    setConfirmModal({ show: true, productId: id });
+  };
+
+  const executeDelete = async () => {
+    const id = confirmModal.productId;
+    if (!id) return;
     try {
       const res = await api.delete(`/api/admin/products/${id}`);
       if (res.success) {
@@ -185,6 +192,8 @@ const ProductsManager = () => {
     } catch (err) {
       console.error('[AdminProduct] Delete failed:', err);
       toast.error('Failed to delete product.');
+    } finally {
+      setConfirmModal({ show: false, productId: '' });
     }
   };
 
@@ -545,6 +554,15 @@ const ProductsManager = () => {
           </div>
         </div>
       )}
+
+      <ConfirmModal 
+        show={confirmModal.show}
+        title="Delete Product?"
+        message={`Are you sure you want to permanently delete product ID "${confirmModal.productId}"? This action cannot be undone.`}
+        confirmText="Yes, Delete"
+        onConfirm={executeDelete}
+        onCancel={() => setConfirmModal({ show: false, productId: '' })}
+      />
     </>
   );
 };

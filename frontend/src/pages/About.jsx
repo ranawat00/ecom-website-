@@ -13,7 +13,7 @@ const VALUES = [
 
 const MILESTONES = [
   { year: '2018', title: 'The Beginning', desc: 'Started in a small home kitchen, sharing traditional postpartum wellness recipes with new mothers.' },
-  { year: '2019', title: 'Sourcing Pure Ghee', desc: 'Partnered with organic dairy farms for authentic A2 Bilona cow ghee.' },
+  { year: '2019', title: 'Mastering Harira', desc: 'Perfected the traditional slow-cooked Harira recipe using premium nuts, spices, and organic jaggery.' },
   { year: '2021', title: 'Online Launch', desc: 'Brought MaaPoshan to the internet — delivering traditional postpartum care across India.' },
   { year: '2023', title: '50,000+ Happy Families', desc: 'Crossed 50,000 orders milestone with a 4.9★ average customer satisfaction rating.' },
   { year: '2024', title: 'Zero Plastic', desc: 'Transitioned to 100% biodegradable, eco-friendly packaging across our entire product line.' },
@@ -33,8 +33,8 @@ const About = () => (
       </div>
       <div className="about-hero-visual">
         <div className="about-hero-img-stack">
-          <img src="/images/maaposhan-kit.png" alt="MaaPoshan Recovery Kit" className="hero-img hero-img-1" />
-          <img src="/images/maaposhan-ghee.png" alt="Pure Bilona Ghee" className="hero-img hero-img-2" />
+          <img src="/images/maaposhan-gifting-kit.png" alt="MaaPoshan Recovery Kit" className="hero-img hero-img-1" />
+          <img src="/images/maaposhan-harira.png" alt="Pure Ayurvedic Harira" className="hero-img hero-img-2" />
         </div>
       </div>
     </section>
@@ -45,7 +45,7 @@ const About = () => (
         <div className="mission-label">Our Mission</div>
         <h2>Reviving the Wisdom of <span>Ancestral Nutrition</span></h2>
         <p>
-          In a world that often overlooks postpartum recovery, we bring back the traditional care that heals from within. Pure bilona A2 ghee, organic jaggery, and handpicked wellness spices. Our mission is to make authentic, Ayurvedic postpartum nutrition accessible to every new mother, helping her restore energy and strength.
+          In a world that often overlooks postpartum recovery, we bring back the traditional care that heals from within. Pure chemical-free jaggery, organic bilona A2 ghee, warming recovery spices, and premium nuts slow-cooked to perfection. Our mission is to make authentic, Ayurvedic postpartum nutrition accessible to every new mother, helping her restore energy and strength.
         </p>
         <div className="mission-stats">
           <div className="stat-item"><strong>50K+</strong><span>Happy Families</span></div>

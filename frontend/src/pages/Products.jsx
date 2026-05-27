@@ -18,18 +18,18 @@ const getDynamicSubtitle = (product, selectedKey) => {
   return '';
 };
 
+const heroSlides = [
+    { image: '/images/desi-gud-main.png', tag: 'HERITAGE JAGGARY' },
+    { image: '/images/kaju-jaggery.png', tag: 'PREMIUM BLEND' },
+    { image: '/images/jaggery-powder.png', tag: 'NATURAL SWEETENER' }
+];
+
 const Products = () => {
     const { addToCart } = useCart();
     const { products: allProducts, loading } = useProducts();
     const navigate = useNavigate();
     const [currentSlide, setCurrentSlide] = React.useState(0);
     const [selectedVariants, setSelectedVariants] = React.useState({});
-
-    const heroSlides = [
-        { image: '/images/desi-gud-main.png', tag: 'HERITAGE JAGGARY' },
-        { image: '/images/kaju-jaggery.png', tag: 'PREMIUM BLEND' },
-        { image: '/images/jaggery-powder.png', tag: 'NATURAL SWEETENER' }
-    ];
 
     React.useEffect(() => {
         if (allProducts.length > 0) {

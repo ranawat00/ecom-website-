@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { 
   Search, 
   CreditCard, 
-  DollarSign, 
+  IndianRupee, 
   TrendingUp, 
   CheckCircle,
   FileText
@@ -93,7 +93,7 @@ const PaymentsManager = () => {
             <span className="stat-subtext">Pay on delivery</span>
           </div>
           <div className="stat-icon-wrap" style={{ backgroundColor: 'rgba(255, 152, 0, 0.1)', color: '#E65100' }}>
-            <DollarSign size={24} />
+            <IndianRupee size={24} />
           </div>
         </div>
       </div>

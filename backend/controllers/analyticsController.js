@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const Event = require('../models/eventModel');
 
 /**
@@ -12,7 +13,7 @@ exports.trackEvent = async (req, res) => {
     if (authHeader && authHeader.startsWith('Bearer ')) {
         try {
             const token = authHeader.split(' ')[1];
-            const decoded = require('jsonwebtoken').verify(token, process.env.JWT_SECRET || 'secret');
+            const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
             userId = decoded.id;
         } catch (e) {
             // Token invalid or expired - track as guest

@@ -14,8 +14,15 @@ export default defineConfig({
       },
     },
   },
+  esbuild: {
+    // Drop console logs and debuggers in production for speed and security
+    drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
+  },
   build: {
     outDir: 'build',
+    sourcemap: false, // Disable sourcemaps in production to minimize build size and speed up builds
+    minify: 'esbuild',
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
         manualChunks: {

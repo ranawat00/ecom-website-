@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const api = axios.create({
-  baseURL: '', // Using relative path for unified hosting
+  baseURL: import.meta.env.VITE_API_URL || '', // Reads from environment variables in production
   headers: {
     'Content-Type': 'application/json',
   },

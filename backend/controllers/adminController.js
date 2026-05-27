@@ -12,21 +12,58 @@ const Event = require('../models/eventModel');
  */
 exports.getStatsSummary = async (req, res) => {
     try {
-        // Fetch calculations in parallel
-        const [orders, productsCount, enquiriesCount, totalUsers] = await Promise.all([
-            Order.find({ status: { $ne: 'Cancelled' } }).lean(),
+        const sixMonthsAgo = new Date();
+        sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5);
+        sixMonthsAgo.setDate(1);
+        sixMonthsAgo.setHours(0,0,0,0);
+
+        // Fetch stats, counts, and graph data in parallel using aggregation and selective projection
+        const [statsAggregation, productsCount, enquiriesCount, totalUsers, recentOrdersRaw, graphOrders] = await Promise.all([
+            // 1. Single-pass aggregation for revenue and order status counts
+            Order.aggregate([
+                {
+                    $group: {
+                        _id: null,
+                        totalRevenue: {
+                            $sum: {
+                                $cond: [
+                                    { $ne: ["$status", "Cancelled"] },
+                                    "$amount",
+                                    0
+                                ]
+                            }
+                        },
+                        totalOrdersCount: { $sum: 1 },
+                        deliveredOrdersCount: {
+                            $sum: {
+                                $cond: [
+                                    { $eq: ["$status", "Delivered"] },
+                                    1,
+                                    0
+                                ]
+                            }
+                        }
+                    }
+                }
+            ]),
             Product.countDocuments(),
             Inquiry.countDocuments({ status: { $ne: 'Resolved' } }),
-            User.countDocuments({ role: 'user' })
+            User.countDocuments({ role: 'user' }),
+            // 2. Limit recent orders to 5
+            Order.find()
+                .sort({ createdAt: -1 })
+                .limit(5)
+                .lean(),
+            // 3. Selective projection for last 6 months to construct graph (saves huge memory)
+            Order.find({ createdAt: { $gte: sixMonthsAgo } })
+                .select('createdAt amount status')
+                .lean()
         ]);
 
-        // Total Revenue
-        const totalRevenue = orders.reduce((sum, order) => sum + (order.amount || 0), 0);
-
-        // Order counts by status
-        const allOrders = await Order.find().lean();
-        const deliveredOrders = allOrders.filter(o => o.status === 'Delivered').length;
-        const totalOrdersCount = allOrders.length;
+        const statsData = statsAggregation[0] || { totalRevenue: 0, totalOrdersCount: 0, deliveredOrdersCount: 0 };
+        const totalRevenue = statsData.totalRevenue;
+        const totalOrdersCount = statsData.totalOrdersCount;
+        const deliveredOrders = statsData.deliveredOrdersCount;
         const fulfillmentRate = totalOrdersCount > 0 ? ((deliveredOrders / totalOrdersCount) * 100).toFixed(1) : '0.0';
 
         // Conversion Rate (Simulated or via Events)
@@ -35,13 +72,6 @@ exports.getStatsSummary = async (req, res) => {
         const visitsToday = await Event.countDocuments({ type: 'Visit', createdAt: { $gte: today } });
         const ordersToday = await Event.countDocuments({ type: 'Purchase', createdAt: { $gte: today } });
         const conversionRate = visitsToday > 0 ? ((ordersToday / visitsToday) * 100).toFixed(1) : '3.8'; // standard default fallback
-
-        // Recent 5 orders with User info
-        // Recent 5 orders with User info
-        const recentOrdersRaw = await Order.find()
-            .sort({ createdAt: -1 })
-            .limit(5)
-            .lean();
 
         // Safe User Fetching to avoid ObjectId cast errors
         const userIds = recentOrdersRaw
@@ -65,16 +95,16 @@ exports.getStatsSummary = async (req, res) => {
             };
         });
 
-        // Revenue graph monthly projections (simulated based on orders)
+        // Revenue graph monthly projections (using highly cached slim graphOrders array)
         const salesByMonth = Array(6).fill(0).map((_, idx) => {
             const date = new Date();
             date.setMonth(date.getMonth() - (5 - idx));
             const monthName = date.toLocaleString('default', { month: 'short' });
             
-            // Filter orders in this month
-            const monthOrders = allOrders.filter(o => {
+            // Filter orders in this month (non-cancelled only for sales accuracy)
+            const monthOrders = graphOrders.filter(o => {
                 const oDate = new Date(o.createdAt);
-                return oDate.getMonth() === date.getMonth() && oDate.getFullYear() === date.getFullYear();
+                return oDate.getMonth() === date.getMonth() && oDate.getFullYear() === date.getFullYear() && o.status !== 'Cancelled';
             });
             const sum = monthOrders.reduce((s, o) => s + o.amount, 0);
             return { month: monthName, sales: sum || Math.floor(Math.random() * 5000) + 2000 };

@@ -16,6 +16,8 @@ const orderSchema = new mongoose.Schema({
         image: String
     }],
     amount: { type: Number, required: true },
+    discountAmount: { type: Number, default: 0 },
+    couponCode: { type: String, default: null },
     paymentMethod: { type: String, default: 'Razorpay' },
     paymentId: { type: String },
     address: { type: Object, required: true },
@@ -27,6 +29,9 @@ const orderSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+// Index for fast user order history lookups and sorting
+orderSchema.index({ userId: 1, createdAt: -1 });
 
 orderSchema.set('toJSON', {
     transform: (doc, ret) => {

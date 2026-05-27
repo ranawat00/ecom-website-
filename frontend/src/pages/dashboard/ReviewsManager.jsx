@@ -10,9 +10,11 @@ import {
 import { toast } from 'react-toastify';
 import api from '../../api/api';
 import '../../assets/styles/Dashboard.css';
+import ConfirmModal from '../../components/common/ConfirmModal';
 
 const ReviewsManager = () => {
   const [reviews, setReviews] = useState([]);
+  const [confirmModal, setConfirmModal] = useState({ show: false, productId: '', reviewId: '' });
   const [search, setSearch] = useState('');
   const [starsFilter, setStarsFilter] = useState('All');
   const [loading, setLoading] = useState(true);
@@ -36,9 +38,12 @@ const ReviewsManager = () => {
   }, [fetchReviews]);
 
   // Delete review
-  const handleDeleteReview = async (productId, reviewId) => {
-    if (!window.confirm("Are you sure you want to permanently delete this customer review?")) return;
-    
+  const handleDeleteReview = (productId, reviewId) => {
+    setConfirmModal({ show: true, productId, reviewId });
+  };
+
+  const executeDeleteReview = async () => {
+    const { productId, reviewId } = confirmModal;
     // The reviewId format is: `${productId}-${index}`
     const parts = reviewId.split('-');
     const index = parts[parts.length - 1]; // last item is the index
@@ -54,6 +59,8 @@ const ReviewsManager = () => {
     } catch (err) {
       console.error('[AdminReviews] Delete failed:', err);
       toast.error('Failed to delete review.');
+    } finally {
+      setConfirmModal({ show: false, productId: '', reviewId: '' });
     }
   };
 
@@ -251,6 +258,15 @@ const ReviewsManager = () => {
           </table>
         </div>
       </div>
+
+      <ConfirmModal 
+        show={confirmModal.show}
+        title="Delete Review?"
+        message="Are you sure you want to permanently delete this customer review? This action cannot be undone."
+        confirmText="Yes, Delete"
+        onConfirm={executeDeleteReview}
+        onCancel={() => setConfirmModal({ show: false, productId: '', reviewId: '' })}
+      />
     </>
   );
 };

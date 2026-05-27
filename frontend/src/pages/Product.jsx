@@ -29,6 +29,11 @@ const Product = () => {
 
   // Parse price strings like "₹1,250.00" → 1250
   const parsePrice = (priceStr) => parseFloat(String(priceStr).replace(/[^0-9.]/g, '')) || 0;
+
+  // Calculate average rating dynamically based on actual customer reviews
+  const averageRating = reviews.length > 0 
+    ? (reviews.reduce((sum, r) => sum + r.stars, 0) / reviews.length) 
+    : 5;
   
   useEffect(() => {
     const fetchProduct = async () => {
@@ -109,10 +114,23 @@ const Product = () => {
         <div className="product-details">
           
           <div className="reviews-row">
-            <div className="stars">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={16} fill="#6B1D2F" color="#6B1D2F" className="star-icon" />
-              ))}
+            <div className="stars" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              {[...Array(5)].map((_, i) => {
+                const starValue = i + 1;
+                const isFilled = starValue <= Math.round(averageRating);
+                return (
+                  <Star 
+                    key={i} 
+                    size={16} 
+                    fill={isFilled ? "#FFB300" : "transparent"} 
+                    color={isFilled ? "#FFB300" : "#D1D5DB"} 
+                    className="star-icon" 
+                  />
+                );
+              })}
+              <span className="rating-score" style={{ marginLeft: '4px', fontWeight: '700', color: '#FFB300', fontSize: '0.95rem' }}>
+                {averageRating.toFixed(1)}
+              </span>
             </div>
             <span className="review-count">({product.reviews} Reviews)</span>
           </div>
@@ -300,7 +318,7 @@ const Product = () => {
             <div className="review-card" key={idx}>
               <div className="review-stars">
                 {[...Array(review.stars)].map((_, i) => (
-                  <Star key={i} size={14} fill="#6a462b" color="#6a462b" />
+                  <Star key={i} size={14} fill="#FFB300" color="#FFB300" />
                 ))}
               </div>
               <p className="review-quote">"{review.quote}"</p>
@@ -400,7 +418,11 @@ const Product = () => {
                   stars: newReview.stars
                 });
                 if (data.success) {
-                  toast.success(data.message || 'Review submitted successfully! Pending approval.');
+                  toast.success(data.message || 'Review submitted successfully!');
+                  if (data.review) {
+                    setReviews(prev => [...prev, data.review]);
+                    setProduct(prev => prev ? { ...prev, reviews: (prev.reviews || 0) + 1 } : null);
+                  }
                 }
               } catch (err) {
                 console.error(err);
@@ -414,16 +436,20 @@ const Product = () => {
               
               <label>Rating</label>
               <div className="star-rating-select">
-                 {[1,2,3,4,5].map(num => (
-                    <Star 
-                      key={num} 
-                      size={28} 
-                      fill={num <= newReview.stars ? '#6B1D2F' : 'transparent'} 
-                      color="#6B1D2F" 
-                      onClick={() => setNewReview({...newReview, stars: num})}
-                      className="clickable-star"
-                    />
-                 ))}
+                 {[1,2,3,4,5].map(num => {
+                    const isSelected = num <= newReview.stars;
+                    return (
+                      <Star 
+                        key={num} 
+                        size={28} 
+                        fill={isSelected ? '#FFB300' : 'transparent'} 
+                        color={isSelected ? '#FFB300' : '#D1D5DB'} 
+                        onClick={() => setNewReview({...newReview, stars: num})}
+                        className="clickable-star"
+                        style={{ cursor: 'pointer', transition: 'all 0.2s ease' }}
+                      />
+                    );
+                 })}
               </div>
               
               <label>Your Review</label>

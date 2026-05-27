@@ -18,12 +18,15 @@ const productSchema = new mongoose.Schema({
         essenceDesc: String,
         ingredients: [{ name: String, image: String }],
         nutrition: [{ label: String, value: String }],
-        reviewsData: [{ name: String, quote: String, stars: Number, initial: String }],
+        reviewsData: [{ name: String, quote: String, stars: Number, initial: String, published: { type: Boolean, default: true } }],
         relatedData: [{ title: String, desc: String, price: String, image: String }]
     }
 }, {
     timestamps: true
 });
+
+// Compound Text Index for ultra-fast full-text product search queries
+productSchema.index({ title: 'text', tag: 'text', description: 'text' }, { weights: { title: 10, tag: 5, description: 1 } });
 
 productSchema.set('toJSON', {
     transform: (doc, ret) => {

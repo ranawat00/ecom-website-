@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
-  DollarSign, 
+  IndianRupee, 
   ShoppingBag, 
   ClipboardList, 
   HelpCircle, 
@@ -86,7 +86,7 @@ const DashboardHome = () => {
             <span className="stat-subtext"><TrendingUp size={12} /> Live sales audit</span>
           </div>
           <div className="stat-icon-wrap">
-            <DollarSign size={24} />
+            <IndianRupee size={24} />
           </div>
         </div>
 

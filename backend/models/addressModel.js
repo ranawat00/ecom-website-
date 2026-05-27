@@ -15,6 +15,9 @@ const addressSchema = new mongoose.Schema({
     timestamps: true
 });
 
+// Index for fast address lookup by userId
+addressSchema.index({ userId: 1 });
+
 addressSchema.virtual('id').get(function() {
     return this._id.toHexString();
 });

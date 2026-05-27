@@ -28,7 +28,7 @@ const Hero = () => {
           <div
             key={index}
             className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
-            style={index === currentSlide ? { backgroundImage: `url(${slide})` } : {}}
+            style={{ backgroundImage: `url(${slide})` }}
           />
         ))}
         {/* Gradient overlay to ensure text readability */}

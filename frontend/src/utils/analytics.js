@@ -5,11 +5,13 @@ import api from '../api/api';
  */
 export const track = async (type, data = {}) => {
     try {
-        // 1. Local Internal Analytics
-        await api.post('/api/analytics/track', {
+        // 1. Local Internal Analytics (fire-and-forget, non-blocking)
+        api.post('/api/analytics/track', {
             type,
             page: window.location.pathname,
             ...data
+        }).catch(err => {
+            console.warn('Local analytics tracking failed:', err.message);
         });
 
         // 2. Google Analytics (if loaded)

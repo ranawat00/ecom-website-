@@ -9,7 +9,8 @@ import {
   HelpCircle, 
   LogOut, 
   Home,
-  UserCheck
+  UserCheck,
+  Tag
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import api from '../../api/api';
@@ -174,6 +175,14 @@ const DashboardLayout = () => {
           >
             <HelpCircle />
             <span>Enquiries</span>
+          </NavLink>
+
+          <NavLink 
+            to="/admin/coupons" 
+            className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+          >
+            <Tag />
+            <span>Coupons</span>
           </NavLink>
 
           <NavLink 

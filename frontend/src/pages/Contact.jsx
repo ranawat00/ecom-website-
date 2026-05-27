@@ -41,23 +41,21 @@ const Contact = () => {
             <div className="info-icon-wrap"><MapPin size={22} /></div>
             <div>
               <strong>Visit Us</strong>
-              <p>Village Kisan Nagar, Muzaffarnagar, Uttar Pradesh - 251001</p>
+              <p>E-1/132, Madhuban Bapu Dham, Govindpuram, Ghaziabad - 201013</p>
             </div>
           </div>
           <div className="contact-info-card">
             <div className="info-icon-wrap"><Phone size={22} /></div>
             <div>
               <strong>Call Us</strong>
-              <p>+91 7668956432</p>
-              <p>+91 91234 56789</p>
+              <p>+91 9310971253</p>
             </div>
           </div>
           <div className="contact-info-card">
             <div className="info-icon-wrap"><Mail size={22} /></div>
             <div>
               <strong>Email Us</strong>
-              <p>support@jaggeryweapp.com</p>
-              <p>orders@jaggeryweapp.com</p>
+              <p>Maaposhan2000@gmail.com</p>
             </div>
           </div>
           <div className="contact-info-card">
@@ -78,7 +76,7 @@ const Contact = () => {
             <div className="map-wrapper">
               <iframe
                 title="Amirtan Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55988.88120893826!2d77.65695!3d29.47350!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390c5a05e63ecc73%3A0xd77e0b697f95d5b5!2sMuzaffarnagar%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14002.585250482813!2d77.4784!3d28.6703!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cf1b593685eef%3A0x8e82ef5cd3382759!2sGovindpuram%2C%20Ghaziabad%2C%20Uttar%20Pradesh%20201013!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -89,7 +87,7 @@ const Contact = () => {
             </div>
             <div className="map-directions">
               <a
-                href="https://maps.google.com/?q=Muzaffarnagar,Uttar+Pradesh"
+                href="https://maps.google.com/?q=Govindpuram,Ghaziabad"
                 target="_blank"
                 rel="noreferrer"
                 className="directions-btn"
