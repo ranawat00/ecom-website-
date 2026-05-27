@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Order = require('../models/orderModel');
 const Cart = require('../models/cartModel');
 const Address = require('../models/addressModel');
+const User = require('../models/userModel');
+const { sendOrderEmail } = require('../utils/emailService');
+const { recordInternalEvent } = require('./analyticsController');
 const { serializeOrder, serializeOrders, serializeCartItemsForOrder, serializeAddressForOrder } = require('../serializers');
 
 /** Compute cart totals. */
@@ -23,7 +26,7 @@ const generateOrderId = () => {
  * Body: { addressId, paymentMethod }
  */
 const placeOrder = async (req, res) => {
-    const { addressId, paymentMethod } = req.body;
+    const { addressId, paymentMethod, directBuyItem } = req.body;
 
     if (!addressId) {
         return res.status(400).json({ success: false, message: 'Please select a delivery address.' });
@@ -32,33 +35,49 @@ const placeOrder = async (req, res) => {
     try {
         const userId = new mongoose.Types.ObjectId(req.user.id);
 
-        // Fetch cart + address in parallel
-        const [cart, address] = await Promise.all([
-            Cart.findOne({ userId }).lean(),
+        // Fetch address (and cart only if not direct buy)
+        const fetchPromises = [
             Address.findOne({ _id: addressId, userId }).lean()
-        ]);
-
-        if (!cart || cart.items.length === 0) {
-            return res.status(400).json({ success: false, message: 'Your cart is empty.' });
+        ];
+        if (!directBuyItem) {
+            fetchPromises.push(Cart.findOne({ userId }).lean());
         }
+
+        const [address, cart] = await Promise.all(fetchPromises);
+
         if (!address) {
             return res.status(404).json({ success: false, message: 'Delivery address not found.' });
         }
 
-        const { finalTotal } = computeTotals(cart.items);
+        let items = [];
+        if (directBuyItem) {
+            items = [directBuyItem];
+        } else {
+            if (!cart || cart.items.length === 0) {
+                return res.status(400).json({ success: false, message: 'Your cart is empty.' });
+            }
+            items = cart.items;
+        }
 
-        // Create order + clear cart in parallel
-        const [order] = await Promise.all([
+        const { finalTotal } = computeTotals(items);
+
+        // Create order + (clear cart ONLY if not direct buy)
+        const dbOperations = [
             Order.create({
                 orderId: generateOrderId(),
                 userId,
-                items: serializeCartItemsForOrder(cart.items),
+                items: serializeCartItemsForOrder(items),
                 address: serializeAddressForOrder(address),
                 amount: finalTotal,
                 paymentMethod: paymentMethod || 'UPI'
-            }),
-            Cart.updateOne({ userId }, { $set: { items: [] } })
-        ]);
+            })
+        ];
+
+        if (!directBuyItem) {
+            dbOperations.push(Cart.updateOne({ userId }, { $set: { items: [] } }));
+        }
+
+        const [order] = await Promise.all(dbOperations);
 
         // Send confirmation email in background
         User.findById(userId).then(user => {

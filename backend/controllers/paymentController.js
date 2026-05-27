@@ -74,22 +74,33 @@ const generateOrderId = () => {
  * @route   POST /api/payment/create-order
  */
 const createRazorpayOrder = async (req, res) => {
-    const { couponCode } = req.body;
+    const { couponCode, directBuyItem } = req.body;
     try {
-        // .lean() → plain JS object, skips Mongoose hydration overhead
-        const cart = await Cart.findOne({ userId: req.user.id }).lean();
-        if (!cart || !cart.items || cart.items.length === 0) {
-            return res.status(400).json({ success: false, message: 'Cart is empty.' });
+        let items = [];
+        if (directBuyItem) {
+            items = [directBuyItem];
+        } else {
+            // .lean() → plain JS object, skips Mongoose hydration overhead
+            const cart = await Cart.findOne({ userId: req.user.id }).lean();
+            if (!cart || !cart.items || cart.items.length === 0) {
+                return res.status(400).json({ success: false, message: 'Cart is empty.' });
+            }
+            items = cart.items;
         }
 
-        const { finalTotal } = await computeTotals(cart.items, couponCode);
+        const { finalTotal } = await computeTotals(items, couponCode);
         const amountInPaise = Math.round(finalTotal * 100);
 
         const order = await razorpay.orders.create({
             amount: amountInPaise,
             currency: 'INR',
             receipt: `rcpt_${req.user.id.toString().slice(-8)}_${Date.now().toString().slice(-8)}`,
-            notes: { userId: req.user.id, couponCode: couponCode || '' }
+            notes: { 
+                userId: req.user.id, 
+                couponCode: couponCode || '',
+                isDirectBuy: directBuyItem ? 'true' : 'false',
+                directBuyItem: directBuyItem ? JSON.stringify(directBuyItem) : ''
+            }
         });
 
         return res.status(200).json({
@@ -110,7 +121,7 @@ const createRazorpayOrder = async (req, res) => {
  * @route   POST /api/payment/verify
  */
 const verifyAndPlaceOrder = async (req, res) => {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, addressId, couponCode } = req.body;
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, addressId, couponCode, directBuyItem } = req.body;
 
     // 1. Verify signature (CPU-only — no DB hit)
     const expectedSignature = crypto
@@ -125,27 +136,38 @@ const verifyAndPlaceOrder = async (req, res) => {
     try {
         const userId = new mongoose.Types.ObjectId(req.user.id);
 
-        // 2. Fetch cart + address in parallel
-        const [cart, address] = await Promise.all([
-            Cart.findOne({ userId }).lean(),
+        // 2. Fetch address (and cart only if not direct buy)
+        const fetchPromises = [
             Address.findOne({ _id: addressId, userId }).lean()
-        ]);
-
-        if (!cart || !cart.items || cart.items.length === 0) {
-            return res.status(400).json({ success: false, message: 'Cart is empty. Cannot place order.' });
+        ];
+        if (!directBuyItem) {
+            fetchPromises.push(Cart.findOne({ userId }).lean());
         }
+
+        const [address, cart] = await Promise.all(fetchPromises);
+
         if (!address) {
             return res.status(404).json({ success: false, message: 'Delivery address not found.' });
         }
 
-        const totals = await computeTotals(cart.items, couponCode);
+        let items = [];
+        if (directBuyItem) {
+            items = [directBuyItem];
+        } else {
+            if (!cart || !cart.items || cart.items.length === 0) {
+                return res.status(400).json({ success: false, message: 'Cart is empty. Cannot place order.' });
+            }
+            items = cart.items;
+        }
 
-        // 3. Create order + clear cart in parallel
-        const [order] = await Promise.all([
+        const totals = await computeTotals(items, couponCode);
+
+        // 3. Create order + (clear cart only if NOT direct buy)
+        const dbOperations = [
             Order.create({
                 orderId: generateOrderId(),
                 userId,
-                items: serializeCartItemsForOrder(cart.items),
+                items: serializeCartItemsForOrder(items),
                 address: serializeAddressForOrder(address),
                 amount: totals.finalTotal,
                 discountAmount: totals.discountAmount,
@@ -153,9 +175,14 @@ const verifyAndPlaceOrder = async (req, res) => {
                 paymentMethod: 'Razorpay',
                 paymentId: razorpay_payment_id,
                 status: 'Order Placed'
-            }),
-            Cart.updateOne({ userId }, { $set: { items: [] } })
-        ]);
+            })
+        ];
+
+        if (!directBuyItem) {
+            dbOperations.push(Cart.updateOne({ userId }, { $set: { items: [] } }));
+        }
+
+        const [order] = await Promise.all(dbOperations);
 
         // Increment coupon count
         if (totals.couponCode) {
@@ -186,7 +213,7 @@ const verifyAndPlaceOrder = async (req, res) => {
  * @route   POST /api/payment/cod
  */
 const placeCODOrder = async (req, res) => {
-    const { addressId, couponCode } = req.body;
+    const { addressId, couponCode, directBuyItem } = req.body;
 
     if (!req.user?.id) {
         return res.status(401).json({ success: false, message: 'User not authenticated.' });
@@ -195,36 +222,52 @@ const placeCODOrder = async (req, res) => {
     try {
         const userId = new mongoose.Types.ObjectId(req.user.id);
 
-        // 1. Fetch cart + address in parallel (lean = no Mongoose hydration)
-        const [cart, address] = await Promise.all([
-            Cart.findOne({ userId }).lean(),
+        // 1. Fetch address (and cart only if not direct buy)
+        const fetchPromises = [
             Address.findOne({ _id: addressId, userId }).lean()
-        ]);
-
-        if (!cart || !cart.items || cart.items.length === 0) {
-            return res.status(400).json({ success: false, message: 'Cart is empty. Cannot place order.' });
+        ];
+        if (!directBuyItem) {
+            fetchPromises.push(Cart.findOne({ userId }).lean());
         }
+
+        const [address, cart] = await Promise.all(fetchPromises);
+
         if (!address) {
             return res.status(404).json({ success: false, message: 'Delivery address not found or unauthorized.' });
         }
 
-        const totals = await computeTotals(cart.items, couponCode);
+        let items = [];
+        if (directBuyItem) {
+            items = [directBuyItem];
+        } else {
+            if (!cart || !cart.items || cart.items.length === 0) {
+                return res.status(400).json({ success: false, message: 'Cart is empty. Cannot place order.' });
+            }
+            items = cart.items;
+        }
 
-        // 2. Create order + clear cart in parallel
-        const [order] = await Promise.all([
+        const totals = await computeTotals(items, couponCode);
+
+        // 2. Create order + (clear cart only if NOT direct buy)
+        const dbOperations = [
             Order.create({
                 orderId: generateOrderId(),
                 userId,
-                items: serializeCartItemsForOrder(cart.items),
+                items: serializeCartItemsForOrder(items),
                 address: serializeAddressForOrder(address),
                 amount: totals.finalTotal,
                 discountAmount: totals.discountAmount,
                 couponCode: totals.couponCode,
                 paymentMethod: 'COD',
                 status: 'Order Placed'
-            }),
-            Cart.updateOne({ userId }, { $set: { items: [] } })
-        ]);
+            })
+        ];
+
+        if (!directBuyItem) {
+            dbOperations.push(Cart.updateOne({ userId }, { $set: { items: [] } }));
+        }
+
+        const [order] = await Promise.all(dbOperations);
 
         // Increment coupon count
         if (totals.couponCode) {

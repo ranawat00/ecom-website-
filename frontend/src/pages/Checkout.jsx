@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { MapPin, Plus, Minus, CheckCircle, ShoppingBag, Banknote, CreditCard, Lock, ShieldCheck, Truck, ArrowLeft, ChevronRight, Tag, AlertCircle, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { toast } from 'react-toastify';
@@ -11,6 +11,7 @@ import '../assets/styles/Checkout.css';
 const Checkout = () => {
   const { cartItems, cartTotal, isInitialLoad, setIsCartOpen, fetchCart, resetCart, updateCartItem } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
@@ -18,6 +19,37 @@ const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState('online'); // 'online' (Razorpay/UPI) or 'cod'
   const [selectedUPIApp, setSelectedUPIApp] = useState(null); // 'google_pay', 'phone_pe', 'paytm'
   const [isAddressesLoaded, setIsAddressesLoaded] = useState(false);
+
+  // Initialize directBuyItem from router state or sessionStorage fallback
+  const [directBuyItem, setDirectBuyItem] = useState(() => {
+    if (location.state?.directBuyItem) {
+      return location.state.directBuyItem;
+    }
+    const stored = sessionStorage.getItem('directBuyItem');
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch (e) {}
+    }
+    return null;
+  });
+
+  const updateDirectBuyQuantity = (newQty) => {
+    if (newQty < 1) return;
+    setDirectBuyItem(prev => {
+      if (!prev) return null;
+      const updated = { ...prev, quantity: newQty };
+      if (sessionStorage.getItem('directBuyItem')) {
+        sessionStorage.setItem('directBuyItem', JSON.stringify(updated));
+      }
+      return updated;
+    });
+  };
+
+  const checkoutItems = directBuyItem ? [directBuyItem] : cartItems;
+  const checkoutSubtotal = directBuyItem 
+    ? directBuyItem.price * directBuyItem.quantity 
+    : cartTotal;
 
   // Coupon states
   const [couponInput, setCouponInput] = useState('');
@@ -32,12 +64,12 @@ const Checkout = () => {
         try {
           const res = await api.post('/api/coupons/validate', {
             code: appliedCoupon.code,
-            cartItems: cartItems.map(item => ({
+            cartItems: checkoutItems.map(item => ({
               productId: item.productId,
               price: item.price,
               quantity: item.quantity
             })),
-            cartTotal: cartTotal
+            cartTotal: checkoutSubtotal
           });
 
           if (res.success) {
@@ -54,7 +86,7 @@ const Checkout = () => {
       };
       revalidateCoupon();
     }
-  }, [cartItems, cartTotal]);
+  }, [checkoutItems, checkoutSubtotal]);
 
   const handleApplyCoupon = async () => {
     if (!couponInput.trim()) return;
@@ -63,12 +95,12 @@ const Checkout = () => {
     try {
       const res = await api.post('/api/coupons/validate', {
         code: couponInput.trim(),
-        cartItems: cartItems.map(item => ({
+        cartItems: checkoutItems.map(item => ({
           productId: item.productId,
           price: item.price,
           quantity: item.quantity
         })),
-        cartTotal: cartTotal
+        cartTotal: checkoutSubtotal
       });
 
       if (res.success) {
@@ -97,19 +129,25 @@ const Checkout = () => {
     if (isInitialLoad || isAddressesLoaded || fetchedRef.current) return;
     
     // Record checkout start
-    if (cartItems.length > 0) {
-      Analytics.checkoutStart(cartTotal);
+    if (checkoutItems.length > 0) {
+      Analytics.checkoutStart(checkoutSubtotal);
     }
 
     if (!localStorage.getItem('token')) {
       toast.info('Please log in to proceed to checkout.');
       sessionStorage.setItem('redirectAfterLogin', '/checkout');
+      if (directBuyItem) {
+        sessionStorage.setItem('directBuyItem', JSON.stringify(directBuyItem));
+      }
       window.dispatchEvent(new Event('openAuthModal'));
       navigate('/');
       return;
     }
     
-    if (cartItems.length === 0 && !loading) {
+    // Clear temporary sessionStorage since user is authenticated
+    sessionStorage.removeItem('directBuyItem');
+    
+    if (checkoutItems.length === 0 && !loading) {
        toast.info('Your cart is empty.');
        navigate('/');
        return;
@@ -133,7 +171,7 @@ const Checkout = () => {
     };
 
     fetchInitialData();
-  }, [isInitialLoad, isAddressesLoaded, cartItems.length, navigate, loading]);
+  }, [isInitialLoad, isAddressesLoaded, checkoutItems.length, navigate, loading, directBuyItem]);
 
 
 
@@ -195,10 +233,15 @@ const Checkout = () => {
         setLoading(true);
         const data = await api.post('/api/payment/cod', { 
           addressId: selectedAddressId,
-          couponCode: appliedCoupon?.code || null
+          couponCode: appliedCoupon?.code || null,
+          directBuyItem: directBuyItem || null
         });
         if (data.success) {
-          resetCart();
+          if (!directBuyItem) {
+            resetCart();
+          } else {
+            sessionStorage.removeItem('directBuyItem');
+          }
           navigate('/order-success', { state: { order: data.order } });
         } else {
           toast.error(data.message || 'Failed to place COD order.');
@@ -223,7 +266,8 @@ const Checkout = () => {
 
     try {
       const data = await api.post('/api/payment/create-order', {
-        couponCode: appliedCoupon?.code || null
+        couponCode: appliedCoupon?.code || null,
+        directBuyItem: directBuyItem || null
       });
       if (!data.success) {
         toast.error('Failed to initiate payment. Please try again.');
@@ -257,10 +301,15 @@ const Checkout = () => {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
               addressId: selectedAddressId,
-              couponCode: appliedCoupon?.code || null
+              couponCode: appliedCoupon?.code || null,
+              directBuyItem: directBuyItem || null
             });
             if (vData.success) {
-              resetCart();
+              if (!directBuyItem) {
+                resetCart();
+              } else {
+                sessionStorage.removeItem('directBuyItem');
+              }
               navigate('/order-success', { state: { order: vData.order } });
             }
           } catch (err) {
@@ -284,9 +333,9 @@ const Checkout = () => {
     }
   };
 
-  const deliveryFee = cartTotal > 500 ? 0 : 49;
+  const deliveryFee = checkoutSubtotal > 500 ? 0 : 49;
   const discountAmount = appliedCoupon ? appliedCoupon.discountAmount : 0;
-  const finalTotal = Math.max(0, cartTotal - discountAmount + deliveryFee);
+  const finalTotal = Math.max(0, checkoutSubtotal - discountAmount + deliveryFee);
 
   if (loading) {
     return (
@@ -520,12 +569,12 @@ const Checkout = () => {
             <div className="order-summary-sidebar">
               <div className="order-summary-header">
                 <h2>Order Summary</h2>
-                <span className="items-count-pill">{cartItems.reduce((acc, curr) => acc + curr.quantity, 0)} Items</span>
+                <span className="items-count-pill">{checkoutItems.reduce((acc, curr) => acc + curr.quantity, 0)} Items</span>
               </div>
               
               <div className="summary-items-scroll">
-                {cartItems.map(item => (
-                  <div key={item.itemId} className="summary-item-tile">
+                {checkoutItems.map(item => (
+                  <div key={item.itemId || item.productId} className="summary-item-tile">
                     <div className="summary-item-media">
                       <img src={item.image || '/images/desi-gud-main.png'} alt={item.title} />
                     </div>
@@ -537,7 +586,13 @@ const Checkout = () => {
                         <div className="checkout-qty-widget">
                           <button 
                             className="qty-btn"
-                            onClick={() => updateCartItem(item.itemId, item.quantity - 1)} 
+                            onClick={() => {
+                              if (directBuyItem) {
+                                updateDirectBuyQuantity(item.quantity - 1);
+                              } else {
+                                updateCartItem(item.itemId, item.quantity - 1);
+                              }
+                            }} 
                             disabled={item.quantity <= 1}
                             aria-label="Decrease quantity"
                           >
@@ -546,7 +601,13 @@ const Checkout = () => {
                           <span className="qty-value">{item.quantity}</span>
                           <button 
                             className="qty-btn"
-                            onClick={() => updateCartItem(item.itemId, item.quantity + 1)}
+                            onClick={() => {
+                              if (directBuyItem) {
+                                updateDirectBuyQuantity(item.quantity + 1);
+                              } else {
+                                updateCartItem(item.itemId, item.quantity + 1);
+                              }
+                            }}
                             aria-label="Increase quantity"
                           >
                             <Plus size={10} />
@@ -619,7 +680,7 @@ const Checkout = () => {
               <div className="summary-financials">
                 <div className="financial-row">
                   <span className="financial-label">Subtotal</span>
-                  <span className="financial-value">₹{cartTotal.toFixed(2)}</span>
+                  <span className="financial-value">₹{checkoutSubtotal.toFixed(2)}</span>
                 </div>
                 
                 {appliedCoupon && (
@@ -643,7 +704,7 @@ const Checkout = () => {
                   </div>
                 ) : (
                   <div className="delivery-progress-banner">
-                    <span>Add <b>₹{(500 - cartTotal).toFixed(0)}</b> more to unlock <b>FREE Delivery</b>!</span>
+                    <span>Add <b>₹{(500 - checkoutSubtotal).toFixed(0)}</b> more to unlock <b>FREE Delivery</b>!</span>
                   </div>
                 )}
                 

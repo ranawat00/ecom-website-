@@ -53,22 +53,22 @@ const Products = () => {
         setSelectedVariants(prev => ({ ...prev, [productId]: weight }));
     };
 
-    const handleBuyNow = async (e, product) => {
+    const handleBuyNow = (e, product) => {
         e.preventDefault();
         e.stopPropagation();
 
         const selectedWeight = selectedVariants[product.id];
         const variant = product.variants[selectedWeight];
         
-        await addToCart({
+        const directBuyItem = {
             productId: product.id,
             title: product.title,
             price: variant.price,
             image: product.images[0],
             weight: selectedWeight,
             quantity: 1
-        }, false);
-        navigate('/checkout');
+        };
+        navigate('/checkout', { state: { directBuyItem } });
     };
 
     const handleAddToCart = (e, product) => {

@@ -110,21 +110,21 @@ const Featured = () => {
     });
   };
 
-  const handleBuyNow = async (e, product) => {
+  const handleBuyNow = (e, product) => {
     e.preventDefault();
     e.stopPropagation();
     const variantKey = selectedVariants[product.id];
     const variant = product.variants[variantKey];
     
-    await addToCart({
+    const directBuyItem = {
       productId: product.id,
       title: product.title,
       price: variant.price,
       image: product.images[0],
       weight: variantKey,
       quantity: 1
-    }, false);
-    navigate('/checkout');
+    };
+    navigate('/checkout', { state: { directBuyItem } });
   };
 
   const handleVariantChange = (e, productId, variantKey) => {

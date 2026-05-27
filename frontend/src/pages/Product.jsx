@@ -179,16 +179,16 @@ const Product = () => {
             >ADD TO CART</button>
             <button
               className="btn-buy-now"
-              onClick={async () => {
-                await addToCart({
+              onClick={() => {
+                const directBuyItem = {
                   productId: id,
                   title: product.title,
                   price: activeVariant.price,
                   image: product.images[0],
                   weight: selectedWeight,
                   quantity: 1
-                }, false, true);
-                navigate('/checkout');
+                };
+                navigate('/checkout', { state: { directBuyItem } });
               }}
             >BUY NOW</button>
           </div>
@@ -373,18 +373,18 @@ const Product = () => {
                     >+</button>
                     <button
                        className="btn-buy-mini"
-                       onClick={async (e) => {
+                       onClick={(e) => {
                          e.preventDefault();
                          e.stopPropagation();
-                         await addToCart({
+                         const directBuyItem = {
                            productId: item.id || item.title.toLowerCase().replace(/\s+/g, '-'),
                            title: item.title,
                            price: parsePrice(item.price),
                            image: item.image,
                            weight: item.weight || '1kg',
                            quantity: 1
-                         }, false, true);
-                         navigate('/checkout');
+                         };
+                         navigate('/checkout', { state: { directBuyItem } });
                        }}
                     >
                       Buy
