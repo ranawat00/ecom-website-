@@ -35,7 +35,7 @@ const sendEmail = async (options) => {
     try {
         const mailTransporter = await getTransporter();
         const mailOptions = {
-            from: `"Heritage Harvest" <${process.env.SMTP_USER}>`,
+            from: `"MaaPoshan Traditional Care" <${process.env.SMTP_USER}>`,
             to: options.to,
             subject: options.subject,
             text: options.text,
@@ -64,21 +64,21 @@ const notifySubscribers = async (product) => {
 
         const emailPromises = subscribers.map(sub => sendEmail({
             to: sub.email,
-            subject: `✨ New Harvest: ${product.title} is now available!`,
+            subject: `✨ New Launch: ${product.title} is now live!`,
             html: `
-                <div style="font-family: serif; color: #3f2a1b; max-width: 600px; margin: 0 auto; border: 1px solid #D4A373; border-radius: 12px; overflow: hidden;">
-                    <div style="background-color: #8B5E3C; padding: 20px; text-align: center;">
-                         <h1 style="color: #FFF8E7; margin: 0;">New Artisanal Harvest</h1>
+                <div style="font-family: serif; color: #3f2a1b; max-width: 600px; margin: 0 auto; border: 1px solid #C5A880; border-radius: 12px; overflow: hidden;">
+                    <div style="background-color: #6B1D2F; padding: 20px; text-align: center;">
+                         <h1 style="color: #FFF8E7; margin: 0;">New Postpartum Care Blend</h1>
                     </div>
                     <div style="padding: 30px; background-color: #FFF8E7;">
-                        <h2 style="color: #8B5E3C;">${product.title}</h2>
+                        <h2 style="color: #6B1D2F;">${product.title}</h2>
                         <p style="font-size: 1.1rem; line-height: 1.6;">${product.description}</p>
                         <div style="margin: 25px 0;">
                             <img src="${process.env.FRONTEND_URL || 'http://localhost:3000'}${product.images[0]}" alt="${product.title}" style="width: 100%; border-radius: 8px;" />
                         </div>
-                        <p>Our latest chemical-free creation is now live in the atelier. Handcrafted with the same heirloom techniques you love.</p>
+                        <p>Our latest chemical-free, traditional recovery creation is now live in the MaaPoshan store. Handcrafted with the same traditional bilona techniques you love.</p>
                         <div style="text-align: center; margin-top: 30px;">
-                            <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/product/${product.id}" style="background-color: #8B5E3C; color: #FFF8E7; padding: 12px 30px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block;">SHOP NOW</a>
+                            <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/product/${product.id}" style="background-color: #6B1D2F; color: #FFF8E7; padding: 12px 30px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block;">SHOP NOW</a>
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,7 @@ const sendOrderEmail = async (user, order, type = 'confirmation') => {
     const title = isCancellation ? 'Order Successfully Cancelled' : 'Order Successfully Placed';
     const subtitle = isCancellation 
         ? 'Your order has been cancelled and any refund (if applicable) will be processed shortly.'
-        : 'Thank you for your purchase! We are preparing your artisanal heritage products.';
+        : 'Thank you for your purchase! We are preparing your premium traditional postpartum recovery and wellness products.';
 
     const itemsHtml = order.items.map(item => `
         <tr style="border-bottom: 1px solid #eee;">
@@ -113,8 +113,8 @@ const sendOrderEmail = async (user, order, type = 'confirmation') => {
     `).join('');
 
     const html = `
-        <div style="font-family: 'Georgia', serif; color: #3f2a1b; max-width: 600px; margin: 0 auto; border: 1px solid #D4A373; border-radius: 12px; overflow: hidden;">
-            <div style="background-color: ${isCancellation ? '#e74c3c' : '#8B5E3C'}; padding: 30px; text-align: center;">
+        <div style="font-family: 'Georgia', serif; color: #3f2a1b; max-width: 600px; margin: 0 auto; border: 1px solid #C5A880; border-radius: 12px; overflow: hidden;">
+            <div style="background-color: ${isCancellation ? '#e74c3c' : '#6B1D2F'}; padding: 30px; text-align: center;">
                  <h1 style="color: #FFF8E7; margin: 0; font-size: 24px;">${title}</h1>
             </div>
             <div style="padding: 30px; background-color: #FFF8E7;">
@@ -122,28 +122,28 @@ const sendOrderEmail = async (user, order, type = 'confirmation') => {
                 <p style="line-height: 1.6; margin-bottom: 30px;">${subtitle}</p>
                 
                 <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e0d5c1;">
-                    <h3 style="margin-top: 0; color: #8B5E3C; border-bottom: 2px solid #F8EED8; padding-bottom: 10px;">Order Details</h3>
+                    <h3 style="margin-top: 0; color: #6B1D2F; border-bottom: 2px solid #F8EED8; padding-bottom: 10px;">Order Details</h3>
                     <p><strong>Order ID:</strong> #${order.orderId}</p>
                     <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
                         ${itemsHtml}
                         <tr>
                             <td style="padding: 20px 0 0; font-weight: bold; font-size: 1.2rem;">Total Amount</td>
-                            <td style="padding: 20px 0 0; text-align: right; font-weight: bold; font-size: 1.2rem; color: #8B5E3C;">₹${order.amount}</td>
+                            <td style="padding: 20px 0 0; text-align: right; font-weight: bold; font-size: 1.2rem; color: #6B1D2F;">₹${order.amount}</td>
                         </tr>
                     </table>
                     <p style="font-size: 0.9rem; color: #7a614e;"><strong>Delivery Address:</strong><br/> ${order.address.street}, ${order.address.city}, ${order.address.state} - ${order.address.pincode}</p>
                 </div>
 
                 <div style="text-align: center; margin-top: 40px;">
-                    <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/orders" style="background-color: #8B5E3C; color: #FFF8E7; padding: 14px 40px; text-decoration: none; border-radius: 10px; font-weight: bold; display: inline-block;">VIEW ORDER STATUS</a>
+                    <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/orders" style="background-color: #6B1D2F; color: #FFF8E7; padding: 14px 40px; text-decoration: none; border-radius: 10px; font-weight: bold; display: inline-block;">VIEW ORDER STATUS</a>
                 </div>
                 
-                <p style="margin-top: 40px; font-size: 0.85rem; color: #a88871; text-align: center;">
-                    If you have any questions, reply to this email or contact us at support@amritan.com
+                <p style="margin-top: 40px; font-size: 0.85rem; color: #6B1D2F; text-align: center;">
+                    If you have any questions, reply to this email or contact us at Maaposhan2000@gmail.com
                 </p>
             </div>
-            <div style="background-color: #F8EED8; padding: 15px; text-align: center; font-size: 0.8rem; color: #8B5E3C;">
-                © 2024 Heritage Harvest Atelier. Pure. Traditional. Ethical.
+            <div style="background-color: #F8EED8; padding: 15px; text-align: center; font-size: 0.8rem; color: #6B1D2F;">
+                © 2026 MaaPoshan. Pure. Traditional. Nourishing.
             </div>
         </div>
     `;

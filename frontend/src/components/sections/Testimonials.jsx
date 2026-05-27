@@ -11,7 +11,7 @@ const Testimonials = () => {
     },
     {
       id: 2,
-      quote: "I finally found a jaggery that doesn't have any chemical aftertaste. Heritage Atelier has become a staple in our household for all our desserts.",
+      quote: "I finally found a jaggery that doesn't have any chemical aftertaste. MaaPoshan has become a staple in our household for all our desserts.",
       author: "DR. VIKRAM MEHTA, MUMBAI"
     }
   ];
@@ -20,7 +20,7 @@ const Testimonials = () => {
     <section className="testimonials-section">
       <div className="testimonials-header">
         <Quote className="quote-icon" fill="currentColor" size={32} strokeWidth={0} />
-        <h2 className="testimonials-title">Voices of the Atelier</h2>
+        <h2 className="testimonials-title">Voices of MaaPoshan</h2>
       </div>
 
       <div className="testimonials-list">

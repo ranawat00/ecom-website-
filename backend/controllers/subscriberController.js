@@ -24,19 +24,19 @@ exports.subscribe = async (req, res) => {
         // Send a welcome email
         await sendEmail({
             to: email,
-            subject: 'Welcome to the Heritage Circle!',
+            subject: 'Welcome to the MaaPoshan Circle! 🌸',
             html: `
                 <div style="font-family: serif; color: #3f2a1b; padding: 20px;">
-                    <h1 style="color: #8B5E3C;">Welcome to Heritage Harvest</h1>
-                    <p>Thank you for joining our heritage circle. You will now receive early access to our artisanal harvests and recipes.</p>
-                    <p>Stay tuned for our next seasonal update!</p>
-                    <hr style="border: 0.5px solid #D4A373;" />
-                    <p style="font-size: 0.8rem; color: #a88871;">Heritage Harvest Atelier</p>
+                    <h1 style="color: #6B1D2F;">Welcome to MaaPoshan</h1>
+                    <p>Thank you for joining our postpartum care and maternal wellness circle. You will now receive early access to our handcrafted, organic recovery blends and recipes.</p>
+                    <p>Stay tuned for our next seasonal updates and maternal health guides!</p>
+                    <hr style="border: 0.5px solid #C5A880;" />
+                    <p style="font-size: 0.8rem; color: #6B1D2F;">MaaPoshan Traditional Postpartum Care</p>
                 </div>
             `
         });
 
-        res.status(200).json({ success: true, message: 'Success! Welcome to the Heritage Circle.' });
+        res.status(200).json({ success: true, message: 'Success! Welcome to the MaaPoshan Circle.' });
     } catch (error) {
         console.error('[Subscriber] Error:', error.message);
         res.status(500).json({ success: false, message: 'Failed to subscribe. Please try again.' });

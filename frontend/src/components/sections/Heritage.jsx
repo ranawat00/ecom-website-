@@ -52,7 +52,7 @@ const Heritage = () => {
             </div>
             <div className="stat-item">
               <span className="stat-number">Bilona</span>
-              <span className="stat-label">A2 Ghee Base</span>
+              <span className="stat-label">MaaPoshan Harira</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">Ayurvedic</span>

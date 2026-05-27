@@ -50,7 +50,7 @@ const products = [
         title: 'MaaPoshan Harira (Strength Version (Made from Ghee))',
         subtitle: 'For normal delivery moms',
         tag: 'TRADITIONAL HEALING',
-        description: 'A traditional, nutrient-dense blend of A2 ghee, organic jaggery, fresh ginger, saffron, fenugreek, ajwain, and premium nuts crafted for new mothers\' postpartum recovery.',
+        description: 'A traditional, nutrient-dense blend of Desi Ghee, organic jaggery, fresh ginger, saffron, fenugreek, ajwain, and premium nuts crafted for new mothers\' postpartum recovery.',
         variants: {
             'Size - 500gm': { price: 900.00, originalPrice: 1200.00, discount: '25% OFF' },
             'Size - 1000gm': { price: 1800.00, originalPrice: 2400.00, discount: '25% OFF' }
@@ -65,9 +65,9 @@ const products = [
         ],
         details: {
             essenceQuote: '"Rooted in ancient Indian postpartum wisdom, our Harira is a delicious, slow-cooked blend that helps new mothers regain their strength."',
-            essenceDesc: 'Prepared using the finest almonds, cashews, pure A2 ghee, chemical-free jaggery, fresh ginger, and postpartum-restorative spices like fenugreek, ajwain, turmeric, and saffron. Our Harira supports lactation, boosts energy levels, and aids in rapid physical recovery after delivery.',
+            essenceDesc: 'Prepared using the finest almonds, cashews, pure Desi Ghee, chemical-free jaggery, fresh ginger, and postpartum-restorative spices like fenugreek, ajwain, turmeric, and saffron. Our Harira supports lactation, boosts energy levels, and aids in rapid physical recovery after delivery.',
             ingredients: [
-                { name: 'Pure A2 Cow Ghee', image: '/images/maaposhan-ghee.png' },
+                { name: 'Pure Desi Cow Ghee', image: '/images/maaposhan-ghee.png' },
                 { name: 'Organic Jaggery & Ginger', image: '/images/maaposhan-harira.png' },
                 { name: 'Almonds & Saffron', image: '/images/maaposhan-bites.png' }
             ],

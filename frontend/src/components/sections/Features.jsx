@@ -43,8 +43,8 @@ const Features = () => {
     },
     {
       icon: <Tractor className="feature-icon" />,
-      title: 'A2 Ghee Base',
-      description: 'Slow-cooked using authentic Bilona-churned A2 cow ghee, essential for joint health and tissue recovery.',
+      title: 'MaaPoshan Harira',
+      description: 'Our signature postpartum recovery paste slow-cooked using authentic Bilona Desi Ghee, essential for joint health, tissue recovery, and maternal strength.',
     }
   ];
 

@@ -45,7 +45,7 @@ const About = () => (
         <div className="mission-label">Our Mission</div>
         <h2>Reviving the Wisdom of <span>Ancestral Nutrition</span></h2>
         <p>
-          In a world that often overlooks postpartum recovery, we bring back the traditional care that heals from within. Pure chemical-free jaggery, organic bilona A2 ghee, warming recovery spices, and premium nuts slow-cooked to perfection. Our mission is to make authentic, Ayurvedic postpartum nutrition accessible to every new mother, helping her restore energy and strength.
+          In a world that often overlooks postpartum recovery, we bring back the traditional care that heals from within. Our signature MaaPoshan Harira is crafted using pure chemical-free jaggery, organic bilona Desi Ghee, warming recovery spices, and premium nuts slow-cooked to perfection. Our mission is to make authentic, Ayurvedic postpartum nutrition accessible to every new mother, helping her restore energy and strength.
         </p>
         <div className="mission-stats">
           <div className="stat-item"><strong>50K+</strong><span>Happy Families</span></div>

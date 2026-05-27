@@ -46,7 +46,7 @@ const Hero = () => {
             Naturally.
           </h1>
           <p className="hero-description">
-            Because you deserve the best. Authentic strength, healing, and lactation support blends made with pure A2 ghee, organic jaggery, and premium nuts for new mothers.
+            Because you deserve the best. Authentic strength, healing, and lactation support with MaaPoshan Harira, slow-cooked with pure Desi Ghee, organic jaggery, and premium nuts for new mothers.
           </p>
           <div className="hero-buttons">
             <button className="btn-shop" onClick={() => navigate('/products')}>Shop Now</button>
