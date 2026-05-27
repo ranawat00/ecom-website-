@@ -134,10 +134,6 @@ const getOrderById = async (req, res) => {
     }
 };
 
-const User = require('../models/userModel');
-const { sendOrderEmail } = require('../utils/emailService');
-const { recordInternalEvent } = require('./analyticsController');
-
 /**
  * @route POST /api/order/cancel/:id
  */
