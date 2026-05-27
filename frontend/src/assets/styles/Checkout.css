@@ -1142,3 +1142,110 @@ body.dark-theme .summary-item-tile {
   font-weight: 700;
 }
 
+/* ==========================================================================
+   Mobile-View Optimization Block (max-width: 576px)
+   ========================================================================== */
+@media (max-width: 576px) {
+  .checkout-page {
+    padding: 24px 12px 60px;
+  }
+
+  .checkout-title {
+    font-size: 1.8rem;
+  }
+
+  .checkout-stepper {
+    padding: 12px 14px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    justify-content: space-between;
+  }
+
+  .step-item {
+    gap: 8px;
+  }
+
+  .step-icon-wrapper {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
+  .step-divider-line {
+    margin: 0 8px;
+    height: 1px;
+  }
+
+  .checkout-section {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .section-header {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+  }
+
+  .section-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .address-grid-options {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .address-card-option {
+    padding: 16px;
+  }
+
+  .payment-method-card {
+    padding: 16px;
+  }
+
+  .payment-method-body {
+    padding-left: 28px;
+  }
+
+  .upi-apps-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .upi-app-button {
+    padding: 8px 12px;
+    min-width: unset;
+  }
+
+  .order-summary-sidebar {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .summary-item-tile {
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  .summary-item-media {
+    width: 54px;
+    height: 54px;
+  }
+
+  .summary-item-name {
+    font-size: 0.85rem;
+  }
+
+  .coupon-input-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .coupon-apply-btn {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
