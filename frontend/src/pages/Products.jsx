@@ -4,19 +4,6 @@ import { useCart } from '../context/CartContext';
 import { useProducts } from '../context/ProductContext';
 import '../assets/styles/Products.css';
 
-const getDynamicProductTitle = (product, selectedKey) => {
-  if (product.id === 'maaposhan-harira') {
-    return 'MaaPoshan Harira (Strength Version (Made from Ghee))';
-  }
-  return product.title;
-};
-
-const getDynamicSubtitle = (product, selectedKey) => {
-  if (product.id === 'maaposhan-harira') {
-    return 'For normal delivery moms';
-  }
-  return '';
-};
 
 const heroSlides = [
     { image: '/images/desi-gud-main.png', tag: 'HERITAGE JAGGARY' },
@@ -88,8 +75,8 @@ const Products = () => {
         });
     };
 
-    if (loading) return <div className="products-loading">Loading heritage collection...</div>;
-    if (allProducts.length === 0) return <div className="products-empty">No artisanal products found. Check back soon.</div>;
+    if (loading) return <div className="products-loading">Loading MaaPoshan collection...</div>;
+    if (allProducts.length === 0) return <div className="products-empty">No nourishing products found. Check back soon.</div>;
 
     return (
         <div className="all-products-page">
@@ -104,8 +91,8 @@ const Products = () => {
                 <div className="hero-overlay"></div>
                 <div className="hero-content">
                     <span className="hero-tag">{heroSlides[currentSlide].tag}</span>
-                    <h1>Heritage Harvest Atelier</h1>
-                    <p>Pure, chemical-free, and ethically sourced. Explore our full range of traditional essentials.</p>
+                    <h1>MaaPoshan Nourishing Collection</h1>
+                    <p>Pure, nutrient-dense postpartum nourishment and healing essentials for mother and baby.</p>
                     <div className="carousel-dots">
                         {heroSlides.map((_, index) => (
                             <span 
@@ -120,7 +107,7 @@ const Products = () => {
 
             <div className="products-container">
                 <div className="products-controls">
-                    <div className="result-count">{allProducts.length} artisanal products</div>
+                    <div className="result-count">{allProducts.length} nourishing products</div>
                 </div>
 
                 <div className="products-grid">
@@ -137,12 +124,12 @@ const Products = () => {
                             </div>
                             <div className="card-body">
                                 <div className="card-header">
-                                    <h3>{getDynamicProductTitle(product, selectedWeight)}</h3>
+                                    <h3>{product.title}</h3>
                                     <span className="price-tag">₹{variant?.price || 0}</span>
                                 </div>
-                                {product.id === 'maaposhan-harira' && (
+                                {product.subtitle && (
                                     <p className="card-subtitle-custom" style={{ fontSize: '0.75rem', color: '#8C6374', fontWeight: '700', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '-8px' }}>
-                                        {getDynamicSubtitle(product, selectedWeight)}
+                                        {product.subtitle}
                                     </p>
                                 )}
                                 <p className="card-desc">{product.description}</p>

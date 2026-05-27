@@ -40,9 +40,9 @@ const Newsletter = () => {
       <div className="newsletter-container">
         {/* Subtle patterned overlay injected by CSS background */}
         <div className="newsletter-content">
-          <h2 className="newsletter-title">Join the Heritage Circle</h2>
+          <h2 className="newsletter-title">Join the MaaPoshan Circle</h2>
           <p className="newsletter-description">
-            Receive exclusive recipes, artisan stories, and early access to our limited seasonal harvests.
+            Receive exclusive postpartum recipes, Ayurvedic recovery tips, and early access to our limited batches.
           </p>
           <form className="newsletter-form" onSubmit={handleSubmit}>
             <input 

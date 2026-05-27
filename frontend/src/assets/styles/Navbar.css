@@ -254,9 +254,19 @@ body.dark-theme .bar {
   }
 
   /* Hide desktop-only top-level header actions on mobile viewports to prevent squishing */
-  .navbar-account,
   .theme-toggle-nav {
     display: none !important;
+  }
+
+  .navbar-account {
+    display: flex !important;
+    width: 36px;
+    height: 36px;
+  }
+
+  .navbar-account svg {
+    width: 18px;
+    height: 18px;
   }
 
   .navbar-cart {

@@ -60,19 +60,6 @@ const Product = () => {
     fetchProduct();
   }, [id]);
 
-  const getDynamicTitle = () => {
-    if (product && product.id === 'maaposhan-harira') {
-      return 'MaaPoshan Harira (Strength Version (Made from Ghee))';
-    }
-    return product ? product.title : '';
-  };
-
-  const getDynamicSubtitle = () => {
-    if (product && product.id === 'maaposhan-harira') {
-      return 'For normal delivery moms';
-    }
-    return '';
-  };
 
   if (loading) return <div className="product-loading">Loading artisan details...</div>;
   if (!product) return <div className="product-error">Product not found.</div>;
@@ -135,10 +122,10 @@ const Product = () => {
             <span className="review-count">({product.reviews} Reviews)</span>
           </div>
 
-          <h1 className="product-title">{getDynamicTitle()}</h1>
-          {product.id === 'maaposhan-harira' && (
+          <h1 className="product-title">{product.title}</h1>
+          {product.subtitle && (
             <p className="product-subtitle-custom" style={{ color: '#8C6374', fontWeight: '700', fontSize: '1.1rem', marginTop: '-0.75rem', marginBottom: '1.25rem' }}>
-              {getDynamicSubtitle()}
+              {product.subtitle}
             </p>
           )}
           <p className="product-description">{product.description}</p>

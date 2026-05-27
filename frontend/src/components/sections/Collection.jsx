@@ -4,28 +4,6 @@ import { useCart } from '../../context/CartContext';
 import { useProducts } from '../../context/ProductContext';
 import '../../assets/styles/Collection.css';
 
-const getDynamicProductTitle = (product, selectedKey) => {
-  if (product.id === 'maaposhan-harira') {
-    return 'MaaPoshan Harira (Strength Version (Made from Ghee))';
-  }
-  return product.title;
-};
-
-const getDynamicSubtitle = (product, selectedKey) => {
-  if (product.id === 'maaposhan-kit') {
-    return 'Mother & Baby Luxury Gifting Box';
-  }
-  if (product.id === 'maaposhan-harira') {
-    return 'For normal delivery moms';
-  }
-  if (product.id === 'maaposhan-harira-gentle') {
-    return 'For C-Section mothers';
-  }
-  if (product.id === 'maaposhan-harira-kit') {
-    return 'Raw Product • Ghee • Jaggery Packets';
-  }
-  return selectedKey || '';
-};
 
 const Collection = () => {
   const { addToCart } = useCart();
@@ -104,8 +82,8 @@ const Collection = () => {
         <img src={p.images[0]} alt={p.title} className="collection-img" loading="lazy" />
         <div className="collection-text-overlay">
           <div className="overlay-info">
-            <h3>{getDynamicProductTitle(p, selectedKey)}</h3>
-            <p>₹{variant?.price || 0} • {getDynamicSubtitle(p, selectedKey)}</p>
+            <h3>{p.title}</h3>
+            <p>₹{variant?.price || 0} • {p.subtitle || selectedKey || ''}</p>
             
             {/* Variant Selector */}
             {variantKeys.length > 1 && (

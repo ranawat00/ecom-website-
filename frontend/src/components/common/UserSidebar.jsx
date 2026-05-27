@@ -122,7 +122,7 @@ const UserSidebar = ({ isOpen, onClose }) => {
           <div className="user-info">
             <div className="user-avatar"><User size={32} color="#fff" /></div>
             <h3>{user ? user.username : 'Welcome back!'}</h3>
-            <p>{user ? user.email : 'Heritage Premium Member'}</p>
+            <p>{user ? user.email : 'MaaPoshan Premium Member'}</p>
           </div>
         </div>
         {renderMenu()}

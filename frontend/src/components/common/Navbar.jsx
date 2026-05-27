@@ -165,6 +165,13 @@ const Navbar = () => {
             <button className="theme-toggle-nav" onClick={toggleTheme} title={isDarkMode ? 'Switch to Light' : 'Switch to Dark'}>
               {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
+            <div className="navbar-cart" title="Cart" onClick={() => setIsCartOpen(true)} style={{ cursor: 'pointer', position: 'relative' }}>
+              <ShoppingBag size={24} className="account-icon" />
+              {cartItems.length > 0 && (
+                <span className="cart-badge">{cartItems.reduce((sum, i) => sum + i.quantity, 0)}</span>
+              )}
+            </div>
+
             <div className="navbar-account" title="Account" onClick={handleAccountClick} style={{ cursor: 'pointer' }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -179,13 +186,6 @@ const Navbar = () => {
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
-            </div>
-
-            <div className="navbar-cart" title="Cart" onClick={() => setIsCartOpen(true)} style={{ cursor: 'pointer', position: 'relative' }}>
-              <ShoppingBag size={24} className="account-icon" />
-              {cartItems.length > 0 && (
-                <span className="cart-badge">{cartItems.reduce((sum, i) => sum + i.quantity, 0)}</span>
-              )}
             </div>
 
             <div className="hamburger" onClick={toggleMenu}>

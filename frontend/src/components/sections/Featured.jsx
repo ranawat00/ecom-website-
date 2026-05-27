@@ -5,28 +5,6 @@ import { useCart } from '../../context/CartContext';
 import { useProducts } from '../../context/ProductContext';
 import '../../assets/styles/Featured.css';
 
-const getDynamicProductTitle = (product, selectedKey) => {
-  if (product.id === 'maaposhan-harira') {
-    return 'MaaPoshan Harira (Strength Version (Made from Ghee))';
-  }
-  return product.title;
-};
-
-const getDynamicSubtitle = (product, selectedKey) => {
-  if (product.id === 'maaposhan-kit') {
-    return 'Mother & Baby Luxury Gifting Box';
-  }
-  if (product.id === 'maaposhan-harira') {
-    return 'For normal delivery moms';
-  }
-  if (product.id === 'maaposhan-harira-gentle') {
-    return 'For C-Section mothers';
-  }
-  if (product.id === 'maaposhan-harira-kit') {
-    return 'Raw Product • Ghee • Jaggery Packets';
-  }
-  return `${selectedKey || ''} Premium Pack`;
-};
 
 const Featured = () => {
   const { addToCart } = useCart();
@@ -167,8 +145,8 @@ const Featured = () => {
               <div className="card-body">
                 <div className="card-info">
                    <div className="card-text">
-                     <h3 className="card-name">{getDynamicProductTitle(product, selectedKey)}</h3>
-                     <p className="card-subtitle">{getDynamicSubtitle(product, selectedKey)}</p>
+                     <h3 className="card-name">{product.title}</h3>
+                     <p className="card-subtitle">{product.subtitle || `${selectedKey || ''} Premium Pack`}</p>
 
                      
                      {/* Variant Selector */}

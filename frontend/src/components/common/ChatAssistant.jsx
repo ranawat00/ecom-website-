@@ -10,7 +10,7 @@ const ChatAssistant = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([
-        { role: 'ai', text: 'Welcome to Heritage Harvest! I am your Harvest Concierge. How can I help you discover our traditional treasures today?' }
+        { role: 'ai', text: 'Welcome to MaaPoshan! I am your wellness concierge. How can I help you discover our traditional postpartum healing treasures today?' }
     ]);
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef(null);

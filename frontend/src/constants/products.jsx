@@ -1,10 +1,18 @@
 import { Star, Leaf, HeartPulse, Sparkles, Truck } from 'lucide-react';
 import React from 'react';
 
+const ICON_MAP = {
+  Leaf: <Leaf size={16} />,
+  HeartPulse: <HeartPulse size={16} />,
+  Sparkles: <Sparkles size={16} />,
+  Truck: <Truck size={16} />
+};
+
 export const productDatabase = {
   'maaposhan-kit': {
     id: 'maaposhan-kit',
     title: 'MaaPoshan Recovery Kit',
+    subtitle: 'Mother & Baby Luxury Gifting Box',
     tag: 'PREMIUM GIFTING KIT',
     description: 'A premium luxury gifting box thoughtfully designed to nourish and pamper new mothers and their babies during the delicate postpartum recovery period.',
     variants: {
@@ -39,9 +47,11 @@ export const productDatabase = {
         { id: "maaposhan-harira", title: "MaaPoshan Harira", desc: "Ayurvedic strength and recovery paste.", price: "₹900.00", image: "/images/maaposhan-harira.png", weight: "500g" }
       ]
     }
+  },
   'maaposhan-harira': {
     id: 'maaposhan-harira',
-    title: 'MaaPoshan Harira',
+    title: 'MaaPoshan Harira (Strength Version (Made from Ghee))',
+    subtitle: 'For normal delivery moms',
     tag: 'TRADITIONAL HEALING',
     description: 'A traditional, nutrient-dense blend of A2 ghee, organic jaggery, fresh ginger, saffron, fenugreek, ajwain, and premium nuts crafted for new mothers\' postpartum recovery.',
     variants: {
@@ -84,6 +94,7 @@ export const productDatabase = {
   'maaposhan-harira-gentle': {
     id: 'maaposhan-harira-gentle',
     title: 'MaaPoshan Harira - Gentle Version (Made from Mustard Oil)',
+    subtitle: 'For C-Section mothers',
     tag: 'FOR C-SECTION MOTHERS',
     description: 'A traditional postpartum blend made from pure cold-pressed mustard oil, organic jaggery, fresh ginger, saffron, fenugreek, ajwain, and premium nuts specifically formulated for C-Section mothers\' healing and recovery.',
     variants: {
@@ -124,6 +135,7 @@ export const productDatabase = {
   'maaposhan-harira-kit': {
     id: 'maaposhan-harira-kit',
     title: 'MaaPoshan Instant Harira Kit',
+    subtitle: 'Raw Product • Ghee • Jaggery Packets',
     tag: 'READY IN 5 MINUTES',
     description: 'A traditional, nutrient-dense postpartum healing kit featuring pre-measured packets of instant Harira mix (roasted herbs & dry fruits), pure desi ghee, and natural jaggery.',
     variants: {

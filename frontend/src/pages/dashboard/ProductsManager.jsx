@@ -28,6 +28,7 @@ const ProductsManager = () => {
   const [formData, setFormData] = useState({
     id: '',
     title: '',
+    subtitle: '',
     tag: '',
     description: '',
     imageUrl: '', // mapped to images[0]
@@ -67,6 +68,7 @@ const ProductsManager = () => {
     setFormData({
       id: '',
       title: '',
+      subtitle: '',
       tag: 'Organic',
       description: '',
       imageUrl: '/images/jaggery-block.jpg',
@@ -100,6 +102,7 @@ const ProductsManager = () => {
     setFormData({
       id: product.id,
       title: product.title,
+      subtitle: product.subtitle || '',
       tag: product.tag || '',
       description: product.description || '',
       imageUrl: product.images && product.images.length > 0 ? product.images[0] : '',
@@ -111,6 +114,27 @@ const ProductsManager = () => {
       ingredients: product.details?.ingredients || []
     });
     setModalOpen(true);
+  };
+
+  // Handle local image upload and conversion to Base64
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('Image size should be less than 2MB.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setFormData(prev => ({ ...prev, imageUrl: reader.result }));
+      toast.success('Image processed successfully!');
+    };
+    reader.onerror = () => {
+      toast.error('Failed to read file.');
+    };
+    reader.readAsDataURL(file);
   };
 
   // Submit Product Form
@@ -128,6 +152,7 @@ const ProductsManager = () => {
     const payload = {
       id: formData.id,
       title: formData.title,
+      subtitle: formData.subtitle,
       tag: formData.tag,
       description: formData.description,
       images: [formData.imageUrl || '/images/jaggery-block.jpg'],
@@ -169,8 +194,8 @@ const ProductsManager = () => {
       }
     } catch (err) {
       console.error('[AdminProduct] Submit failed:', err);
-      const msg = err.response?.data?.message || 'Failed to save product details.';
-      toast.error(msg);
+      const msg = err.response?.data?.message || err.message || 'Failed to save product details.';
+      toast.toast ? toast.error(msg) : toast.error(msg);
     }
   };
 
@@ -391,6 +416,16 @@ const ProductsManager = () => {
 
               <div className="form-grid-2">
                 <div className="form-group-dashboard">
+                  <label>Product Subtitle</label>
+                  <input 
+                    type="text" 
+                    value={formData.subtitle} 
+                    onChange={(e) => setFormData({...formData, subtitle: e.target.value})} 
+                    placeholder="e.g. Mother & Baby Luxury Gifting Box"
+                    className="form-control-dashboard"
+                  />
+                </div>
+                <div className="form-group-dashboard">
                   <label>Category Tag</label>
                   <input 
                     type="text" 
@@ -400,15 +435,96 @@ const ProductsManager = () => {
                     className="form-control-dashboard"
                   />
                 </div>
-                <div className="form-group-dashboard">
-                  <label>Image URL</label>
-                  <input 
-                    type="text" 
-                    value={formData.imageUrl} 
-                    onChange={(e) => setFormData({...formData, imageUrl: e.target.value})} 
-                    placeholder="/images/jaggery-block.jpg"
-                    className="form-control-dashboard"
-                  />
+                <div className="form-group-dashboard" style={{ gridColumn: 'span 2' }}>
+                  <label style={{ color: '#6B1D2F', fontWeight: '700', fontSize: '0.85rem', marginBottom: '8px', display: 'block' }}>
+                    Product Image Upload
+                  </label>
+                  <div style={{ 
+                    display: 'grid', 
+                    gridTemplateColumns: formData.imageUrl ? '110px 1fr' : '1fr', 
+                    gap: '16px', 
+                    alignItems: 'center',
+                    background: '#FAF5EE',
+                    padding: '16px',
+                    borderRadius: '16px',
+                    border: '1.5px dashed rgba(107, 29, 47, 0.2)'
+                  }}>
+                    {formData.imageUrl && (
+                      <div style={{ position: 'relative', width: '110px', height: '110px', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 4px 10px rgba(107,29,47,0.1)' }}>
+                        <img 
+                          src={formData.imageUrl} 
+                          alt="Product Preview" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setFormData({ ...formData, imageUrl: '' })}
+                          style={{
+                            position: 'absolute',
+                            top: '4px',
+                            right: '4px',
+                            backgroundColor: '#6B1D2F',
+                            color: '#FAF5EE',
+                            border: 'none',
+                            borderRadius: '50%',
+                            width: '20px',
+                            height: '20px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            padding: 0
+                          }}
+                        >
+                          <X size={12} />
+                        </button>
+                      </div>
+                    )}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
+                      <label 
+                        className="btn-add-cart" 
+                        style={{ 
+                          display: 'inline-flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center', 
+                          gap: '6px',
+                          padding: '10px 16px', 
+                          borderRadius: '12px', 
+                          cursor: 'pointer', 
+                          fontSize: '0.8rem', 
+                          margin: 0,
+                          backgroundColor: '#6B1D2F',
+                          color: '#FAF5EE',
+                          border: 'none',
+                          fontWeight: '700',
+                          width: 'fit-content'
+                        }}
+                      >
+                        <Sparkles size={14} />
+                        {formData.imageUrl ? 'Change Image File' : 'Upload Image File'}
+                        <input 
+                          type="file" 
+                          accept="image/*" 
+                          onChange={handleImageUpload} 
+                          style={{ display: 'none' }} 
+                        />
+                      </label>
+                      
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <span style={{ fontSize: '0.75rem', color: '#8C6374', fontWeight: '600' }}>
+                          Or Paste Custom Image URL:
+                        </span>
+                        <input 
+                          type="text" 
+                          value={formData.imageUrl.startsWith('data:') ? '' : formData.imageUrl} 
+                          onChange={(e) => setFormData({...formData, imageUrl: e.target.value})} 
+                          placeholder="e.g. /images/jaggery-block.jpg"
+                          className="form-control-dashboard"
+                          style={{ margin: 0, width: '100%' }}
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
