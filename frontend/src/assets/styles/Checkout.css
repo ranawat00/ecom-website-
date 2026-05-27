@@ -198,18 +198,6 @@ body.dark-theme {
   opacity: 1;
 }
 
-@media (max-width: 768px) {
-  .checkout-stepper {
-    padding: 16px 20px;
-  }
-  .step-divider-line {
-    margin: 0 10px;
-  }
-  .step-text {
-    display: none;
-  }
-}
-
 /* ==========================================================================
    Checkout Layout Grid
    ========================================================================== */
@@ -222,7 +210,38 @@ body.dark-theme {
 
 @media (max-width: 992px) {
   .checkout-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+  }
+  .checkout-section {
+    padding: 24px;
+  }
+  .order-summary-sidebar {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .checkout-stepper {
+    padding: 16px 20px;
+    margin-bottom: 28px;
+  }
+  .step-divider-line {
+    margin: 0 10px;
+  }
+  .step-text {
+    display: none;
+  }
+  .checkout-grid {
     grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .order-summary-sidebar {
+    position: static;
+    padding: 24px;
+  }
+  .checkout-section {
+    padding: 24px;
   }
 }
 
